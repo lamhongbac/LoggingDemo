@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoggingAPI", "LoggingAPI\Lo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCWeb", "MVCWeb\MVCWeb.csproj", "{941EC204-82BD-4856-87B2-159A8C0C42E8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebLogging", "WebLogging\WebLogging.csproj", "{3DC4D2E2-4B81-45C3-A096-CAC3215A6943}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{941EC204-82BD-4856-87B2-159A8C0C42E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{941EC204-82BD-4856-87B2-159A8C0C42E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{941EC204-82BD-4856-87B2-159A8C0C42E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DC4D2E2-4B81-45C3-A096-CAC3215A6943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DC4D2E2-4B81-45C3-A096-CAC3215A6943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DC4D2E2-4B81-45C3-A096-CAC3215A6943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DC4D2E2-4B81-45C3-A096-CAC3215A6943}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

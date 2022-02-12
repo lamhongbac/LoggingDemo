@@ -7,6 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DAL\**" />
+    <Compile Remove="LibraryLogging\**" />
+    <Compile Remove="LoggingAPI\**" />
+    <Compile Remove="MVCWeb\**" />
+    <Compile Remove="WebLogging\**" />
+    <EmbeddedResource Remove="DAL\**" />
+    <EmbeddedResource Remove="LibraryLogging\**" />
+    <EmbeddedResource Remove="LoggingAPI\**" />
+    <EmbeddedResource Remove="MVCWeb\**" />
+    <EmbeddedResource Remove="WebLogging\**" />
+    <None Remove="DAL\**" />
+    <None Remove="LibraryLogging\**" />
+    <None Remove="LoggingAPI\**" />
+    <None Remove="MVCWeb\**" />
+    <None Remove="WebLogging\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />

@@ -1,3 +1,5 @@
+using DAL;
+using LibraryLogging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +34,16 @@ namespace LoggingAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LoggingAPI", Version = "v1" });
             });
+            CompanyProcessConfiguration configuration = (CompanyProcessConfiguration)
+                Configuration.GetSection("ApplicationConfiguration").GetChildren();
+            services.AddSingleton(typeof(IMyDAL<>), typeof(MyDAL<>));
+            //ILogger<CompanyBusinessProcess> logger=services.get
+            services.AddScoped<ICompanyBusinessProcess, CompanyBusinessProcess>(x =>
+             {
+                 var logger = x.GetRequiredService<ILogger<CompanyBusinessProcess>>();
+                 var dal = x.GetRequiredService<IMyDAL<CompanyData>>();
+                 return new CompanyBusinessProcess(configuration, logger, dal);
+             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

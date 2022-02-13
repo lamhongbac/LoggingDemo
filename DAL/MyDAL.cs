@@ -1,18 +1,21 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 
 namespace DAL
 {
     public class MyDAL<T> : IMyDAL<T>
     {
-        public string connectionString;
-        public MyDAL(string _connectionString)
+        private readonly ILogger<T> logger;
+       private readonly IConnnectionStringManager connnectionStringManager;
+        public MyDAL(IConnnectionStringManager _connnectionStringManager, ILogger<T> _logger)
         {
-            connectionString = _connectionString;
+            connnectionStringManager = _connnectionStringManager;
+            logger = _logger;
         }
         public void CreateData(T data)
         {
-
+            //connnectionStringManager.ConnectionString;
         }
         /// <summary>
         /// doc data
@@ -26,12 +29,23 @@ namespace DAL
         }
         public int UpdateData(T data)
         {
-            return 1;
+            if (connnectionStringManager != null && connnectionStringManager.ConnectionString == "abcconde")
+            {
+                logger.LogInformation("Update success", data);
+                return 1;
+            }
+            else
+            {
+                logger.LogError("DB connection failed", connnectionStringManager);
+                return -1;
+            }
         }
         //so dong delete
         public int DeleteData(T data)
         {
             return 1;
         }
+
+        
     }
 }

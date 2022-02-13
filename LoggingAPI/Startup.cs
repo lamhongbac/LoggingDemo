@@ -29,25 +29,42 @@ namespace LoggingAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LoggingAPI", Version = "v1" });
             });
-            CompanyProcessConfiguration configuration = (CompanyProcessConfiguration)
-                Configuration.GetSection("ApplicationConfiguration").GetChildren();
+
+            //var confifg = 
+            //    Configuration.GetSection("ApplicationConfiguration").GetChildren();
+            CompanyProcessConfiguration configuration = Configuration.GetSection("ApplicationConfiguration").Get<CompanyProcessConfiguration>();
+            //CompanyProcessConfiguration configuration = (CompanyProcessConfiguration)
+            //    Configuration.GetSection("ApplicationConfiguration").GetChildren();
+
+            string connectionString = configuration.ConnectionString;
+            //CompanyProcessConfiguration configuration = (CompanyProcessConfiguration)
+            //    Configuration.GetSection("ApplicationConfiguration").GetChildren();
+
+            services.AddSingleton<IConnnectionStringManager>(x =>
+            {
+
+                return new ConnnectionStringManager(connectionString);
+            });
+
             services.AddSingleton(typeof(IMyDAL<>), typeof(MyDAL<>));
+
             //ILogger<CompanyBusinessProcess> logger=services.get
             services.AddScoped<ICompanyBusinessProcess, CompanyBusinessProcess>(x =>
              {
                  var logger = x.GetRequiredService<ILogger<CompanyBusinessProcess>>();
                  var dal = x.GetRequiredService<IMyDAL<CompanyData>>();
-                 return new CompanyBusinessProcess(configuration, logger, dal);
+                 return new CompanyBusinessProcess(logger, dal, configuration);
              });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory )
         {
             if (env.IsDevelopment())
             {
@@ -66,6 +83,8 @@ namespace LoggingAPI
             {
                 endpoints.MapControllers();
             });
+            loggerFactory.AddFile("Logs/mylog-{Date}.txt");
+
         }
     }
 }

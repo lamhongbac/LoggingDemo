@@ -12,5 +12,6 @@ namespace LibraryLogging
    public class CompanyProcessConfiguration
     {
         public int CompanyType { get; set; }
+        public string ConnectionString { get; set; }
     }
 }

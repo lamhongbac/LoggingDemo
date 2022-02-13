@@ -6,22 +6,37 @@ namespace LibraryLogging
 {
     public class CompanyBusinessProcess : ICompanyBusinessProcess
     {
-        ILogger<CompanyBusinessProcess> _logger;
-        CompanyProcessConfiguration _companyProcessConfiguration;
-        public CompanyBusinessProcess(CompanyProcessConfiguration companyProcessConfiguration,
-             ILogger<CompanyBusinessProcess> logger, IMyDAL<CompanyData> dal)
+        ILogger<CompanyBusinessProcess> logger;
+        
+        public CompanyBusinessProcess(
+             ILogger<CompanyBusinessProcess> _logger,
+             IMyDAL<CompanyData> _dal,
+             CompanyProcessConfiguration _companyProcessConfiguration)
         {
-            _companyProcessConfiguration = companyProcessConfiguration;
-            _logger = logger; _dal = dal;
+
+            logger = _logger;
+            dal = _dal;
+            companyProcessConfiguration = _companyProcessConfiguration;
+        }
+
+        CompanyProcessConfiguration companyProcessConfiguration;
+        public CompanyProcessConfiguration CompanyProcessConfig 
+        { 
+            get => companyProcessConfiguration;
+            set => companyProcessConfiguration=value; 
         }
         IMyDAL<CompanyData> _dal;
+        public IMyDAL<CompanyData> dal { 
+            get => _dal; set => _dal = value; 
+        }
+
         public string ChangeProcess(CompanyBusinessObject companyBusinessObject)
         {
             string mess = string.Empty;
-            if (_companyProcessConfiguration.CompanyType!=1)
+            if (companyProcessConfiguration.CompanyType!=1)
             {
                 mess = "wrong company type"; 
-                _logger.LogError(mess, _companyProcessConfiguration.CompanyType);
+                logger.LogError(mess, companyProcessConfiguration.CompanyType);
                 return mess;
             }
             //after process logic ==> udpate data
@@ -32,7 +47,7 @@ namespace LibraryLogging
                 Name = companyBusinessObject.Name
             };
 
-            if (_dal.UpdateData(data) > 0)
+            if (dal.UpdateData(data) > 0)
             {
                 mess = "update success";
                 
@@ -41,7 +56,7 @@ namespace LibraryLogging
             {
                 mess = "update false";
             }
-            _logger.LogInformation(mess);
+            logger.LogInformation(mess);
             return mess;
         }
     }

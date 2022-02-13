@@ -14,16 +14,20 @@ namespace LoggingAPI.Controllers
     public class CompanyController : ControllerBase
     {
         ICompanyBusinessProcess companyBusinessProcess;
-        ILogger<CompanyController> loggger;
+        ILogger<CompanyController> logger;
         public CompanyController(ILogger<CompanyController> _loggger,
             ICompanyBusinessProcess _companyBusinessProcess)
         {
             {
-                loggger = _loggger; companyBusinessProcess = _companyBusinessProcess;
+                logger = _loggger; 
+                companyBusinessProcess = _companyBusinessProcess;
             }
         }
+        [HttpPost]
+        [Route("ChangeCompany")]
         public IActionResult ChangeCompany(CompanyBusinessObject companyBusinessObject)
         {
+            logger.LogInformation("get request at {0}", DateTime.Now);
             return Ok(companyBusinessProcess.ChangeProcess(companyBusinessObject));
         }
 

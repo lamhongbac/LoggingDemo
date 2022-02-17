@@ -39,14 +39,14 @@ namespace LoggingAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "LoggingAPI", Version = "v1" });
             });
-
+            services.AddOptions();
             services.Configure<TestOption>(Configuration.GetSection("TestOption"));
             //sau hanh dong nay thi IOption<TestOption> se co value= TestOption 
             //IOption<TestOption> da dc dang ky vao trong service
             // va vi the trong cac class co para 
             // va trong tap hop cac services (DI) da co IOption<TestOption>
 
-
+            services.AddTransient<TestOptionMiddleWare>();
 
 
             //var confifg = 
@@ -61,7 +61,6 @@ namespace LoggingAPI
 
             services.AddSingleton<IConnnectionStringManager>(x =>
             {
-
                 return new ConnnectionStringManager(connectionString);
             });
 
@@ -77,7 +76,8 @@ namespace LoggingAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, 
+            ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -85,6 +85,7 @@ namespace LoggingAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LoggingAPI v1"));
             }
+            app.UseMiddleware<TestOptionMiddleWare>();
 
             app.UseHttpsRedirection();
 

@@ -85,7 +85,7 @@ namespace LoggingAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "LoggingAPI v1"));
             }
-            app.UseMiddleware<TestOptionMiddleWare>();
+            //app.UseMiddleware<TestOptionMiddleWare>();
 
             app.UseHttpsRedirection();
 

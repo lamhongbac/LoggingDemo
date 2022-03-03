@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DAL
 {
@@ -45,7 +46,22 @@ namespace DAL
         {
             return 1;
         }
+        /// <summary>
+        /// object (prop value as para)
+        /// </summary>
+        /// <param name="para"></param>
+        /// <returns></returns>
+        public IEnumerable<T> ReadData(object para)
+        {
+            Dictionary<string, object> paraDic = convertToDictionary(para);
+            return new List<T>();
+        }
+        public Dictionary<string, object> convertToDictionary(object dtype)
+        {
 
-        
+            var props = dtype.GetType().GetProperties();
+            var pairDictionary = props.ToDictionary(x => x.Name, x => x.GetValue(props, null));
+            return pairDictionary;
+        }
     }
 }

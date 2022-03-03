@@ -8,6 +8,7 @@ namespace DAL
         void CreateData(T data);
         int DeleteData(T data);
         T[] ReadData(string whereCondition, Dictionary<string, object> paras);
+        IEnumerable<T> ReadData(object para);
         int UpdateData(T data);
     }
 }

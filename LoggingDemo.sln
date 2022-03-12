@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCWeb", "MVCWeb\MVCWeb.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebLogging", "WebLogging\WebLogging.csproj", "{3DC4D2E2-4B81-45C3-A096-CAC3215A6943}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfStudy", "..\WpfStudy\WpfStudy.csproj", "{3EB358AE-5308-4251-BD8A-20E5CA5F3501}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfStudy", "WpfStudy\WpfStudy.csproj", "{C9705994-F4BB-4DC6-A2F5-30B1DAE6E8A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,10 +47,10 @@ Global
 		{3DC4D2E2-4B81-45C3-A096-CAC3215A6943}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3DC4D2E2-4B81-45C3-A096-CAC3215A6943}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3DC4D2E2-4B81-45C3-A096-CAC3215A6943}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3EB358AE-5308-4251-BD8A-20E5CA5F3501}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3EB358AE-5308-4251-BD8A-20E5CA5F3501}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3EB358AE-5308-4251-BD8A-20E5CA5F3501}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3EB358AE-5308-4251-BD8A-20E5CA5F3501}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9705994-F4BB-4DC6-A2F5-30B1DAE6E8A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9705994-F4BB-4DC6-A2F5-30B1DAE6E8A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9705994-F4BB-4DC6-A2F5-30B1DAE6E8A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9705994-F4BB-4DC6-A2F5-30B1DAE6E8A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

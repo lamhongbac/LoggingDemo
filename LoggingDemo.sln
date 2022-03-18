@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebLogging", "WebLogging\We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfStudy", "WpfStudy\WpfStudy.csproj", "{C9705994-F4BB-4DC6-A2F5-30B1DAE6E8A5}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFDialogService", "WPFDialogService\WPFDialogService.csproj", "{E9C6DEE5-90B1-42B4-B889-0A17B48B4955}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{C9705994-F4BB-4DC6-A2F5-30B1DAE6E8A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9705994-F4BB-4DC6-A2F5-30B1DAE6E8A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9705994-F4BB-4DC6-A2F5-30B1DAE6E8A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E9C6DEE5-90B1-42B4-B889-0A17B48B4955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E9C6DEE5-90B1-42B4-B889-0A17B48B4955}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E9C6DEE5-90B1-42B4-B889-0A17B48B4955}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E9C6DEE5-90B1-42B4-B889-0A17B48B4955}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

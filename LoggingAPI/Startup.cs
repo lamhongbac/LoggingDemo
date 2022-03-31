@@ -51,7 +51,8 @@ namespace LoggingAPI
 
             //var confifg = 
             //    Configuration.GetSection("ApplicationConfiguration").GetChildren();
-            CompanyProcessConfiguration configuration = Configuration.GetSection("ApplicationConfiguration").Get<CompanyProcessConfiguration>();
+            CompanyProcessConfiguration configuration = Configuration.GetSection("ApplicationConfiguration").
+                Get<CompanyProcessConfiguration>();
             //CompanyProcessConfiguration configuration = (CompanyProcessConfiguration)
             //    Configuration.GetSection("ApplicationConfiguration").GetChildren();
 

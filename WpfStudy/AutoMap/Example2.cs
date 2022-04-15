@@ -15,6 +15,15 @@ namespace WpfStudy.AutoMap
     }
     public class Customer
     {
+        public Customer()
+        {
+
+        }
+
+        public Customer(int custID,string fullName,string postCode,string contactNo)
+        {
+            CustomerID = custID;FullName = fullName;Postcode = postCode; ContactNo = contactNo;
+        }
         public int CustomerID { get; set; }
         public string FullName { get; set; }
         public string Postcode { get; set; }

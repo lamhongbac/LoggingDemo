@@ -26,12 +26,12 @@ namespace WpfStudy.AutoMap
         {
             var config = new MapperConfiguration(cfg =>
                 {
-                    cfg.CreateMap<Address, AddressDTO>();
+                    cfg.CreateMap<Address, AddressDTO>().ReverseMap();
 
                     cfg.CreateMap<Employee, EmployeeDTO>()
                     .ForMember(dest => dest.FullName, act => act.MapFrom(src => src.Name))
                     .ForMember(dest=>dest.AddressDTO,act=>act.MapFrom(src=>src.Address))
-                    .ForMember(dest => dest.Dept, act => act.MapFrom(src => src.Department));
+                    .ForMember(dest => dest.Dept, act => act.MapFrom(src => src.Department)).ReverseMap();
                 });
 
             //Creating the source object
@@ -64,9 +64,7 @@ namespace WpfStudy.AutoMap
         private void TestAutoMap2()
         {
             var config = new MapperConfiguration(cfg =>
-            {
-                
-
+            {                
                 cfg.CreateMap<Employee, EmployeeDTO2>()
                 .ForMember(dest => dest.City, act => act.MapFrom(src => src.Address.City))
                 .ForMember(dest => dest.Country, act => act.MapFrom(src => src.Address.Country))

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfStudy.View
+namespace WpfStudy.ViewModel
 {
     /// <summary>
     /// lop the hien giao dien, lop nay nam ben du an giao dien

@@ -1,4 +1,5 @@
 ﻿using LibraryLogging;
+using LibraryLogging.BusinessObjects;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -25,7 +26,7 @@ namespace LoggingAPI.Controllers
         }
         [HttpPost]
         [Route("ChangeCompany")]
-        public IActionResult ChangeCompany(CompanyBusinessObject companyBusinessObject)
+        public IActionResult ChangeCompany(Company companyBusinessObject)
         {
             logger.LogInformation("get request at {0}", DateTime.Now);
             return Ok(companyBusinessProcess.ChangeProcess(companyBusinessObject));

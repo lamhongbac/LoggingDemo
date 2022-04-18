@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DAL.Data;
+using LibraryLogging.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,6 @@
 ﻿using DAL;
+using DAL.Data;
+using LibraryLogging.BusinessObjects;
 using Microsoft.Extensions.Logging;
 using System;
 
@@ -30,7 +32,7 @@ namespace LibraryLogging
             get => _dal; set => _dal = value; 
         }
 
-        public string ChangeProcess(CompanyBusinessObject companyBusinessObject)
+        public string ChangeProcess(Company companyBusinessObject)
         {
             string mess = string.Empty;
             if (companyProcessConfiguration.CompanyType!=1)

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfStudy.Data
+namespace DAL.Data
 {
     /// <summary>
     /// lop DTO cho dai dien table outlet

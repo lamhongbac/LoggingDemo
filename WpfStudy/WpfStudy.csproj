@@ -12,6 +12,12 @@
 
   <ItemGroup>
     <Folder Include="Documents\" />
+    <Folder Include="Logic\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj" />
+    <ProjectReference Include="..\LibraryLogging\LibraryLogging.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LibraryLogging
+namespace LibraryLogging.BusinessObjects
 {
-   public class CompanyBusinessObject
+
+    /// <summary>
+    /// Business Object
+    /// </summary>
+   public class Company
     {
         public int ID { get; set; }
         public string Name { get; set; }

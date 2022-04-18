@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
+using DAL.Data;
+using LibraryLogging.BusinessObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WpfStudy.Data;
-using WpfStudy.Logic;
-using WpfStudy.View;
+using WpfStudy.ViewModel;
 
-namespace WpfStudy.AutoMap
+namespace LibraryLogging.AutoMap
 {
     /// <summary>
     /// Lop thuc hien cau hinh mapping, 
@@ -18,7 +18,10 @@ namespace WpfStudy.AutoMap
     /// </summary>
   public  class AutoMapperConfiguration
     {
-        private  Mapper mapper;
+        private  Mapper autoMapper;
+
+        public Mapper AutoMapper { get => autoMapper; set => autoMapper = value; }
+
         public void Configure()
         {
             MapperConfiguration config = new MapperConfiguration(cfg =>
@@ -46,11 +49,8 @@ namespace WpfStudy.AutoMap
                     .ForMember(dest => dest.Customer, 
                     act => act.MapFrom(src=>new Customer(src.CustomerId,src.Name,src.Postcode,src.MobileNo)));
             });
-            Mapper mapper = new Mapper(config);
+             AutoMapper = new Mapper(config);
         }
-        public Mapper GetMapConfiguration()
-        {
-            return mapper;
-        }
+        
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfStudy.Logic
+namespace LibraryLogging.BusinessObjects
 {
     /// <summary>
     /// lop logic demo cho doi tuong outlet

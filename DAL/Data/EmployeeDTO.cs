@@ -4,30 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfStudy.AutoMap
+namespace DAL.Data
 {
-    #region logic objects
-    /// <summary>
-    /// logic object
-    /// </summary>
-    public class Employee
-    {
-        public string Name { get; set; }
-        public int Salary { get; set; }
-        public Address Address { get; set; }
-        public string Department { get; set; }
-    }
-    /// <summary>
-    /// Logic object
-    /// </summary>
-    public class Address
-    {
-        public string City { get; set; }
-        public string Stae { get; set; }
-        public string Country { get; set; }
-    }
-    #endregion
-
     #region data object
     /// <summary>
     /// data object
@@ -59,18 +37,5 @@ namespace WpfStudy.AutoMap
         public string State { get; set; }
         public string Country { get; set; }
     }
-    #endregion
-
-    #region viewmodel
-    public class EmployeeVM
-    {
-        public string FullName { get; set; }
-        public string Department { get; set; }
-        public int Salary { get; set; }
-        
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
-    }
-    #endregion
+#endregion
 }

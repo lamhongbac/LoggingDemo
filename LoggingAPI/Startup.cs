@@ -1,4 +1,5 @@
 using DAL;
+using DAL.Data;
 using LibraryLogging;
 using LoggingAPI.Configurations;
 using Microsoft.AspNetCore.Builder;

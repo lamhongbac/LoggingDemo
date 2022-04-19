@@ -11,55 +11,56 @@ using System.Threading.Tasks;
 /// <summary>
 /// map ALL logic to  data object and vs 
 /// </summary>
-namespace WpfStudy.AutoMap
+namespace LibraryLogging.AutoMapConfiguration
 {
     /// <summary>
     /// Map Employee and EmployeeDTO
     /// </summary>
     public class EmployeeProfile : Profile
     {
-        public EmployeeProfile():base()
+        public EmployeeProfile() : base()
         {
-            CreateMap<Address, AddressDTO>().ReverseMap();
+            CreateMap<Address, AddressDTO>()
+                .ForMember(dest=>dest.State,act=>act.MapFrom(src=>src.Stae))
+                .ReverseMap()
+                .ForMember(dest=>dest.Stae,act=>act.MapFrom(src=>src.State));
+
             CreateMap<Employee, EmployeeDTO>()
                 .ForMember(dest => dest.FullName, act => act.MapFrom(src => src.Name))
                 .ForMember(dest => dest.AddressDTO, act => act.MapFrom(src => src.Address))
-                .ForMember(dest => dest.Dept, act => act.MapFrom(src => src.Department));
+                .ForMember(dest => dest.Dept, act => act.MapFrom(src => src.Department)).ReverseMap();
+            
+            CreateMap<Employee, EmployeeDTO2>()
+                .ForMember(dest => dest.City, act => act.MapFrom(src => src.Address.City))
+                .ForMember(dest => dest.Country, act => act.MapFrom(src => src.Address.Country))
+                .ForMember(dest => dest.State, act => act.MapFrom(src => src.Address.Stae));
 
-            //var config = new MapperConfiguration(cfg =>
-            //{
-            //    cfg.CreateMap<Address, AddressDTO>().ReverseMap();
-
-            //    cfg.CreateMap<Employee, EmployeeDTO>()
-            //    .ForMember(dest => dest.FullName, act => act.MapFrom(src => src.Name))
-            //    .ForMember(dest => dest.AddressDTO, act => act.MapFrom(src => src.Address))
-            //    .ForMember(dest => dest.Dept, act => act.MapFrom(src => src.Department));
-            //});
         }
     }
     /// <summary>
     /// Map Company-CompanyData
     /// </summary>
-    public class CompanyProfile:Profile
+    public class CompanyProfile : Profile
     {
-
+        public CompanyProfile() : base()
+        {
+            CreateMap<Company, CompanyData>();
+        }
     }
     /// <summary>
     /// Map BaseOutlet-OutletData
     /// </summary>
-    public class OutletProfile:Profile
+    public class OutletProfile : Profile
     {
-       public OutletProfile():base()
+        public OutletProfile() : base()
         {
             CreateMap<BaseOutlet, OutletData>();
         }
-        
-
     }
-   
-    public class OrderProfile:Profile
+
+    public class OrderProfile : Profile
     {
-        public OrderProfile():base()
+        public OrderProfile() : base()
         {
             CreateMap<Order, OrderDTO>()
 
@@ -73,7 +74,7 @@ namespace WpfStudy.AutoMap
                    .ReverseMap()
                    .ForMember(dest => dest.Customer,
                    act => act.MapFrom(src => new Customer(src.CustomerId, src.Name, src.Postcode, src.MobileNo)));
-            
+
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using DAL.Data;
+using LibraryLogging.AutoMapConfiguration;
 using LibraryLogging.BusinessObjects;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace WpfStudy.AutoMap
     public class AutoMapVM
     {
         private readonly IDialogService dialogService;
+        private IMapper mapper;
         public ICommand AutoMapCommand { get; }
         public ICommand AutoMapCommand2 { get; }
         public ICommand AutoMapCommand3 { get; }
@@ -26,15 +28,15 @@ namespace WpfStudy.AutoMap
         }
         private void TestAutoMap()
         {
-            var config = new MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<Address, AddressDTO>().ReverseMap();
+            //var config = new MapperConfiguration(cfg =>
+            //    {
+            //        cfg.CreateMap<Address, AddressDTO>().ReverseMap();
 
-                    cfg.CreateMap<Employee, EmployeeDTO>()
-                    .ForMember(dest => dest.FullName, act => act.MapFrom(src => src.Name))
-                    .ForMember(dest=>dest.AddressDTO,act=>act.MapFrom(src=>src.Address))
-                    .ForMember(dest => dest.Dept, act => act.MapFrom(src => src.Department)).ReverseMap();
-                });
+            //        cfg.CreateMap<Employee, EmployeeDTO>()
+            //        .ForMember(dest => dest.FullName, act => act.MapFrom(src => src.Name))
+            //        .ForMember(dest=>dest.AddressDTO,act=>act.MapFrom(src=>src.Address))
+            //        .ForMember(dest => dest.Dept, act => act.MapFrom(src => src.Department)).ReverseMap();
+            //    });
 
             //Creating the source object
             Address empAddres = new Address()
@@ -50,10 +52,15 @@ namespace WpfStudy.AutoMap
                 Address = empAddres,
                 Department = "IT"
             };
-            //Using automapper
-            var mapper = new Mapper(config);
+            ////Using automapper
+            //var mapper = new Mapper(config);
+            //EmployeeDTO empDTO = mapper.Map<EmployeeDTO>(emp);
+            //string fullAddress= string.Format("Country{0}, City{1}", empDTO.AddressDTO.Country, empDTO.AddressDTO.City);
+
+            IMapper mapper = AutoMappingConfig.GetMapper();
             EmployeeDTO empDTO = mapper.Map<EmployeeDTO>(emp);
-           //string fullAddress= string.Format("Country{0}, City{1}", empDTO.AddressDTO.Country, empDTO.AddressDTO.City);
+            string fullAddress = string.Format("Country{0}, City{1}", empDTO.AddressDTO.Country, empDTO.AddressDTO.City);
+
             var viewModel = new DialogViewModel
                 (string.Format("Employee {0},work at department:{1} with salary {2}, City {3}",
                 empDTO.FullName, empDTO.Dept,empDTO.Salary,empDTO.AddressDTO.City));
@@ -175,6 +182,25 @@ namespace WpfStudy.AutoMap
 
             var mapper = new Mapper(config);
             return mapper;
+        }
+
+        public void TestAutoMapper4()
+        { //Creating the source object
+            Address empAddres = new Address()
+            {
+                City = "Mumbai",
+                Stae = "Maharashtra",
+                Country = "India"
+            };
+            Employee emp = new Employee
+            {
+                Name = "James",
+                Salary = 20000,
+                Address = empAddres,
+                Department = "IT"
+            };
+            mapper = AutoMappingConfig.GetMapper();
+            EmployeeDTO2 empDTO = mapper.Map<EmployeeDTO2>(emp);
         }
     }
 }

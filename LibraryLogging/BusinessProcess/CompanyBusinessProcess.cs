@@ -1,4 +1,5 @@
-﻿using DAL;
+﻿using AutoMapper;
+using DAL;
 using DAL.Data;
 using LibraryLogging.BusinessObjects;
 using Microsoft.Extensions.Logging;
@@ -8,17 +9,19 @@ namespace LibraryLogging
 {
     public class CompanyBusinessProcess : ICompanyBusinessProcess
     {
-        ILogger<CompanyBusinessProcess> logger;
-        
+        ILogger<CompanyBusinessProcess> logger; //DI
+        IMapper mapper; //DI
         public CompanyBusinessProcess(
              ILogger<CompanyBusinessProcess> _logger,
              IMyDAL<CompanyData> _dal,
-             CompanyProcessConfiguration _companyProcessConfiguration)
+             CompanyProcessConfiguration _companyProcessConfiguration,
+             IMapper _mapper)
         {
 
             logger = _logger;
             dal = _dal;
             companyProcessConfiguration = _companyProcessConfiguration;
+            mapper = _mapper;
         }
 
         CompanyProcessConfiguration companyProcessConfiguration;
@@ -29,10 +32,11 @@ namespace LibraryLogging
         }
         IMyDAL<CompanyData> _dal;
         public IMyDAL<CompanyData> dal { 
-            get => _dal; set => _dal = value; 
+            get => _dal; 
+            set => _dal = value; 
         }
 
-        public string ChangeProcess(Company companyBusinessObject)
+        public string ChangeProcess(Company company)
         {
             string mess = string.Empty;
             if (companyProcessConfiguration.CompanyType!=1)
@@ -41,13 +45,17 @@ namespace LibraryLogging
                 logger.LogError(mess, companyProcessConfiguration.CompanyType);
                 return mess;
             }
+
+
             //after process logic ==> udpate data
-            CompanyData data = new CompanyData()
-            {
-                ID = companyBusinessObject.ID,
-                Adress = companyBusinessObject.Adress,
-                Name = companyBusinessObject.Name
-            };
+            //CompanyData data = new CompanyData()
+            //{
+            //    ID = company.ID,
+            //    Adress = company.Adress,
+            //    Name = company.Name
+            //};
+            CompanyData data = mapper.Map<CompanyData>(company);
+
 
             if (dal.UpdateData(data) > 0)
             {

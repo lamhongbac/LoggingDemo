@@ -51,6 +51,6 @@ namespace LibraryLogging.AutoMap
             });
              AutoMapper = new Mapper(config);
         }
-        
+      
     }
 }

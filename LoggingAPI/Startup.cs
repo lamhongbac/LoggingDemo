@@ -1,6 +1,8 @@
+using AutoMapper;
 using DAL;
 using DAL.Data;
 using LibraryLogging;
+using LibraryLogging.AutoMapConfiguration;
 using LoggingAPI.Configurations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,7 +35,7 @@ namespace LoggingAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //services.AddAutoMapper();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -57,6 +59,20 @@ namespace LoggingAPI
             //CompanyProcessConfiguration configuration = (CompanyProcessConfiguration)
             //    Configuration.GetSection("ApplicationConfiguration").GetChildren();
 
+
+            //var mapperConfig = new MapperConfiguration(cfg =>
+            //{
+            //    cfg.AddProfile(new EmployeeProfile());
+            //    cfg.AddProfile(new CompanyProfile());
+            //    cfg.AddProfile(new OutletProfile());
+            //    cfg.AddProfile(new OrderProfile());
+            //});
+
+            //IMapper mapper = mapperConfig.CreateMapper();
+
+            IMapper mapper=   AutoMappingConfig.GetMapper();
+            services.AddSingleton(mapper);
+
             string connectionString = configuration.ConnectionString;
             //CompanyProcessConfiguration configuration = (CompanyProcessConfiguration)
             //    Configuration.GetSection("ApplicationConfiguration").GetChildren();
@@ -73,7 +89,8 @@ namespace LoggingAPI
              {
                  var logger = x.GetRequiredService<ILogger<CompanyBusinessProcess>>();
                  var dal = x.GetRequiredService<IMyDAL<CompanyData>>();
-                 return new CompanyBusinessProcess(logger, dal, configuration);
+                 var mapper = x.GetRequiredService<IMapper>();
+                 return new CompanyBusinessProcess(logger, dal, configuration, mapper);
              });
         }
 

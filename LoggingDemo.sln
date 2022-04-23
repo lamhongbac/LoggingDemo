@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCWeb", "MVCWeb\MVCWeb.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebLogging", "WebLogging\WebLogging.csproj", "{3DC4D2E2-4B81-45C3-A096-CAC3215A6943}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfStudy", "WpfStudy\WpfStudy.csproj", "{EA4A727D-F5FF-45D0-8706-6C6EC7A0FAF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WpfStudy", "WpfStudy\WpfStudy.csproj", "{EA4A727D-F5FF-45D0-8706-6C6EC7A0FAF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelReservation", "HotelReservation\HotelReservation.csproj", "{F777F5C0-B5FC-420D-A03A-997C88B89E5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{EA4A727D-F5FF-45D0-8706-6C6EC7A0FAF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA4A727D-F5FF-45D0-8706-6C6EC7A0FAF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA4A727D-F5FF-45D0-8706-6C6EC7A0FAF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F777F5C0-B5FC-420D-A03A-997C88B89E5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F777F5C0-B5FC-420D-A03A-997C88B89E5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F777F5C0-B5FC-420D-A03A-997C88B89E5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F777F5C0-B5FC-420D-A03A-997C88B89E5C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

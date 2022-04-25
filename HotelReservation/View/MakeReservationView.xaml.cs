@@ -1,6 +1,4 @@
-﻿using HotelReservation.Models;
-using HotelReservation.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,20 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HotelReservation
+namespace HotelReservation.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for MakeReservationView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MakeReservationView : UserControl
     {
-        Hotel _hotel;
-        public MainWindow(Hotel hotel)
+        public MakeReservationView()
         {
-            _hotel = hotel;
             InitializeComponent();
-            //MainViewModel viewModel = new MainViewModel();
-            //this.DataContext = viewModel;
         }
     }
 }

@@ -8,14 +8,21 @@ namespace HotelReservation.Models
 {
    public class RoomID
     {
-        public int ID { get; set; }
-        public string Number { get => number; set => number = value; }
-        public string RoomName { get => roomName; set => roomName = value; }
-        public string FloorNumber { get => floorNumber; set => floorNumber = value; }
+       public RoomID(int roomNumber, int floorNumber)
+        {
+            Number = roomNumber;
+            FloorNumber = floorNumber;
+        }
+        public int Number { get => number; set => number = value; }
+        public int FloorNumber { get => floorNumber; set => floorNumber = value; }
 
-        string number;//so phong
-        string roomName;//Ten Phong
-        string floorNumber;
+        int number;//so phong
+        
+        int floorNumber;
+        public override string ToString()
+        {
+            return Number.ToString();
+        }
         /// <summary>
         /// Kiem tra 1 phong co = voi phong nay hay khong
         /// </summary>
@@ -36,7 +43,7 @@ namespace HotelReservation.Models
                 return true;
             }
 
-         return room1.Number == room2.Number && room1.FloorNumber == room2.FloorNumber;
+         return room1!=null && room1.Number == room2.Number && room1.FloorNumber == room2.FloorNumber;
         }
         public static bool operator !=(RoomID room1, RoomID room2)
         {

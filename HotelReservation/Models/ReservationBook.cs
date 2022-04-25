@@ -30,11 +30,11 @@ namespace HotelReservation.Models
             {
                 //kiem tra xem book co bi conflict khong
 
-                foreach (var existItem in Reservations)
+                foreach (var existReservation in Reservations)
                 {
-                    if (existItem.IsConflicted(reservation))
+                    if (existReservation.IsConflicted(reservation))
                     {
-                        throw new RoomConflictException(existItem, reservation,"booking room is conflicted with the exist one");
+                        throw new ReservationConflictException(existReservation, reservation,"booking room is conflicted with the exist one");
                     }
                 }
             }

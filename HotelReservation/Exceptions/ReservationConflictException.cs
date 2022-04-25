@@ -8,31 +8,31 @@ using System.Threading.Tasks;
 
 namespace HotelReservation.Exceptions
 {
-    public class RoomConflictException : Exception
+    public class ReservationConflictException : Exception
     {
         public Reservation ExistReservation { get; }
         public Reservation ConflictReservation { get; }
-        public RoomConflictException(Reservation existReservation, Reservation conflictReservation)
+        public ReservationConflictException(Reservation existReservation, Reservation conflictReservation)
         {
             ConflictReservation = conflictReservation;
             ExistReservation = existReservation;
         }
 
-        public RoomConflictException(Reservation existReservation, Reservation conflictReservation,string message) : base(message)
-        {
-            ConflictReservation = conflictReservation;
-            ExistReservation = existReservation;
-
-        }
-
-        public RoomConflictException(Reservation existReservation, Reservation conflictReservation,string message, Exception innerException) : base(message, innerException)
+        public ReservationConflictException(Reservation existReservation, Reservation conflictReservation,string message) : base(message)
         {
             ConflictReservation = conflictReservation;
             ExistReservation = existReservation;
 
         }
 
-        protected RoomConflictException(SerializationInfo info, StreamingContext context) : base(info, context)
+        public ReservationConflictException(Reservation existReservation, Reservation conflictReservation,string message, Exception innerException) : base(message, innerException)
+        {
+            ConflictReservation = conflictReservation;
+            ExistReservation = existReservation;
+
+        }
+
+        protected ReservationConflictException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
         }
     }

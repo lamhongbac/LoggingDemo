@@ -10,8 +10,16 @@ namespace HotelReservation.Models
     /// Information of 
     /// a Reservation to a hotel
     /// </summary>
-  public  class Reservation
+    public class Reservation
     {
+        public Reservation(RoomID _room,DateTime _startTime, DateTime _endTime, string _userName, string _custName)
+        {
+            room = _room;
+            StartTime = _startTime;
+            EndTime = _endTime;
+            UserName = _userName;
+            CustName = _custName;
+        }
         //kg can chi dinh Hotel vi reservation nam ben trong ReservationBook ma RB nay inside 1 hotel
         RoomID room; //book phong nao : tham chieu den bang danh muc phong
         string custName; //Ai: khach hang ten gi - tham chieu bang danh muc kh
@@ -23,12 +31,13 @@ namespace HotelReservation.Models
         public string CustName { get => custName; set => custName = value; }
         public RoomID Room { get => room; set => room = value; }
         public string UserName { get => userName; set => userName = value; }
+        public TimeSpan Length => EndTime.Subtract(StartTime);
 
         public bool IsConflicted(Reservation newReservation)
         {
-            if (newReservation!=null)
+            if (newReservation != null)
             {
-                if (this.Room.Equals(newReservation.Room) && (newReservation.StartTime<EndTime||newReservation.EndTime>StartTime))
+                if (this.Room.Equals(newReservation.Room) && (newReservation.StartTime < EndTime || newReservation.EndTime > StartTime))
                 {
                     return true;
                 }

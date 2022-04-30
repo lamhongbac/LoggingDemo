@@ -1,5 +1,7 @@
 ﻿using HotelReservation.Command;
 using HotelReservation.Models;
+using HotelReservation.Services;
+using HotelReservation.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,28 +12,46 @@ using System.Windows.Input;
 
 namespace HotelReservation.ViewModel
 {
-  public  class ReservationListingViewModel:ViewModelBase
+    public class ReservationListingViewModel : ViewModelBase
     {
+        Hotel hotel;
+
         private readonly ObservableCollection<ReservationViewModel> _reservations;
         public IEnumerable<ReservationViewModel> Reservations => _reservations;
-
+        public Task Initialization { get; private set; }
         public ICommand MakeReservationCommand { get; }
-        public ReservationListingViewModel()
+        public ICommand loadReservationCommand { get; }
+        public ReservationListingViewModel(Hotel _hotel, NavigationService navigationService)
         {
+            hotel = _hotel;
+            //navigationStore = _navigationStore;
 
-            MakeReservationCommand = new NavigationCommand();
-               _reservations = new ObservableCollection<ReservationViewModel>();
-            Reservation reservation1 = new Reservation(new RoomID(1, 2), new DateTime(2022, 04, 24), new DateTime(2022, 02, 25), "Lam Hong Bac", "Cust1");
-            Reservation reservation2 = new Reservation(new RoomID(2, 2), new DateTime(2022, 04, 25), new DateTime(2022, 02, 26), "Hoang Dat", "Cust2");
-            Reservation reservation3 = new Reservation(new RoomID(1, 1), new DateTime(2022, 04, 25), new DateTime(2022, 02, 26), "Nghinh Thu", "Cust3");
-            Reservation reservation4 = new Reservation(new RoomID(3, 1), new DateTime(2022, 04, 26), new DateTime(2022, 02, 27), "Bao Trang", "Cust4");
+            MakeReservationCommand = new NavigateCommand(navigationService);
+            _reservations = new ObservableCollection<ReservationViewModel>();
+            loadReservationCommand = new LoadReservationCommand(this, hotel);
 
-            _reservations.Add(new ReservationViewModel(reservation1));
-            _reservations.Add(new ReservationViewModel(reservation2));
-            _reservations.Add(new ReservationViewModel(reservation3));
-            _reservations.Add(new ReservationViewModel(reservation4));
+            //Initialization= UpdateReservation();
+        }
+        public static ReservationListingViewModel LoadViewModel(Hotel hotel,
+            NavigationService makeReservationNavigationService)
+        {
+            ReservationListingViewModel viewModel = new ReservationListingViewModel(hotel, makeReservationNavigationService);
+            viewModel.loadReservationCommand.Execute(null);
+            return viewModel;
+        }
+        public void UpdateReservation(IEnumerable<Reservation> Reservations)
+        {
+            _reservations.Clear();
+            //IEnumerable<Reservation> Reservations =await hotel.Reservations.GetAllReservations();
+            if (Reservations==null||Reservations.Count()==0)
+            {
+                return;
+            }
+            foreach (var item in Reservations)
+            {
+                _reservations.Add(new ReservationViewModel(item));
+            }
 
         }
-
     }
 }

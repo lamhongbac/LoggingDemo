@@ -1,7 +1,10 @@
-﻿using HotelReservation.Exceptions;
+﻿using HotelReservation.DbContexts;
+using HotelReservation.Exceptions;
 using HotelReservation.Models;
+using HotelReservation.Services.ReservationProvider;
 using HotelReservation.Stores;
 using HotelReservation.ViewModel;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+
 namespace HotelReservation
 {
     /// <summary>
@@ -17,35 +21,34 @@ namespace HotelReservation
     /// </summary>
     public partial class App : Application
     {
+        private const string CONNECTION_STRING = "Data Source = ReserRoom.Db";
         NavigationStore _navigationStores;
+        IReservationCreator reservationCreator;
+        IReservationProvider reservationProvider;
+        IReservationConflictValidator reservationConflict;
         Hotel _hotel;
         public App()
         {
-             _hotel = new Hotel("LamHongBac");
+            ReserRoomDbContextFactory dbContextFactory = new ReserRoomDbContextFactory(CONNECTION_STRING);
+            //ReserRoomDbContext dbContext = dbContextFactory.CreateDbContext();
+            reservationProvider = new DataBaseReservationProvider(dbContextFactory);
+            reservationCreator = new DatabaseReservationCreator(dbContextFactory);
+            reservationConflict = new DatabaseReservationConflictValidator(dbContextFactory);
+            ReservationBook reservationBook = new ReservationBook(reservationCreator, reservationProvider, reservationConflict);
+
+            _hotel = new Hotel("Lam's Hotel", reservationBook);
             _navigationStores = new NavigationStore();
 
         }
         protected override void OnStartup(StartupEventArgs e)
         {
-
-            //Hotel hotel = new Hotel("Demo");
-            //try
-            //{
-            //    hotel.CreateReservation(
-            //       new Reservation(new RoomID(1, 2), new DateTime(2022, 4, 23), new DateTime(2022, 4, 24), 
-            //       "Bac", "Nam")); 
-
-            //    hotel.CreateReservation(
-            //       new Reservation(new RoomID(1, 2), new DateTime(2022, 4, 24), 
-            //       new DateTime(2022, 4, 25), "Bac", "Nam")) ;
-            //}
-            //catch(ReservationConflictException ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-            //IEnumerable<Reservation> reservations = hotel.GetUserReservation("Demo");
-
-            _navigationStores.CurrentViewModel = new ReservationListingViewModel();
+            DbContextOptions options = new DbContextOptionsBuilder().UseSqlite(CONNECTION_STRING).Options;
+            using (DbContext dbContext = new ReserRoomDbContext(options))
+            {
+                dbContext.Database.Migrate();
+            }
+            
+            _navigationStores.CurrentViewModel = CreateReservationListingViewModel();// ReservationListingViewModel();
 
             MainWindow mainWindown = new MainWindow(_hotel)
             {
@@ -53,6 +56,16 @@ namespace HotelReservation
             };
             mainWindown.Show(); 
             base.OnStartup(e);
+        }
+        private MakeReservationViewModel CreateMakeReservationViewModel()
+        {
+            return new MakeReservationViewModel(_hotel,new Services.NavigationService( _navigationStores, CreateReservationListingViewModel));
+        }
+
+        private ReservationListingViewModel CreateReservationListingViewModel()
+        {
+            return  ReservationListingViewModel.LoadViewModel(_hotel,
+                new Services.NavigationService(_navigationStores,CreateMakeReservationViewModel));
         }
     }
 }

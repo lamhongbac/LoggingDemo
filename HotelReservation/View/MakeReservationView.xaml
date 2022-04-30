@@ -70,7 +70,7 @@
             <DatePicker Grid.Row="1" 
                         Grid.Column="0" 
                         Margin="0,5,0,0" 
-                        SelectedDate="{Binding StartDate,UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDate="{Binding StartTime,UpdateSourceTrigger=PropertyChanged}"
                         />
 
             <TextBlock Text="End Date" 
@@ -82,7 +82,7 @@
                 Grid.Row="1" 
                 Grid.Column="1" 
                 Margin="10,5,0,0" 
-                SelectedDate="{Binding EndDate,UpdateSourceTrigger=PropertyChanged}"/>
+                SelectedDate="{Binding EndTime,UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
         
         <StackPanel Grid.Row="4" Orientation="Horizontal" 

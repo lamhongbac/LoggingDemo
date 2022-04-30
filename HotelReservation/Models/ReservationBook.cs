@@ -1,4 +1,6 @@
-﻿using HotelReservation.Exceptions;
+﻿using HotelReservation.DbContexts;
+using HotelReservation.Exceptions;
+using HotelReservation.Services.ReservationProvider;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,38 +14,56 @@ namespace HotelReservation.Models
     /// </summary>
    public class ReservationBook
     {
-       public ReservationBook()
+        IReservationCreator reservationCreator;
+        IReservationProvider reservationProvider;
+        IReservationConflictValidator reservationConflict;
+       public ReservationBook(IReservationCreator _reservationCreator, 
+           IReservationProvider _reservationProvider, 
+           IReservationConflictValidator _reservationConflict)
         {
-            Reservations = new List<Reservation>();
+            //ReserRoomDbContextFactory dbContextFactory=new  ReserRoomDbContextFactory(connectionString)
+            reservationCreator = _reservationCreator;
+            reservationProvider = _reservationProvider;
+            reservationConflict = _reservationConflict;
         }
-       List<Reservation> _reservations;
-
-        public IEnumerable<Reservation> GetReservationsForUser (string userName)
+       //List<Reservation> _reservations;
+        public async Task<IEnumerable<Reservation>> GetAllReservations()
         {
-            return Reservations.Where(x=>x.UserName==userName);
+            return await reservationProvider.GetAllReservations();
         }
-        public List<Reservation> Reservations { get => _reservations; set => _reservations = value; }
-
-        internal void AddReservation(Reservation reservation)
+        public async Task<IEnumerable<Reservation>> GetReservationsForUser (string userName)
         {
-            try
-            {
-                //kiem tra xem book co bi conflict khong
+            IEnumerable<Reservation> reservations = await reservationProvider.GetAllReservations();
 
-                foreach (var existReservation in Reservations)
-                {
-                    if (existReservation.IsConflicted(reservation))
-                    {
-                        throw new ReservationConflictException(existReservation, reservation,"booking room is conflicted with the exist one");
-                    }
-                }
-            }
-            catch
+            return reservations.Where(x=>x.UserName==userName);
+        }
+        //public List<Reservation> Reservations { get => _reservations; set => _reservations = value; }
+
+        public async Task AddReservation(Reservation reservation)
+        {
+            Reservation conflictReservation = await reservationConflict.GetConflictReservation(reservation);
+            //kiem tra xem book co bi conflict khong
+            if (conflictReservation!=null)
             {
-                Reservations.Add(reservation);
+                throw new ReservationConflictException(reservation, conflictReservation);
             }
+           
+                await reservationCreator.CreateReservation(reservation);
             
-            
+            //foreach (var existReservation in Reservations)
+            //{
+            //    if (existReservation.IsConflicted(reservation))
+            //    {
+            //        throw new ReservationConflictException(existReservation, reservation, "booking room is conflicted with the exist one");
+            //    }
+
+            //}
+
+           
+
+
+
+
         }
     }
 }

@@ -20,6 +20,7 @@
                 <views:ReservationListingView/>
             </DataTemplate>
         </Grid.Resources>
-        <views:ReservationListingView DataContext="{Binding CurrentViewModel}" />
+        <!--<views:ReservationListingView DataContext="{Binding CurrentViewModel}" />-->
+        <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
 </Window>

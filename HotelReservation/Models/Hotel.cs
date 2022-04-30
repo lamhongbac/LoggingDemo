@@ -8,9 +8,9 @@ namespace HotelReservation.Models
 {
   public  class Hotel
     {
-        public Hotel(string _name)
+        public Hotel(string _name,  ReservationBook _reservations)
         {
-            Reservations = new ReservationBook();
+            Reservations = _reservations;
             Name = _name;
         }
         string name;//Hotel Name
@@ -19,15 +19,18 @@ namespace HotelReservation.Models
         public ReservationBook Reservations { get => reservations; set => reservations = value; }
         public string Name { get => name; set => name = value; }
         //Get ReservationList
-        public IEnumerable<Reservation> GetUserReservation(string userName)
+        public async Task <IEnumerable<Reservation>> GetUserReservation(string userName)
         {
-            return Reservations.GetReservationsForUser(userName);
+            return await Reservations.GetReservationsForUser(userName);
         }
         //Create A reservation
-
-        public void CreateReservation(Reservation _reservation)
+        public async Task<IEnumerable<Reservation>> GetAllReservation()
         {
-            reservations.AddReservation(_reservation);
+            return await Reservations.GetAllReservations(); ;
+        }
+        public async Task  CreateReservation(Reservation _reservation)
+        {
+           await Reservations.AddReservation(_reservation);
         }
     }
 }

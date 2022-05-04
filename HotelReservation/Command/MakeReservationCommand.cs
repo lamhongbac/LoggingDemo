@@ -79,7 +79,7 @@ namespace HotelReservation.Command
             try
             {
                 Reservation reservation = new Reservation(new RoomID(_viewModel.RoomNumber, _viewModel.FloorNumber),
-                    _viewModel.StartTime, _viewModel.EndTime, _viewModel.UserName);
+                    _viewModel.StartDate, _viewModel.EndDate, _viewModel.UserName);
                 await _hotelStore.MadeReservation(reservation);
                 MessageBox.Show("this room is booked success", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 _reservationViewNavigationService.Navigate();

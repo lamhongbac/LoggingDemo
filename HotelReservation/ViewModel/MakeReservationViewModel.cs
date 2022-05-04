@@ -18,33 +18,57 @@ namespace HotelReservation.ViewModel
         int roomNumber; //book phong nao : tham chieu den bang danh muc phong
         int floorNumber;
 
-        DateTime startTime; //bat dau luc nao
-        DateTime endTime; //ket thuc luc nao
+        DateTime startDate; //bat dau luc nao
+        DateTime endDate; //ket thuc luc nao
         string userName;//who make a reservation
 
-        public DateTime StartTime
+        public DateTime StartDate
         {
-            get { return startTime; }
-            set { startTime = value; OnPropertyChanged(nameof(StartTime)); }
+            get { return startDate; }
+            set { startDate = value; OnPropertyChanged(nameof(StartDate)); }
         }
 
-        public DateTime EndTime
+        public DateTime EndDate
         {
-            get { return endTime; }
-            set {
-                _propToErrorDicionary.Remove(nameof(EndTime));
-                if (EndTime<StartTime)
+            get { return endDate; }
+            set
+            {
+
+                endDate = value;
+                OnPropertyChanged(nameof(EndDate));
+
+                ClearError(nameof(EndDate));
+                if (EndDate < StartDate)
                 {
-                    List<string> endDateError = new List<string>()
-                    {
-                        "The EndDate can not < the Start Date"
-                    };
-                    _propToErrorDicionary.Add(nameof(EndTime), endDateError);
-                    ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(nameof(EndTime)));
+
+                    string endDateError = "The EndDate can not < the Start Date";
+
+
+                    AddError(nameof(EndDate), endDateError);
+                    OnErrorsChanged(nameof(EndDate));
                 }
-                endTime = value; 
-                OnPropertyChanged(nameof(EndTime)); 
+
             }
+        }
+
+        private void ClearError(string propName)
+        {
+            _propToErrorDicionary.Remove(propName);
+        }
+
+        private void AddError(string propName, string propError)
+        {
+            if (!_propToErrorDicionary.Keys.Contains(propName))
+            {
+                _propToErrorDicionary.Add(propName, new List<string>());
+            }
+            _propToErrorDicionary[propName].Add(propError);
+            OnErrorsChanged(propName);
+        }
+
+        private void OnErrorsChanged(string propName)
+        {
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(nameof(EndDate)));
         }
 
         public int RoomNumber
@@ -102,8 +126,8 @@ namespace HotelReservation.ViewModel
             NavigationService<ReservationListingViewModel> reservationViewNavigationService)
         {
             _reservationViewNavigationService = reservationViewNavigationService;
-            StartTime = DateTime.Now;
-            EndTime = DateTime.Now;
+            StartDate = DateTime.Now;
+            EndDate = DateTime.Now;
 
             SubmitCommand = new MakeReservationCommand(hotelStore, this, _reservationViewNavigationService);
             CancelCommand = new NavigateCommand<ReservationListingViewModel>(_reservationViewNavigationService);

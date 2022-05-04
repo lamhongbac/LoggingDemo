@@ -22,10 +22,10 @@ namespace HotelReservation
     /// </summary>
     public partial class MainWindow : Window
     {
-        Hotel _hotel;
-        public MainWindow(Hotel hotel)
+        //Hotel _hotel;
+        public MainWindow() //Hotel hotel
         {
-            _hotel = hotel;
+            //_hotel = hotel;
             InitializeComponent();
             //MainViewModel viewModel = new MainViewModel();
             //this.DataContext = viewModel;

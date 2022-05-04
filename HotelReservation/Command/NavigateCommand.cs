@@ -10,10 +10,14 @@ using System.Threading.Tasks;
 
 namespace HotelReservation.Command
 {
-    public class NavigateCommand : CommandBase
+    /// <summary>
+    /// thuc hien vai tro set lai current viewmodel 
+    /// </summary>
+    public class NavigateCommand<TViewModel> : CommandBase where TViewModel:ViewModelBase
+
     {
-        NavigationService _navigationService;
-        public NavigateCommand(NavigationService navigationService)
+        NavigationService<TViewModel> _navigationService;
+        public NavigateCommand(NavigationService<TViewModel> navigationService)
         {
             _navigationService = navigationService;
         }

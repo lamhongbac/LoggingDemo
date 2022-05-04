@@ -8,11 +8,19 @@ using System.Threading.Tasks;
 
 namespace HotelReservation.Services
 {
-  public  class NavigationService
+    /// <summary>
+    /// view config chi can viewmodel la biet chon lua view de ket hop hien thi
+    /// Navigation Store giong nhu 1 hub duy nhat cung cap current view
+    /// Navigation Service cung cap 1 nơi bao gồm hàm xác dinh view (Func{TView}), 
+    /// sau do ket noi view do vao trong NAV store, 
+    /// NAV se co event de thong bao cho MainViewModel, 
+    /// de MainViewModel biet dc la co thay doi ViewModel
+    /// </summary>
+  public  class NavigationService<TViewModel> where TViewModel:ViewModelBase
     {
         NavigationStore navigationStore;
-        private readonly Func<ViewModelBase> _createViewModel;
-        public NavigationService(NavigationStore _navigationStore, Func<ViewModelBase> createViewModel)
+        private readonly Func<TViewModel> _createViewModel;
+        public NavigationService(NavigationStore _navigationStore, Func<TViewModel> createViewModel)
         {
             navigationStore = _navigationStore;
             _createViewModel = createViewModel;

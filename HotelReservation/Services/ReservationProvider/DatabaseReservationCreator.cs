@@ -22,7 +22,7 @@ namespace HotelReservation.Services.ReservationProvider
             {
                 ReservationDTO reservationDTO = ToReservationDTO(reservation);
                 reserRoomDbContext.Add(reservationDTO);
-                 await reserRoomDbContext.SaveChangesAsync();
+                await reserRoomDbContext.SaveChangesAsync();
             }
         }
 

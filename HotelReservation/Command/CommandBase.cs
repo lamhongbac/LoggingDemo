@@ -18,7 +18,8 @@ namespace HotelReservation.Command
 
         public abstract void Execute(object parameter);
         /// <summary>
-        /// ham nay chay khi event CanExecutedChanged fired
+        /// ham nay chay muc dich fire event CanExecutedChanged ra hosting 
+        /// ex: 
         /// ham nay se  re-run CanExecute --> tac dong nguoc lai den view 
         /// --> enable or disable button attached to this command
         /// </summary>

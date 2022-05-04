@@ -8,7 +8,7 @@ namespace HotelReservation.Models
 {
     /// <summary>
     /// Information of 
-    /// a Reservation to a hotel
+    /// 1 Reservation to a hotel
     /// </summary>
     public class Reservation
     {
@@ -17,8 +17,7 @@ namespace HotelReservation.Models
             room = _room;
             StartTime = _startTime;
             EndTime = _endTime;
-            UserName = _userName;
-            
+            UserName = _userName;            
         }
         //kg can chi dinh Hotel vi reservation nam ben trong ReservationBook ma RB nay inside 1 hotel
         RoomID room; //book phong nao : tham chieu den bang danh muc phong
@@ -33,6 +32,11 @@ namespace HotelReservation.Models
         public string UserName { get => userName; set => userName = value; }
         public TimeSpan Length => EndTime.Subtract(StartTime);
 
+        /// <summary>
+        /// logic kiem tra 1 ban than co conflict voi 1 exist reservation  hay kg
+        /// </summary>
+        /// <param name="newReservation"></param>
+        /// <returns></returns>
         public bool IsConflicted(Reservation newReservation)
         {
             if (newReservation != null)

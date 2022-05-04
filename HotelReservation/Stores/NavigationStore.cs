@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace HotelReservation.Stores
 {
+    /// <summary>
+    /// NavigationStore cung cap 1 noi de xac dinh current ViewModel cua ung dung la viewmodel nao
+    /// Dong thoi cung cap event change viewmodel cho host
+    /// </summary>
     public class NavigationStore
     {
         private ViewModelBase _currentViewModel;
@@ -16,7 +20,8 @@ namespace HotelReservation.Stores
             get => _currentViewModel;
             set
             {
-                _currentViewModel = value;
+                _currentViewModel?.Dispose();
+                   _currentViewModel = value;
                 OnCurrentViewModelChanged();
             }
         }

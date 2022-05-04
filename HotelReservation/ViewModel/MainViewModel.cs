@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace HotelReservation.ViewModel
 {
+    /// <summary>
+    /// cung cap data cho mainview bao gom view model cho cac user control ben trong main view
+    /// mainView(UserControl)=> mainViewModel(ViewModel)
+    /// cung cap current viewmodel thong navigationstore
+    /// 
+    /// </summary>
    public class MainViewModel:ViewModelBase
     {
         NavigationStore navigationStore;

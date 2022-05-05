@@ -40,14 +40,10 @@ namespace HotelReservation.ViewModel
                 ClearError(nameof(EndDate));
                 if (EndDate < StartDate)
                 {
-
                     string endDateError = "The EndDate can not < the Start Date";
-
-
                     AddError(nameof(EndDate), endDateError);
                     OnErrorsChanged(nameof(EndDate));
                 }
-
             }
         }
 

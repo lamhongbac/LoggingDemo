@@ -1,0 +1,10 @@
+language: csharp
+os: linux
+dist: focal
+mono: none
+dotnet: 5.0.102
+solution: JsonFlatFileDataStore.sln
+script:
+  - dotnet restore
+  - dotnet build
+  - dotnet test JsonFlatFileDataStore.Test/JsonFlatFileDataStore.Test.csproj

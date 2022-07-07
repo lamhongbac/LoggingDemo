@@ -1,8 +1,9 @@
-﻿<Application x:Class="WpfStudy.App"
+﻿<Application x:Class="WPFMaterialDesignStudy.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:WpfStudy"
+             xmlns:local="clr-namespace:WPFMaterialDesignStudy"
              StartupUri="MainWindow.xaml">
+    
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -13,5 +14,5 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
+    
 </Application>
-

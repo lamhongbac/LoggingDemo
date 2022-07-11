@@ -9,6 +9,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFMaterialDesignStudy.ViewModel;
 
 namespace WPFMaterialDesignStudy.View
 {
@@ -17,9 +18,11 @@ namespace WPFMaterialDesignStudy.View
     /// </summary>
     public partial class LoginView : Window
     {
+        LoginViewModel viewModel;
         public LoginView()
         {
-            InitializeComponent();
+            InitializeComponent(); viewModel = new LoginViewModel();
+            this.DataContext = viewModel;
         }
     }
 }

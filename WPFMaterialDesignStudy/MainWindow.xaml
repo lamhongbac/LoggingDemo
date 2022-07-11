@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPFMaterialDesignStudy"
         mc:Ignorable="d"
                
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:usercontrol="clr-namespace:WPFMaterialDesignStudy.MyUserControl"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -18,14 +18,12 @@
         Title="MainWindow" Height="450" Width="800">
     
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <usercontrol:UCBarControl Grid.Row="0" Height="40"/>
+       
 
-            <DockPanel LastChildFill = "True">
-                <Button Content = "Top" DockPanel.Dock = "Top" Click ="Button_Click" />
-            <Button Content = "Bottom" DockPanel.Dock = "Bottom" Click = "Button_Click" />
-            <Button Content = "Left" Click = "Button_Click" />
-            <Button Content = "Right" DockPanel.Dock = "Right" Click = "Button_Click" />
-            <Button Content = "Center" Click = "Button_Click" />
-            </DockPanel>
- 
     </Grid>
 </Window>

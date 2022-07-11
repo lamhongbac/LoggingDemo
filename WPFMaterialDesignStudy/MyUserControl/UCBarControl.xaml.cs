@@ -10,17 +10,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFMaterialDesignStudy.ViewModel;
 
-namespace WPFMaterialDesignStudy.UserControl
+namespace WPFMaterialDesignStudy.MyUserControl
 {
     /// <summary>
-    /// Interaction logic for BarControl.xaml
+    /// Interaction logic for UCBarControl.xaml
     /// </summary>
-    public partial class BarControl : UserControl
+    public partial class UCBarControl : UserControl
     {
-        public BarControl()
+        UCBarControlViewModel viewModel { get; set; }
+        public UCBarControl()
         {
             InitializeComponent();
+            viewModel = new UCBarControlViewModel();
+            this.DataContext = viewModel;
         }
     }
 }

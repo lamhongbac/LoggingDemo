@@ -9,7 +9,8 @@
         WindowStyle="None"     
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
-        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:usercontrol="clr-namespace:WPFMaterialDesignStudy.MyUserControl"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:usercontrol="clr-namespace:WPFMaterialDesignStudy.MyUserControl"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
@@ -37,6 +38,143 @@
         </Grid.RowDefinitions>
         <usercontrol:UCBarControl Grid.Row="0" 
          Tag="{Binding Title, ElementName=mainWindow}"/>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+
+            </Grid.RowDefinitions>
+            <ToolBarTray Grid.Row="0">
+                <ToolBar    Style="{DynamicResource MaterialDesignToolBar}"    ClipToBounds="False">
+                    <Button
+                      ToolTip="Restaurant goods management"
+                      
+                      Content="{materialDesign:PackIcon Kind=LocalRestaurant}"
+                        Command="{Binding OutletSCMCommand}" CommandParameter="{Binding ElementName=mainWindow}"/>
+                    <Button
+                        ToolTip="Warehouse"
+                        Content="{materialDesign:PackIcon Kind=Warehouse}" />
+                    <Separator />
+                    <Button
+                        Command="Cut"
+                         ToolTip="Cut"
+                        ToolBar.OverflowMode="AsNeeded"
+                        Content="{materialDesign:PackIcon Kind=ContentCut}" />
+                    <Button
+                          Command="Copy"
+                          ToolTip="Copy that stuff"
+                          ToolBar.OverflowMode="AsNeeded"
+                          Content="{materialDesign:PackIcon Kind=ContentCopy}" />   
+                    <Separator />
+                    <Button
+                          Command="Paste"
+                          ToolTip="Paste some stuff"
+                          ToolBar.OverflowMode="AsNeeded"
+                          Content="{materialDesign:PackIcon Kind=ContentPaste}" />
+                                    <!-- when badging in a toolbar, make sure the parent ToolBar.ClipToBounds="False", and
+                   manually apply the button style -->
+                    <materialDesign:Badged
+                      ToolBar.OverflowMode="AsNeeded"
+                      Badge="{materialDesign:PackIcon Alert}"
+                      CornerRadius="5">
+                        <Button
+                            ToolTip="Badge it up!"
+                            Style="{StaticResource {x:Static ToolBar.ButtonStyleKey}}"
+                            Content="{materialDesign:PackIcon Kind=AirplaneTakeoff}" />
+                    </materialDesign:Badged>
+                    <Separator />
+                    <ListBox>
+                        <ListBoxItem
+        ToolTip="This is a lonley toggle with TextBlock instead of icon">
+                            <TextBlock
+          Text="W" />
+                        </ListBoxItem>
+                    </ListBox>
+                    <Separator />
+                    <ListBox
+      SelectedIndex="0">
+                        <ListBox.ToolTip>
+                            <StackPanel>
+                                <TextBlock
+            Text="MaterialDesignToolToggleFlatListBox" />
+                                <TextBlock
+            Text="Exclusive selection" />
+                                <TextBlock
+            Text="ListBoxAssist.IsToggle allows more natural toggle behaviour" />
+                            </StackPanel>
+                        </ListBox.ToolTip>
+                        <ListBoxItem
+        Content="{materialDesign:PackIcon Kind=FormatAlignLeft}" />
+                        <ListBoxItem
+        Content="{materialDesign:PackIcon Kind=FormatAlignCenter}" />
+                        <ListBoxItem
+        Content="{materialDesign:PackIcon Kind=FormatAlignRight}" />
+                        <ListBoxItem
+        Content="{materialDesign:PackIcon Kind=FormatAlignJustify}" />
+                    </ListBox>
+                    <Separator />
+                    <ListBox
+      SelectionMode="Extended">
+                        <ListBox.ToolTip>
+                            <StackPanel>
+                                <TextBlock
+            Text="MaterialDesignToolToggleListBox" />
+                                <TextBlock
+            Text="Multiple selection" />
+                                <TextBlock
+            Text="ListBoxAssist.IsToggle allows more natural toggle behaviour" />
+                            </StackPanel>
+                        </ListBox.ToolTip>
+                        <ListBoxItem
+        Content="{materialDesign:PackIcon Kind=FormatBold}" />
+                        <ListBoxItem
+        Content="{materialDesign:PackIcon Kind=FormatItalic}" />
+                        <ListBoxItem
+        Content="{materialDesign:PackIcon Kind=FormatUnderline}" />
+                    </ListBox>
+                    <Separator />
+                    <Label
+      Content="Font size:"
+      VerticalAlignment="Center" />
+                    <ComboBox>
+                        <ComboBoxItem
+        Content="10" />
+                        <ComboBoxItem
+        IsSelected="True"
+        Content="12" />
+                        <ComboBoxItem
+        Content="14" />
+                        <ComboBoxItem
+        Content="16" />
+                    </ComboBox>
+                    <CheckBox
+      Content="Check" />
+                    <Button
+      ToolTip="Take a nap"
+      ToolBar.OverflowMode="Always"
+      Content="{materialDesign:PackIcon Kind=Hotel}" />
+                    <RadioButton
+      GroupName="XXX"
+      Content="Radio" />
+                    <RadioButton
+      GroupName="XXX"
+      Content="Ga Ga" />
+                    <Separator />
+                    <RadioButton
+      GroupName="YYY"
+      Style="{DynamicResource MaterialDesignToolRadioButton}"
+      Content="{materialDesign:PackIcon Kind=Radio}" />
+                    <RadioButton
+      GroupName="YYY"
+      Style="{DynamicResource MaterialDesignToolRadioButton}"
+      Content="{materialDesign:PackIcon Kind=EmoticonPoop}" />
+                    <Separator />
+                    <ToggleButton />
+                </ToolBar>
+            </ToolBarTray>
+        </Grid>
        
     </Grid>
 </Window>

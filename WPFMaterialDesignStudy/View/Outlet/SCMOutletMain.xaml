@@ -1,0 +1,75 @@
+﻿<Window x:Class="WPFMaterialDesignStudy.View.Outlet.SCMOutletMain"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFMaterialDesignStudy.View.Outlet"
+        mc:Ignorable="d"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:usercontrol="clr-namespace:WPFMaterialDesignStudy.MyUserControl"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:system="clr-namespace:System;assembly=System.Runtime"
+        Title="SCMOutletMain" Height="450" Width="800">
+    <Grid>
+        <Grid.Resources>
+            <system:Double x:Key="IconSize">24</system:Double>
+            <system:Double x:Key="ButtonWidth">120</system:Double>
+            <system:Double x:Key="GridWidth">124</system:Double>
+            <system:Double x:Key="ButtonHeight">50</system:Double>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                Width="{StaticResource ButtonWidth}"
+                ToolTip="Order hàng" Content="Order Hàng"
+                IsEnabled="{Binding DataContext.ControlsEnabled, 
+                RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />   
+            <Button Grid.Column="1"
+                Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                Width="{StaticResource ButtonWidth}"
+                ToolTip="Nhận hàng" Content="Nhận Hàng"
+                IsEnabled="{Binding DataContext.ControlsEnabled, 
+                RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+            <Button Grid.Column="2"
+                Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                Width="{StaticResource ButtonWidth}"
+                ToolTip="End Of Day" Content="EOD"
+                IsEnabled="{Binding DataContext.ControlsEnabled, 
+                RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+            <Button Grid.Column="3"
+                Style="{StaticResource MaterialDesignRaisedSecondaryDarkButton}"
+                Width="{StaticResource ButtonWidth}"
+                ToolTip="Báo cáo" Content="Bao Cao"
+                IsEnabled="{Binding DataContext.ControlsEnabled, 
+                RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+            <Button Grid.Column="4"
+                  Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}"
+                  ToolTip="Outlet Stock level"
+                  Content="Stock Level"
+                  Width="{StaticResource ButtonWidth}"
+                  IsEnabled="{Binding DataContext.ControlsEnabled, 
+                RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}" />
+        </Grid>
+    </Grid>
+</Window>

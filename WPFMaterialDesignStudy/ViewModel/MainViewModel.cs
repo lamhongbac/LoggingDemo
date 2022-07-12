@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using WPFMaterialDesignStudy.Lib;
 using WPFMaterialDesignStudy.View;
+using WPFMaterialDesignStudy.View.Outlet;
 
 namespace WPFMaterialDesignStudy.ViewModel
 {
@@ -12,7 +13,11 @@ namespace WPFMaterialDesignStudy.ViewModel
     {
         public ICommand WindowLoadedCommand { get; set; }
         bool isLogined;
-        public bool IsLoginName { get => isLogined; set => isLogined = value; }
+
+        public bool IsLogin
+        {
+            get => isLogined; set => SetProperty(ref isLogined, value); //{ get => "FullName: " + memberProfile.FullName; }
+        }
         string loginName;
         public string LoginName
         {
@@ -23,6 +28,8 @@ namespace WPFMaterialDesignStudy.ViewModel
                 Title = loginName;
             }
         }
+        public ICommand OutletSCMCommand { get; set; }
+
         public MainViewModel() : base()
         {
             isLogined = false;
@@ -30,42 +37,46 @@ namespace WPFMaterialDesignStudy.ViewModel
             WindowLoadedCommand = new RelayCommand<Window>(
                 (p) => { return true; },
                 (p) =>
-
                 {
-                    //isLogined = true;
                     if (p == null)
-                    {
                         return;
-                    }
+                    if (!IsLogin)
+                    {
+                        p.Hide();
 
+                        LoginView loginView = new LoginView();
+                        loginView.ShowDialog();
+                        //var loginVM = loginView.DataContext as LoginViewModel;
+                        //if (loginVM == null)
+                        //    p.Close();
+                        //isLogined = loginVM.isLogined;
+                        //if (loginVM.isLogined)
+                        //{
+                        //    LoginName = loginVM.FullName;
+                        //    p.Show();
+                        //}
+                        //else
+                        //{
+                        //    p.Close();
+                        //}
+                        p.Show();
+                        IsLogin = true;
+                    }
+                });
+
+            OutletSCMCommand = new RelayCommand<Window>(
+                (p) => { return true; },
+                (p) =>
+                {
                     p.Hide();
 
-                    //isLogined = true;
-                    LoginView loginView = new LoginView();
-                    loginView.ShowDialog();
-                    var loginVM = loginView.DataContext as LoginViewModel;
-
-                    if (loginVM == null)
-                        p.Close();
-
-                    isLogined = loginVM.isLogined;
-
-
-                    if (loginVM.isLogined)
-                    {
-                        LoginName = loginVM.FullName;
-                        p.Show();
-                    }
-                    else
-                    {
-                        p.Close();
-                    }
-
-
-                });
+                    SCMOutletMain outletMainView = new SCMOutletMain();
+                    outletMainView.ShowDialog();
+                    p.Show();
+                }
+                );
 
         }
 
-        
     }
 }

@@ -29,8 +29,10 @@
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <usercontrol:UCBarControl Grid.Row="0" Height="40" 
-                                  Tag="{Binding Title, ElementName=loginWindow}"/>
+        Tag="{Binding Title, ElementName=loginWindow}"/>
+        
         <materialDesign:Card Width="300" Height="250"
             HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
             <Grid>

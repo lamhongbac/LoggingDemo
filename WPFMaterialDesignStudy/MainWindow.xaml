@@ -8,6 +8,7 @@
         ResizeMode="NoResize"
         WindowStyle="None"     
         WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:usercontrol="clr-namespace:WPFMaterialDesignStudy.MyUserControl"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -17,11 +18,16 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-       Name="mainWindow"
-        Title="Demo WPF Tech" Height="450" Width="800">
+        Name="mainWindow"
+        Title="{Binding Title}" Height="450" Width="800"
+        DataContext="{StaticResource MainVM}"   
+        >
+    
     <i:Interaction.Triggers>
         <i:EventTrigger EventName ="Loaded">
-            <i:InvokeCommandAction Command ="{Binding WindowLoadedCommand}" />
+            <i:InvokeCommandAction 
+                Command ="{Binding WindowLoadedCommand}" 
+                CommandParameter="{Binding ElementName=mainWindow}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>

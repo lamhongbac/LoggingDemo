@@ -21,12 +21,12 @@ namespace WPFMaterialDesignStudy
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainViewModel ViewModel { get; set; }
+        //public MainViewModel ViewModel { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            ViewModel = new MainViewModel();
-            DataContext = ViewModel;
+           // ViewModel = new MainViewModel();
+           // DataContext = ViewModel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

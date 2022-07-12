@@ -21,9 +21,9 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Name="loginWindow"
         Title="Login Please..."
-        
+        DataContext="{StaticResource LoginVM}"    
         >
-    <!--DataContext="{StaticResource LoginViewModel}"-->
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>

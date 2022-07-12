@@ -18,11 +18,12 @@ namespace WPFMaterialDesignStudy.View
     /// </summary>
     public partial class LoginView : Window
     {
-        LoginViewModel viewModel;
+        //LoginViewModel viewModel;
         public LoginView()
         {
-            InitializeComponent(); viewModel = new LoginViewModel();
-            this.DataContext = viewModel;
+            InitializeComponent(); 
+            //viewModel = new LoginViewModel();
+            //this.DataContext = viewModel;
         }
     }
 }

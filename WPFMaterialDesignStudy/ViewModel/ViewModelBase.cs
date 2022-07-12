@@ -10,6 +10,7 @@ namespace WPFMaterialDesignStudy.ViewModel
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {
+        public string Title { get; set; }
         public event PropertyChangedEventHandler? PropertyChanged;
 
         /// <summary>

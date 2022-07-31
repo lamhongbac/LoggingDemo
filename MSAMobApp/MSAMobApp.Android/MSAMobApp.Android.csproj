@@ -41,6 +41,7 @@
     <AndroidKeyStore>false</AndroidKeyStore>
     <AndroidSigningKeyStore>
     </AndroidSigningKeyStore>
+    <AndroidSupportedAbis>x86;x86_64;arm64-v8a</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

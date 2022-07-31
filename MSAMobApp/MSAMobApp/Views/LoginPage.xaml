@@ -5,10 +5,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="MSAMobApp.Views.LoginPage"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             Shell.FlyoutBehavior="Disabled">
     <ContentPage.Content>
         <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
-            <Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>
+           
+                <Label Text="Login Demo!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+                <Label Text="UserID"/>
+                <Entry x:Name="txtUserID"/>
+                <Label Text="Password"/>
+                <Entry x:Name="txtPwd" IsPassword="True"/>
+                <Label Text="Warehouse"/>
+                <Entry x:Name="txtWHID"/>
+                <Button Text="Login" x:Name="btnLogin" Clicked="btnLogin_Clicked"/>
+
+          
+            <!--<Button VerticalOptions="Center" Text="Login" Command="{Binding LoginCommand}"/>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

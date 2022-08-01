@@ -4,7 +4,7 @@
              x:Class="MSAMobApp.Views.ScanSampleBarCodePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="Scaning to Create Master Data!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

@@ -4,7 +4,7 @@
              x:Class="MSAMobApp.Views.CheckInPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
+            <Label Text="Check in warehouse for stock operation!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

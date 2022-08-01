@@ -5,6 +5,10 @@
              x:Class="MSAMobApp.Views.ScanBarCodeDemo">
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="Welcome to Scan Barcode Demo!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            
             <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
                 <Label Text="BarCode demo" HorizontalOptions="Center" TextColor="White" FontSize="36"/>
             </Frame>

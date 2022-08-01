@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MSAMobApp.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,16 @@ namespace MSAMobApp.Views
         public ScanSampleBarCodePage()
         {
             InitializeComponent();
+        }
+        private void ZXingScannerView_OnScanResult(ZXing.Result result)
+        {
+           // MSADataBase databaseService
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                //this.scanResultText.Text = result.Text +
+                //" (type: " + result.BarcodeFormat.ToString() + ")";
+                //MSADataBase.AddStockSample()
+            });
         }
     }
 }

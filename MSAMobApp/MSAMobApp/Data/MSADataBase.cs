@@ -4,17 +4,21 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MSAMobApp.Data
 {
     public class MSADataBase
     {
-        readonly SQLiteAsyncConnection database;
-        public MSADataBase(string dbPath)
+        static SQLiteAsyncConnection database;
+        public async static Task Init()
         {
-            var databasePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "MyData.db");
-            database = new SQLiteAsyncConnection(dbPath);
+            if (database != null)
+                return;
+            var databasePath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, "MyData.db");
+            database = new SQLiteAsyncConnection(databasePath);
             database.CreateTableAsync<StockTrans>().Wait();
+
         }
         /// <summary>
         /// quet barcode and add to DB
@@ -22,8 +26,9 @@ namespace MSAMobApp.Data
         /// <param name="db"></param>
         /// <param name="userID"></param>
         /// <param name="barcode"></param>
-        public static void AddStock(SQLiteConnection db, string userID, string barcode)
+        public async static Task AddStock(string userID, string barcode)
         {
+            await Init();
             var stock = new StockTrans()
             {
                 BarCode = barcode,
@@ -38,7 +43,7 @@ namespace MSAMobApp.Data
 
 
             };
-            db.Insert(stock);
+            await database.InsertAsync(stock);
             Console.WriteLine("{0} == {1}", stock.BarCode, stock.ID);
         }
     }

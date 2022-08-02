@@ -20,12 +20,13 @@ namespace MSAMobApp
 
         private async void OnMenuItemClicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//LoginPage");
+            await Shell.Current.GoToAsync($"//{nameof(LoginPage)}");
+            //await Shell.Current.GoToAsync($"//{nameof(AboutPage)}");
         }
 
         private async void MenuItem_Clicked(object sender, EventArgs e)
         {
-            await Shell.Current.GoToAsync("//ScanBarCodeDemo");
+            await Shell.Current.GoToAsync("$//ScanBarCodeDemo");
         }
     }
 }

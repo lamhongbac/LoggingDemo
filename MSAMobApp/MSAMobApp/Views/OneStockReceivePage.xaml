@@ -1,12 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MSAMobApp.Views.OneStockReceivePage">
+             x:Class="MSAMobApp.Views.OneStockReceivePage"
+                          xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+>
     <ContentPage.Content>
+        
         <StackLayout>
             <Label Text="Welcome to stock receive!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
+                <Label Text="BarCode demo" HorizontalOptions="Center" TextColor="White" FontSize="36"/>
+            </Frame>
+            <Label x:Name="scanResultText"/>
+            <Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <zxing:ZXingScannerView IsScanning="True"
+                                    OnScanResult="ZXingScannerView_OnScanResult"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

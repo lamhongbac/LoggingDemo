@@ -12,6 +12,7 @@ namespace MSAMobApp.Models
     {
         [PrimaryKey]
         public Guid ID { get; set; }
+        [Indexed]
         public string BarCode { get; set; }
         public string Unit { get; set; }
         public string Name { get; set; }

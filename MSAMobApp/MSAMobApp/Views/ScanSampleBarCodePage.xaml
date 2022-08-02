@@ -13,12 +13,19 @@
             <Frame BackgroundColor="#2196F3" Padding="24" CornerRadius="0">
                 <Label Text="BarCode demo" HorizontalOptions="Center" TextColor="White" FontSize="36"/>
             </Frame>
-            <Label x:Name="scanResultText"/>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Label x:Name="scanResultText" Text="{Binding BarCode, Mode=TwoWay}"/>
+           
+            <Label Text="Name" FontSize="Medium" />
+            <Entry Text="{Binding Name, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Unit" FontSize="Medium" />
+            <Editor Text="{Binding Unit, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+           
             <zxing:ZXingScannerView IsScanning="True"
                                     OnScanResult="ZXingScannerView_OnScanResult"/>
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

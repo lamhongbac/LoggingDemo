@@ -1,4 +1,5 @@
 ﻿using MSAMobApp.Data;
+using MSAMobApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,15 +17,32 @@ namespace MSAMobApp.Views
         public ScanSampleBarCodePage()
         {
             InitializeComponent();
+            BindingContext = new  NewStockSampleViewModel();
         }
-        private void ZXingScannerView_OnScanResult(ZXing.Result result)
+
+       
+
+        private  void ZXingScannerView_OnScanResult(ZXing.Result result)
         {
-           // MSADataBase databaseService
-            Device.BeginInvokeOnMainThread(() =>
+            string resultText = string.Empty;
+            string userID = "Demo";
+
+            //MSADataBase databaseService
+            Device.BeginInvokeOnMainThread(async () =>
             {
-                //this.scanResultText.Text = result.Text +
-                //" (type: " + result.BarcodeFormat.ToString() + ")";
-                //MSADataBase.AddStockSample()
+                resultText = result.Text;
+                if (!string.IsNullOrEmpty(resultText))
+                {
+
+
+                    this.scanResultText.Text = result.Text;
+
+                   // +                " (type: " + result.BarcodeFormat.ToString() + ")";
+
+
+                  //  await MSADataBase.AddStockSample(userID, resultText);
+
+                }
             });
         }
     }

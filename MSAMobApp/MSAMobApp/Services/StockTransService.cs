@@ -31,7 +31,7 @@ namespace MSAMobApp.Services
             var stock = new StockTrans()
             {
                 BarCode = barcode,
-                DataStatus = "New",
+                DataState = "New",
                 Direction = "In",
                 ID = Guid.NewGuid(),
                 Quantity = 1,

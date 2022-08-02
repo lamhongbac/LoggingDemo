@@ -8,18 +8,15 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-/// <summary>
-/// danh sach cac sample barcode da scaned
-/// </summary>
 namespace MSAMobApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StockMasteMaintainPage : ContentPage
+    public partial class StockSampleDetailPage : ContentPage
     {
-        public StockMasteMaintainPage()
+        public StockSampleDetailPage()
         {
             InitializeComponent();
-            BindingContext = new StockSamplesViewModel();
+            BindingContext = new StockSampleDetailViewModel();
         }
     }
 }

@@ -8,6 +8,9 @@ using Xamarin.Forms;
 
 namespace MSAMobApp.ViewModels
 {
+    /// <summary>
+    /// model for view scan sample barcode
+    /// </summary>
     public class NewStockSampleViewModel : BaseViewModel
     {
         private string barcode;

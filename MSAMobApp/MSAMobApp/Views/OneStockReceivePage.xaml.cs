@@ -16,5 +16,10 @@ namespace MSAMobApp.Views
         {
             InitializeComponent();
         }
+
+        private void ZXingScannerView_OnScanResult(ZXing.Result result)
+        {
+
+        }
     }
 }

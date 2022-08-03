@@ -86,26 +86,30 @@
         <Tab Title="Home Info">
             <ShellContent Title="Home " Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
             <ShellContent Title="About" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+            <!--<FlyoutItem Title="App Option Maintain" Icon="icon_feed.png">-->
+            <!--</FlyoutItem>-->
         </Tab>
         <Tab Title="Account">
             <ShellContent Title="User Info" Route="UserInfoPage" ContentTemplate="{DataTemplate local:UserInfoPage}" />
             <ShellContent Title="WH Check-In" Route="CheckInPage" ContentTemplate="{DataTemplate local:CheckInPage}" />
         </Tab>
     </FlyoutItem>
-    
-    <FlyoutItem Title="Scan Sample BarCode ">
-        <ShellContent Route="ScanSampleBarCodePage" ContentTemplate="{DataTemplate local:ScanSampleBarCodePage}" />
-    </FlyoutItem>
-    <FlyoutItem Title="StockMaster Maintain" Icon="icon_about.png">
-        <ShellContent Route="StockMasteMaintainPage" ContentTemplate="{DataTemplate local:StockMasteMaintainPage}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Sync MasterData" Icon="icon_feed.png">
-        <ShellContent Route="SyncMasterDataPage" ContentTemplate="{DataTemplate local:SyncMasterDataPage}" />
-    </FlyoutItem>
 
-    <FlyoutItem Title="App Option Maintain" Icon="icon_feed.png">
-        <ShellContent Route="AppOptionsPage" ContentTemplate="{DataTemplate local:AppOptionsPage}" />
+    <FlyoutItem Title="Setting" Icon="icon_about.png">
+        <Tab Title="Stock Master">
+            <ShellContent Title="Stock Master" Route="StockMasteMaintainPage" ContentTemplate="{DataTemplate local:StockMasteMaintainPage}" />
+        </Tab>
+        <Tab Title="App Options">
+            <ShellContent Title="App Options" Route="AppOptionsPage" ContentTemplate="{DataTemplate local:AppOptionsPage}" />
+        </Tab>
     </FlyoutItem>
+   
+    
+    <!--<FlyoutItem Title="Sync MasterData" Icon="icon_feed.png">
+        <ShellContent Route="SyncMasterDataPage" ContentTemplate="{DataTemplate local:SyncMasterDataPage}" />
+    </FlyoutItem>-->
+
+    
     <FlyoutItem Title="OneStockReceivePage" Icon="icon_feed.png">
         <ShellContent Route="Stock Receive" ContentTemplate="{DataTemplate local:OneStockReceivePage}" />
     </FlyoutItem>

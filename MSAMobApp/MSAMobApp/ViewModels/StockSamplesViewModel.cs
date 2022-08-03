@@ -9,6 +9,10 @@ using Xamarin.Forms;
 
 namespace MSAMobApp.ViewModels
 {
+    /// <summary>
+    ///  Danh sach barcode da save vao CSDL
+    ///  cung cap cho view StockMaster Maintain
+    /// </summary>
     public class StockSamplesViewModel : BaseViewModel
     {
         private StockSample _selectedItem;
@@ -70,7 +74,7 @@ namespace MSAMobApp.ViewModels
 
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(NewItemPage));
+            await Shell.Current.GoToAsync(nameof(ScanSampleBarCodePage));
         }
 
         async void OnItemSelected(StockSample item)

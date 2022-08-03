@@ -11,6 +11,11 @@ using Xamarin.Forms.Xaml;
 
 namespace MSAMobApp.Views
 {
+    /// <summary>
+    /// Usage: tu view danh sach barcode (sample)
+    /// bam new barcode sample=> open this form
+    /// quet barcode, type name and unit and bam SAVE button
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScanSampleBarCodePage : ContentPage
     {
@@ -25,10 +30,10 @@ namespace MSAMobApp.Views
         private  void ZXingScannerView_OnScanResult(ZXing.Result result)
         {
             string resultText = string.Empty;
-            string userID = "Demo";
+            //string userID = "Demo";
 
             //MSADataBase databaseService
-            Device.BeginInvokeOnMainThread(async () =>
+            Device.BeginInvokeOnMainThread(() =>
             {
                 resultText = result.Text;
                 if (!string.IsNullOrEmpty(resultText))

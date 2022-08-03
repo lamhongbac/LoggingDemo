@@ -74,7 +74,7 @@ namespace MSAMobApp.ViewModels
 
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(ScanSampleBarCodePage));
+            await Shell.Current.GoToAsync(nameof(DemoPage));
         }
 
         async void OnItemSelected(StockSample item)

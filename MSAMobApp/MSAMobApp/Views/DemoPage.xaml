@@ -1,24 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MSAMobApp.Views.ScanSampleBarCodePage"
-                          xmlns:zxing="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
->
+             x:Class="MSAMobApp.Views.DemoPage">
     <ContentPage.Content>
-        
         <StackLayout Orientation="Vertical">
-            
+
             <Label Text="BarCode" FontSize="Medium" />
             <Entry x:Name="scanResultText" Text="{Binding BarCode, Mode=TwoWay}" />
-            
+
             <Label Text="Name" FontSize="Medium" />
             <Entry Text="{Binding Name, Mode=TwoWay}" FontSize="Medium" />
-            
+
             <Label Text="Unit" FontSize="Medium" />
             <Editor Text="{Binding Unit, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
-           
-            <zxing:ZXingScannerView IsScanning="True"
-                                    OnScanResult="ZXingScannerView_OnScanResult"/>
+
+            
             <StackLayout Orientation="Horizontal">
                 <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

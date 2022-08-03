@@ -11,9 +11,12 @@ namespace MSAMobApp
         public AppShell()
         {
             InitializeComponent();
+            
             //ScanSampleBarCodePage
             Routing.RegisterRoute(nameof(ScanSampleBarCodePage), typeof(ScanSampleBarCodePage));
-
+            //DemoPage
+            Routing.RegisterRoute(nameof(DemoPage), typeof(DemoPage));
+            //
             Routing.RegisterRoute(nameof(OneStockReceivePage), typeof(OneStockReceivePage));
             Routing.RegisterRoute(nameof(BatchStockReceivePage), typeof(BatchStockReceivePage));
 

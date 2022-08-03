@@ -19,10 +19,11 @@ namespace MSAMobApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ScanSampleBarCodePage : ContentPage
     {
+        NewStockSampleViewModel _viewModel;
         public ScanSampleBarCodePage()
         {
             InitializeComponent();
-            BindingContext = new  NewStockSampleViewModel();
+            BindingContext = _viewModel= new  NewStockSampleViewModel();
         }
 
        

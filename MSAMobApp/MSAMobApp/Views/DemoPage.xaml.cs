@@ -20,9 +20,10 @@ namespace MSAMobApp.Views
             BindingContext = _viewModel = new NewStockSampleViewModel();
             this.scanResultText.Focus();
         }
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
+            await Task.Delay(100);
             this.scanResultText.Focus();
         }
     }

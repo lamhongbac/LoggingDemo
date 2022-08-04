@@ -23,10 +23,16 @@ namespace MSAMobApp.Models
         public string BarCode { get; set; }
         public DateTime ScanDateTimes { get; set; }
         public int Quantity { get; set; }
-        public string DataState { get; set; } //New/Posted/Edit
-        //khi handhelp quet barcode thi data status = new
-        //khi push data len BackEnd thanh cong thi tra ve danh sach barcode voi trang thai la true/false
-        //can cu vao do de update vao local DB= Posted
+        public string DataState { get; set; } 
+        
+        //New/Posted/Edit                                              
+        //khi handhelp quet barcode thi data status = new                                              
+        //khi push data len BackEnd thanh cong thi tra ve danh sach barcode voi trang thai la true/false                                              
+        //can cu vao do de update vao local DB= Posted                                              
         //khi hand-helo sua data , data chuyen trang thai POSTED=>Edit (New thi kg co thay doi)
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }

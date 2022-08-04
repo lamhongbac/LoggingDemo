@@ -7,6 +7,23 @@
             <Label Text="Shelf label is part of stock information!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+            <StackLayout Orientation="Vertical">
+
+                <Label Text="BarCode" FontSize="Medium" />
+                <Entry x:Name="scanResultText" Text="{Binding BarCode, Mode=TwoWay}" />
+
+                <Label Text="Name" FontSize="Medium" />
+                <Entry Text="{Binding Name, Mode=TwoWay}" FontSize="Medium" />
+
+                <Label Text="Unit" FontSize="Medium" />
+                <Editor Text="{Binding Unit, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+
+
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                    <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -26,24 +26,31 @@ namespace MSAMobApp.Data
         /// <param name="db"></param>
         /// <param name="userID"></param>
         /// <param name="barcode"></param>
-        public async static Task AddStock(string userID, string barcode)
+        public async static Task AddStock(StockTrans stock)
         {
             await Init();
-            var stock = new StockTrans()
-            {
-                BarCode = barcode,
-                DataState = EDataState.New.ToString(),
-                Direction = "In",
-                ID = Guid.NewGuid(),
-                Quantity = 1,
-                ScanDateTimes = DateTime.Now,
-                SelfCode = "SDemo",
-                UserID = userID,
-                WHCode = "WDemo"
-
-
-            };
             await database.InsertAsync(stock);
+            var stockSample = await GetStockISampletemAsync(stock.BarCode);
+
+            if (stockSample == null)
+            {
+                StockSample newStockSample = new
+                     StockSample()
+                {
+                    BarCode = stock.BarCode,
+                    CreatedBy = "Demo",
+                    CreatedDate = DateTime.Now,
+                    DataState = EDataState.New.ToString(),
+                    ID = Guid.NewGuid(),
+                    Name = string.Empty,
+                    Unit = string.Empty,
+                    ModifiedBy = "Demo",
+                    ModifiedDate = DateTime.Now
+                };
+
+                await AddStockSample(newStockSample);
+
+            }
             //Console.WriteLine("{0} == {1}", stock.BarCode, stock.ID);
         }
         #region stockSample
@@ -59,7 +66,12 @@ namespace MSAMobApp.Data
             return stockSample;
         }
 
-
+        public async static Task<StockSample> GetStockISampletemAsync(string barcode)
+        {
+            await Init();
+            var stockSample = await database.Table<StockSample>().Where(x => x.BarCode == barcode).FirstOrDefaultAsync();
+            return stockSample;
+        }
         /// <summary>
         /// Add one Item stockSample by scaning barcode, add name and unit
         /// </summary>

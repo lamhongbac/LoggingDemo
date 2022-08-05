@@ -1,22 +1,55 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MSAMobApp.Views.StockInPage">
+             x:Class="MSAMobApp.Views.StockInPage"
+             xmlns:model="clr-namespace:MSAMobApp.Models"
+             xmlns:vm="clr-namespace:MSAMobApp.ViewModels"
+             >
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Shelf label is part of stock information!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+           
             <StackLayout Orientation="Vertical">
+                <!--<Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Grid.Row="0" Grid.Column="0" Text="UserID" FontSize="Medium" />
+                    <Entry IsReadOnly="True" Grid.Row="0" Grid.Column="1" x:Name="txtUserID" Text="{Binding UserID}" />
 
+                    <Label Grid.Row="0" Grid.Column="2" Text="Ngày Quét" FontSize="Medium" />
+                    <Entry IsReadOnly="True" Grid.Row="0" Grid.Column="3" x:Name="txtScanDate" Text="{Binding ScanDate}" />
+                    
+                    <Label Grid.Row="1" Grid.Column="0" Text="Mã kho" FontSize="Medium" />
+                    <Entry IsReadOnly="True" Grid.Row="1" Grid.Column="1" x:Name="txtWHCode" 
+                           Text="{Binding WHCode}" />
+                    <Label Grid.Row="1" Grid.Column="2" Text="Mã Kệ" FontSize="Medium" />
+                    <Entry IsReadOnly="True" Grid.Row="1" Grid.Column="3" x:Name="txtShelfCode" 
+                           Text="{Binding ShelfCode}" />
+
+                    <Label Grid.Row="2" Grid.Column="0" Text="Số phiếu" FontSize="Medium" />
+                    <Entry IsReadOnly="True" Grid.Row="1" Grid.Column="1" x:Name="txtDocNo" 
+                           Text="{Binding DocNo, Mode=TwoWay}" />
+
+                    
+                </Grid>-->
+                
                 <Label Text="BarCode" FontSize="Medium" />
-                <Entry x:Name="scanResultText" Text="{Binding BarCode, Mode=TwoWay}" />
+                <Entry x:Name="scanResultText" Text="{Binding BarCode, Mode=TwoWay}" TextChanged="scanResultText_TextChanged" />
 
                 <Label Text="Name" FontSize="Medium" />
-                <Entry Text="{Binding Name, Mode=TwoWay}" FontSize="Medium" />
+                <Entry IsReadOnly="True" Text="{Binding Name, Mode=TwoWay}" FontSize="Medium" />
 
                 <Label Text="Unit" FontSize="Medium" />
-                <Editor Text="{Binding Unit, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+                <Editor IsReadOnly="True" Text="{Binding Unit, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
 
 
                 <StackLayout Orientation="Horizontal">
@@ -24,6 +57,57 @@
                     <Button Text="Save" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
                 </StackLayout>
             </StackLayout>
+            <!--Command="{Binding LoadItemsCommand}"
+            IsRefreshing="{Binding IsBusy, Mode=TwoWay}"-->
+            <!--<RefreshView                  
+                 
+                x:DataType="vm:NewStockReceiveViewModel">
+
+                --><!--SelectionChanged="OnCollectionViewSelectionChanged"--><!--
+                <CollectionView ItemsSource="{Binding StockTrans}"
+                            ItemsLayout="VerticalGrid,1"
+                            EmptyView="No Items Selected"                            
+                            SelectionMode="Single"  >
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:StockTrans">
+                            <Grid Padding="10">
+                                
+                                --><!--<Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>--><!--
+                                
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    --><!--<ColumnDefinition Width="2*"/>--><!--
+                                </Grid.ColumnDefinitions>
+
+                                --><!--Source="{Binding ImageUrl}"--><!--
+                                <Label  Grid.Row="0" Grid.Column="0" 
+                                        Text="{Binding BarCode}" FontAttributes="Bold" 
+                                        FontSize="Large"/>
+
+                                --><!--Name (quatity/12000)"--><!--
+                                <Label  Grid.Row="0" Grid.Column="1" 
+                                        Text="{Binding ScanDateTimes}" FontAttributes="Bold" 
+                                        FontSize="Large"/>
+
+                                <Label  Grid.Row="0" Grid.Column="2" 
+                                        Text="{Binding Quantity}" FontAttributes="Bold" 
+                                        FontSize="Large"/>
+
+                                --><!--<Button Grid.Column="3"  Grid.RowSpan="2" Text="Del"/>--><!--
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </RefreshView>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

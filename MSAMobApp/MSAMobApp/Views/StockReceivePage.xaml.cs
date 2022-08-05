@@ -11,18 +11,13 @@ using Xamarin.Forms.Xaml;
 namespace MSAMobApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StockInPage : ContentPage
+    public partial class StockReceivePage : ContentPage
     {
         NewStockReceiveViewModel _viewModel;
-        public StockInPage()
+        public StockReceivePage()
         {
             InitializeComponent();
             this.BindingContext = _viewModel = new NewStockReceiveViewModel();
-        }
-
-        private void scanResultText_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
     }
 }

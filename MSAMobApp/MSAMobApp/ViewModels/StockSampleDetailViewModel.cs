@@ -35,7 +35,7 @@ namespace MSAMobApp.ViewModels
         {
             try
             {
-                var item = await MSADataBase.GetStockISampletemAsync(itemId);
+                var item = await MSADataBase.GetMasterStockItemAsync(itemId);
                 ID = item.ID;
                 Name = item.Name;
                 Unit = item.Unit;

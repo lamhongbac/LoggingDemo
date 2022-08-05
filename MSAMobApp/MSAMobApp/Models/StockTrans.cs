@@ -18,7 +18,7 @@ namespace MSAMobApp.Models
         public string TCode { get; set; } //transaction Code
         public string Direction { get; set; } //In/Out
         public string WHCode { get; set; } //Ma kh0
-        public string SelfCode { get; set; } //Ma ke
+        public string ShelfCode { get; set; } //Ma ke
         
         public string BarCode { get; set; }
         public DateTime ScanDateTimes { get; set; }

@@ -36,7 +36,7 @@ namespace MSAMobApp.Services
                 ID = Guid.NewGuid(),
                 Quantity = 1,
                 ScanDateTimes = DateTime.Now,
-                SelfCode = "SDemo",
+                ShelfCode = "SDemo",
                 UserID = userID,
                 WHCode = "WDemo"
 

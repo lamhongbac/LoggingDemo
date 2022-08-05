@@ -110,8 +110,8 @@
     </FlyoutItem>-->
 
     
-    <FlyoutItem Title="OneStockReceivePage" Icon="icon_feed.png">
-        <ShellContent Route="Stock Receive" ContentTemplate="{DataTemplate local:OneStockReceivePage}" />
+    <FlyoutItem Title="Nhập kho" Icon="icon_feed.png">
+        <ShellContent Route="StockReceivePage" ContentTemplate="{DataTemplate local:StockReceivePage}" />
     </FlyoutItem>
     <FlyoutItem Title="Batch Stock Receive" Icon="icon_feed.png">
         <ShellContent Route="BatchStockReceivePage" ContentTemplate="{DataTemplate local:BatchStockReceivePage}" />
@@ -132,8 +132,8 @@
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
         
-    </MenuItem>
-    <MenuItem Text="Scan Barcode Demo" StyleClass="MenuItemLayoutStyle" Clicked="MenuItem_Clicked">
+    <!--</MenuItem>
+    <MenuItem Text="Scan Barcode Demo" StyleClass="MenuItemLayoutStyle" Clicked="MenuItem_Clicked">-->
 
     </MenuItem>
 

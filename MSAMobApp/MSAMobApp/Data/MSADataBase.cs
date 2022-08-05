@@ -30,7 +30,7 @@ namespace MSAMobApp.Data
         {
             await Init();
             await database.InsertAsync(stock);
-            var stockSample = await GetStockISampletemAsync(stock.BarCode);
+            var stockSample = await GetMasterStockItemAsync(stock.BarCode);
 
             if (stockSample == null)
             {
@@ -59,14 +59,14 @@ namespace MSAMobApp.Data
         /// </summary>
         /// <param name="itemId"></param>
         /// <returns></returns>
-        public async static Task<StockSample> GetStockISampletemAsync(Guid itemId)
+        public async static Task<StockSample> GetMasterStockItemAsync(Guid itemId)
         {
             await Init();
             var stockSample = await database.Table<StockSample>().Where(x => x.ID == itemId).FirstOrDefaultAsync();
             return stockSample;
         }
 
-        public async static Task<StockSample> GetStockISampletemAsync(string barcode)
+        public async static Task<StockSample> GetMasterStockItemAsync(string barcode)
         {
             await Init();
             var stockSample = await database.Table<StockSample>().Where(x => x.BarCode == barcode).FirstOrDefaultAsync();
@@ -98,7 +98,8 @@ namespace MSAMobApp.Data
         public async static Task<int> UpdateAsyncStockSample(string userID,Guid itemID,
             string name, string unit)
         {
-            StockSample item = await GetStockISampletemAsync(itemID);
+            await Init();
+            StockSample item = await GetMasterStockItemAsync(itemID);
             item.Name = name; 
             item.Unit = unit;
             item.ModifiedBy = userID;

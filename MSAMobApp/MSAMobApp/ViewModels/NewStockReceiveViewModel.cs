@@ -21,7 +21,7 @@ namespace MSAMobApp.ViewModels
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
-            //StockTrans = new ObservableCollection<StockTrans>();
+            StockTransCol = new ObservableCollection<StockTrans>();
             DocNo = UserID+DateTime.Now.ToString("ddmmhhss");
         }
         private string docNo;
@@ -72,7 +72,7 @@ namespace MSAMobApp.ViewModels
             return validItem && isExisted;
         }
 
-       // public ObservableCollection<StockTrans> StockTrans { get; }
+        public ObservableCollection<StockTrans> StockTransCol { get; }
         
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
@@ -105,18 +105,19 @@ namespace MSAMobApp.ViewModels
             };
 
             //await MSADataBase.AddStock(newItem);
-          //  StockTrans.Add(newItem);
+            StockTransCol.Add(newItem);
 
             // This will pop the current page off the navigation stack
             //await Shell.Current.GoToAsync("..");
-            BarCode = "";
+            BarCode = "";Quantity = 1;
 
         }
 
         private async Task<bool> ExistBarCode(string barCode)
         {
-            StockSample item=await MSADataBase.GetMasterStockItemAsync(barCode);
-            return item != null;
+            //StockSample item=await MSADataBase.GetMasterStockItemAsync(barCode);
+            //return item != null;
+            return true;
         }
     }
 }

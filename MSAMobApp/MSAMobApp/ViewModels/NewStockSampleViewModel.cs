@@ -27,8 +27,9 @@ namespace MSAMobApp.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(name)
-                && !String.IsNullOrWhiteSpace(unit);
+            return !String.IsNullOrWhiteSpace(BarCode)&&
+                !String.IsNullOrWhiteSpace(Name)
+                && !String.IsNullOrWhiteSpace(Unit);
         }
         public string BarCode
         {
@@ -61,19 +62,25 @@ namespace MSAMobApp.ViewModels
             StockSample newItem = new StockSample()
             {
                 ID = Guid.NewGuid(),
-                BarCode = BarCode,
+                BarCode = BarCode.Trim(),
                 Name = Name,
                 Unit = Unit, CreatedBy = "Demo",ModifiedBy="Demo",
                 CreatedDate=DateTime.Now, ModifiedDate= DateTime.Now ,
                  DataState=EDataState.New.ToString(),
             };
 
-            await MSADataBase.AddStockSample(newItem);
+         int result=   await MSADataBase.AddStockSample(newItem);
 
             // This will pop the current page off the navigation stack
             //await Shell.Current.GoToAsync("..");
-            BarCode = ""; Name = ""; Unit="";
-
+            if (result > 0)
+            {
+                BarCode = ""; Name = ""; Unit = "";
+            }
+            else
+            {
+                
+            }
         }
     }
 }

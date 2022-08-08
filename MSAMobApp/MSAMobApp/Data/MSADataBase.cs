@@ -78,13 +78,13 @@ namespace MSAMobApp.Data
         /// <param name="userID"></param>
         /// <param name="barcode"></param>
         /// <returns></returns>
-        public async static Task AddStockSample(StockSample stockSample)
+        public async static Task<int> AddStockSample(StockSample stockSample)
         {
             await Init();
             stockSample.CreatedDate = DateTime.Now;
             stockSample.ModifiedDate = DateTime.Now;           
             // await database.InsertAsync(stock);
-            await database.InsertAsync(stockSample);
+           return await database.InsertAsync(stockSample);
 
         }
         /// <summary>

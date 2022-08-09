@@ -8,16 +8,21 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+/// <summary>
+/// Form Nhap new master code 
+/// Usage: khi co sp moi chua co
+/// 
+/// </summary>
 namespace MSAMobApp.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class DemoPage : ContentPage
     {
-        NewStockSampleViewModel _viewModel;
+        NewStockItemViewModel _viewModel;
         public DemoPage()
         {
             InitializeComponent();           
-            BindingContext = _viewModel = new NewStockSampleViewModel();
+            BindingContext = _viewModel = new NewStockItemViewModel();
             this.scanResultText.Focus();
         }
         protected async override void OnAppearing()

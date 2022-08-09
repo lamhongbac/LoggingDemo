@@ -17,21 +17,18 @@
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     
-                    <Label Grid.Row="0" Grid.Column="0" Text="UserID" FontSize="Medium" />
-                    <Entry IsReadOnly="True" Grid.Row="0" Grid.Column="1" x:Name="txtUserID" Text="{Binding UserID}" />
+                
+                <Entry Placeholder="User ID" IsReadOnly="True" Grid.Row="0" Grid.Column="1" x:Name="txtUserID" Text="{Binding UserID}" />
 
-                    <Label Grid.Row="0" Grid.Column="2" Text="Ngày Quét" FontSize="Medium" />
-                    <Entry IsReadOnly="True" Grid.Row="0" Grid.Column="3" x:Name="txtScanDate" Text="{Binding ScanDate}" />
+                <Entry Placeholder="Ngày Quét" IsReadOnly="True" Grid.Row="0" Grid.Column="3" x:Name="txtScanDate" Text="{Binding ScanDate}" />
                     
-                    <Label Grid.Row="1" Grid.Column="0" Text="Mã kho" FontSize="Medium" />
-                    <Entry IsReadOnly="True" Grid.Row="1" Grid.Column="1" x:Name="txtWHCode" 
+                <Entry Placeholder="Mã kho" IsReadOnly="True" Grid.Row="1" Grid.Column="1" x:Name="txtWHCode" 
                            Text="{Binding WhCode}" />
-                    <Label Grid.Row="1" Grid.Column="2" Text="Mã Kệ" FontSize="Medium" />
-                    <Entry IsReadOnly="True" Grid.Row="1" Grid.Column="3" x:Name="txtShelfCode" 
+                <Entry Placeholder="Mã Kệ" IsReadOnly="True" Grid.Row="1" Grid.Column="3" x:Name="txtShelfCode" 
                            Text="{Binding ShelfCode}" />
 
                     <Label Grid.Row="2" Grid.Column="0" Text="Số phiếu" FontSize="Medium" />
-                    <Entry IsReadOnly="True" Grid.Row="2" Grid.Column="1" x:Name="txtDocNo" 
+                <Entry Placeholder="Số phiếu" IsReadOnly="True" Grid.Row="2" Grid.Column="1" x:Name="txtDocNo" 
                            Text="{Binding DocNo, Mode=TwoWay}"  MinimumWidthRequest="50"
                          />
 

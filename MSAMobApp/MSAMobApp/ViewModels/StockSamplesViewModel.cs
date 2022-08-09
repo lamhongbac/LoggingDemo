@@ -13,7 +13,7 @@ namespace MSAMobApp.ViewModels
     ///  Danh sach barcode da save vao CSDL
     ///  cung cap cho view StockMaster Maintain
     /// </summary>
-    public class StockSamplesViewModel : BaseViewModel
+    public class StockItemsViewModel : BaseViewModel
     {
         private StockSample _selectedItem;
 
@@ -22,7 +22,7 @@ namespace MSAMobApp.ViewModels
         public Command AddItemCommand { get; }
         public Command<StockSample> ItemTapped { get; }
 
-        public StockSamplesViewModel()
+        public StockItemsViewModel()
         {
             Title = "Browse";
             Items = new ObservableCollection<StockSample>();
@@ -74,7 +74,7 @@ namespace MSAMobApp.ViewModels
 
         private async void OnAddItem(object obj)
         {
-            await Shell.Current.GoToAsync(nameof(DemoPage));
+            await Shell.Current.GoToAsync(nameof(NewStockItem));
         }
 
         async void OnItemSelected(StockSample item)

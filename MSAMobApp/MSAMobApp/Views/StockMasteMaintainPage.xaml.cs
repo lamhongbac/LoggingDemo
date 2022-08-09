@@ -18,11 +18,11 @@ namespace MSAMobApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StockMasteMaintainPage : ContentPage
     {
-        StockSamplesViewModel _viewModel;
+        StockItemsViewModel _viewModel;
         public StockMasteMaintainPage()
         {
             InitializeComponent();
-            BindingContext = _viewModel=new StockSamplesViewModel();
+            BindingContext = _viewModel=new StockItemsViewModel();
         }
         protected override void OnAppearing()
         {

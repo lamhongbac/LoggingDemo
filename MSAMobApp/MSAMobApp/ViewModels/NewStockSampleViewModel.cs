@@ -9,15 +9,15 @@ using Xamarin.Forms;
 namespace MSAMobApp.ViewModels
 {
     /// <summary>
-    /// model for view scan sample barcode
+    /// model for view scan new stock item barcode
     /// </summary>
-    public class NewStockSampleViewModel : BaseViewModel
+    public class NewStockItemViewModel : BaseViewModel
     {
         private string barcode;
         private string name;
         private string unit;
 
-        public NewStockSampleViewModel()
+        public NewStockItemViewModel()
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);

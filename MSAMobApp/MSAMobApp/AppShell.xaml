@@ -111,7 +111,12 @@
 
     
     <FlyoutItem Title="Nhập kho" Icon="icon_feed.png">
-        <ShellContent Route="StockReceivePage" ContentTemplate="{DataTemplate local:StockReceivePage}" />
+        <Tab Title="Nhập kho">
+            <ShellContent Route="StockReceivePage" ContentTemplate="{DataTemplate local:StockReceivePage}" />
+        </Tab>
+        <Tab Title="Item mới">
+            <ShellContent Route="NewStockItem" ContentTemplate="{DataTemplate local:NewStockItem}" />
+        </Tab>
     </FlyoutItem>
     <FlyoutItem Title="Batch Stock Receive" Icon="icon_feed.png">
         <ShellContent Route="BatchStockReceivePage" ContentTemplate="{DataTemplate local:BatchStockReceivePage}" />

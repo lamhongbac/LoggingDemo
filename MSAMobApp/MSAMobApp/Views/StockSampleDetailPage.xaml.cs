@@ -15,8 +15,9 @@ namespace MSAMobApp.Views
     {
         public StockSampleDetailPage()
         {
+            StockSampleDetailViewModel _viewModel;
             InitializeComponent();
-            BindingContext = new StockSampleDetailViewModel();
+            BindingContext = _viewModel=new StockSampleDetailViewModel();
         }
     }
 }

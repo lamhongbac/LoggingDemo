@@ -10,7 +10,17 @@ namespace MSAMobApp.ViewModels
     [QueryProperty(nameof(ID), nameof(ID))]
     public class StockSampleDetailViewModel : BaseViewModel
     {
-        public Guid ID { get; set; }
+        private Guid Id;
+        public Guid ID
+        {
+            get => Id;
+            set
+            {
+                SetProperty(ref Id, value);
+                LoadItemId(Id);
+            }
+        }
+
         public string barCode;
         public string BarCode
         {
@@ -30,7 +40,6 @@ namespace MSAMobApp.ViewModels
             set => SetProperty(ref name, value);
         }
       
-
         public async void LoadItemId(Guid itemId)
         {
             try

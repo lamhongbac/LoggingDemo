@@ -81,8 +81,10 @@ namespace MSAMobApp.ViewModels
         {
             if (item == null)
                 return;
-
             // This will push the ItemDetailPage onto the navigation stack
+            
+            string id = item.ID.ToString();
+
             await Shell.Current.GoToAsync($"{nameof(StockSampleDetailPage)}?{nameof(StockSampleDetailViewModel.ID)}={item.ID}");
         }
     }

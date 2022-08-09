@@ -4,7 +4,7 @@
              x:Class="MSAMobApp.Views.HomePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to MSA Business Application ECO System"
+            <Label Text="FnB Business Application ECO System"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
         </StackLayout>

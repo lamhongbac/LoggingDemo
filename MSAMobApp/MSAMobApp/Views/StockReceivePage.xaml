@@ -11,26 +11,38 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="2*"/>
                     </Grid.ColumnDefinitions>
-                    
-                
-                <Entry Placeholder="User ID" IsReadOnly="True" Grid.Row="0" Grid.Column="1" x:Name="txtUserID" Text="{Binding UserID}" />
 
-                <Entry Placeholder="Ngày Quét" IsReadOnly="True" Grid.Row="0" Grid.Column="3" x:Name="txtScanDate" Text="{Binding ScanDate}" />
-                    
-                <Entry Placeholder="Mã kho" IsReadOnly="True" Grid.Row="1" Grid.Column="1" x:Name="txtWHCode" 
-                           Text="{Binding WhCode}" />
-                <Entry Placeholder="Mã Kệ" IsReadOnly="True" Grid.Row="1" Grid.Column="3" x:Name="txtShelfCode" 
-                           Text="{Binding ShelfCode}" />
 
-                    <Label Grid.Row="2" Grid.Column="0" Text="Số phiếu" FontSize="Medium" />
-                <Entry Placeholder="Số phiếu" IsReadOnly="True" Grid.Row="2" Grid.Column="1" x:Name="txtDocNo" 
-                           Text="{Binding DocNo, Mode=TwoWay}"  MinimumWidthRequest="50"
-                         />
+                <Label Grid.Row="0" Grid.Column="0" Text="UserID" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
+                <Entry Grid.Row="0" Grid.Column="1" Placeholder="User ID" IsReadOnly="True" x:Name="txtUserID" 
+                       FontSize="Medium"   Text="{Binding UserID}" 
+                       VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
+
+                <Label Grid.Row="0" Grid.Column="2" Text="Ngày Quét" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
+                <Entry Grid.Row="0" Grid.Column="3" Placeholder="Ngày Quét" IsReadOnly="True" x:Name="txtScanDate" 
+                       FontSize="Medium"  Text="{Binding ScanDate}"
+                       VerticalOptions="Center" HorizontalOptions="CenterAndExpand"  />
+
+                <Label Grid.Row="1" Grid.Column="0" Text="Mã kho" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
+                <Entry Grid.Row="1" Grid.Column="1" Placeholder="Mã kho" IsReadOnly="True" x:Name="txtWHCode" 
+                      FontSize="Medium"     Text="{Binding WhCode}"
+                        VerticalOptions="Center" HorizontalOptions="CenterAndExpand"  />
+
+                <Label Grid.Row="1" Grid.Column="2" Text="Mã Kệ" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
+                <Entry Grid.Row="1" Grid.Column="3" Placeholder="Mã Kệ" IsReadOnly="True"  x:Name="txtShelfCode" 
+                           Text="{Binding ShelfCode}" 
+                       VerticalOptions="Center" HorizontalOptions="CenterAndExpand"  />
+
+                <Label Grid.Row="2" Grid.Column="0" Text="Số phiếu" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" 
+                       Grid.ColumnSpan="2"/>
+                <Entry Grid.Row="2" Grid.Column="2" Placeholder="Số phiếu" IsReadOnly="True" x:Name="txtDocNo" 
+                           Text="{Binding DocNo, Mode=TwoWay}" Grid.ColumnSpan="2" 
+                        VerticalOptions="Center" HorizontalOptions="CenterAndExpand"   />
 
                     
                 </Grid>

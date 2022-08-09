@@ -15,12 +15,14 @@ namespace MSAMobApp
             //ScanSampleBarCodePage
             Routing.RegisterRoute(nameof(ScanSampleBarCodePage), typeof(ScanSampleBarCodePage));
             //DemoPage
-            Routing.RegisterRoute(nameof(DemoPage), typeof(DemoPage));
+            Routing.RegisterRoute(nameof(NewStockItem), typeof(NewStockItem));
             //
             Routing.RegisterRoute(nameof(OneStockReceivePage), typeof(OneStockReceivePage));
             Routing.RegisterRoute(nameof(BatchStockReceivePage), typeof(BatchStockReceivePage));
 
             //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            //StockSampleDetailViewModel
+            Routing.RegisterRoute(nameof(StockSampleDetailPage), typeof(StockSampleDetailPage));
 
         }
 

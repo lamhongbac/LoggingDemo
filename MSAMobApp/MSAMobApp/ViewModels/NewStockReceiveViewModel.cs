@@ -21,7 +21,7 @@ namespace MSAMobApp.ViewModels
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
-            StockTransCol = new ObservableCollection<StockTrans>();
+            StockTransDetailCol = new ObservableCollection<StockTrans>();
             DocNo = UserID+DateTime.Now.ToString("ddmmhhss");
         }
         private string docNo;
@@ -30,7 +30,7 @@ namespace MSAMobApp.ViewModels
             get => docNo;
             set => SetProperty(ref docNo, value);
         }
-        private string direction = "IN";
+        //private string direction = "IN";
 
         private string shelfCode = "ShDedmo";
         public string ShelfCode
@@ -72,7 +72,7 @@ namespace MSAMobApp.ViewModels
             return validItem && isExisted;
         }
 
-        public ObservableCollection<StockTrans> StockTransCol { get; }
+        public ObservableCollection<StockTransDetail> StockTransDetailCol { get; }
         
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
@@ -82,30 +82,33 @@ namespace MSAMobApp.ViewModels
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }
-
+        //BarCode = BarCode,
+        //        Direction = direction,
+        //        Quantity = 1,
+        //        ScanDateTimes = DateTime.Now, WHCode = whCode,
         private  void OnSave()
         {
 
             StockTrans newItem = new StockTrans()
             {
                 ID = Guid.NewGuid(),
-                BarCode = BarCode,
-                Direction = direction,
-                Quantity = 1,
-                ScanDateTimes = DateTime.Now,
+                
                 ShelfCode = shelfCode,
                 TCode = ETCode.IR.ToString(),
                 UserID = userID,
-                WHCode = whCode,
+               
                 CreatedBy = userID,
                 ModifiedBy = userID,
                 CreatedDate = DateTime.Now,
                 ModifiedDate = DateTime.Now,
                 DataState = EDataState.New.ToString(),
             };
+            StockTransDetail stockTransDetail= new StockTransDetail()
+            {
 
+            }
             //await MSADataBase.AddStock(newItem);
-            StockTransCol.Add(newItem);
+            StockTransDetailCol.Add(stockTransDetail);
 
             // This will pop the current page off the navigation stack
             //await Shell.Current.GoToAsync("..");
@@ -115,9 +118,9 @@ namespace MSAMobApp.ViewModels
 
         private async Task<bool> ExistBarCode(string barCode)
         {
-            //StockSample item=await MSADataBase.GetMasterStockItemAsync(barCode);
-            //return item != null;
-            return true;
+            StockSample item=await MSADataBase.GetMasterStockItemAsync(barCode);
+            return item != null;
+            //return true;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace MSAMobApp.Models
         public string Number { get; set; } //so chung tu
         public string UserID { get; set; } //login user
         public string TCode { get; set; } //transaction Code
-        //public string Direction { get; set; } //In/Out
+        public string Description { get; set; } //Notes
         public string StoreNumber { get; set; } //Ma kho or Ma WH
         public string ShelfCode { get; set; } //Ma ke
         

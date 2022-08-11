@@ -59,7 +59,7 @@
 
             <StackLayout Orientation="Horizontal">
                 <!--<Button Text="Cancel" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>-->
-                <Button Text="Continue" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Add and Continue" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

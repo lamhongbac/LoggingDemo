@@ -88,26 +88,38 @@ namespace MSAMobApp.Data
 
         }
         /// <summary>
-        /// Update stock sample
+        /// Update stock item
+        /// Unit/Name only
+        /// 
         /// </summary>
         /// <param name="userID"></param>
         /// <param name="itemID"></param>
         /// <param name="name"></param>
         /// <param name="unit"></param>
         /// <returns></returns>
-        public async static Task<int> UpdateAsyncStockSample(string userID,Guid itemID,
-            string name, string unit)
+        public async static Task<int> UpdateAsyncStockSample(StockSample updated_item)
         {
             await Init();
-            StockSample item = await GetMasterStockItemAsync(itemID);
-            item.Name = name; 
-            item.Unit = unit;
-            item.ModifiedBy = userID;
-            item.ModifiedDate = DateTime.Now;
-            if (item.DataState == EDataState.Posted.ToString())
-                item.DataState = EDataState.Edited.ToString(); ;
+            StockSample item = await GetMasterStockItemAsync(updated_item.ID);
 
-            return await database.UpdateAsync(item);
+            if (item != null)
+            {
+                item.ModifiedDate = DateTime.Now;
+                if (item.DataState == EDataState.Posted.ToString())
+                    item.DataState = EDataState.Edited.ToString(); 
+
+                if (item.DataState== EDataState.New.ToString())
+                    //do notthing;
+
+                item.Name = updated_item.Name;
+                item.Unit = updated_item.Unit;
+
+                return await database.UpdateAsync(item);
+            }
+            else
+            {
+                return -1;
+            }
         }
         public static async Task<IEnumerable<StockSample>> GetStockSamples()
         {

@@ -95,7 +95,7 @@
         </Tab>
     </FlyoutItem>
 
-    <FlyoutItem Title="Setting" Icon="icon_about.png">
+    <FlyoutItem Title="App Setting" Icon="icon_about.png">
         <Tab Title="Stock Master">
             <ShellContent Title="Stock Master" Route="StockMasteMaintainPage" ContentTemplate="{DataTemplate local:StockMasteMaintainPage}" />
         </Tab>

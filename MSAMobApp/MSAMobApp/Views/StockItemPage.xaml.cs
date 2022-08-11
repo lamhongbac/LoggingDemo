@@ -12,19 +12,15 @@ namespace MSAMobApp.Views
 {
     [QueryProperty(nameof(ID), "StockID")]
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class StockSampleDetailPage : ContentPage
+    public partial class StockItemPage : ContentPage
     {
-    
-        public StockSampleDetailPage()
-        {           
-            
+        public StockItemPage()
+        {
             InitializeComponent();
-            
         }
-       
         public string ID
         {
-         
+
             set
             {
                 StockItemViewModel _viewModel;

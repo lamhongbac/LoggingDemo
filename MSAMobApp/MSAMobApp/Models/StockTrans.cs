@@ -14,16 +14,21 @@ namespace MSAMobApp.Models
     {
         [PrimaryKey]
         public Guid ID { get; set; }
+        public string Number { get; set; } //so chung tu
         public string UserID { get; set; } //login user
         public string TCode { get; set; } //transaction Code
-        public string Direction { get; set; } //In/Out
-        public string WHCode { get; set; } //Ma kh0
+        //public string Direction { get; set; } //In/Out
+        public string StoreNumber { get; set; } //Ma kho or Ma WH
         public string ShelfCode { get; set; } //Ma ke
         
-        public string BarCode { get; set; }
-        public DateTime ScanDateTimes { get; set; }
-        public int Quantity { get; set; }
-        public string DataState { get; set; } 
+        //public string BarCode { get; set; }
+        //public DateTime ScanDateTimes { get; set; }
+        //public int Quantity { get; set; }
+        public string DataState { get; set; }  
+        //theo doi trang thai da dua len Central DB hay chua
+        //New: chua dua len=> Posted
+        //New->edit--> posted
+        //neu da POSTED: thi kg the sua
         
         //New/Posted/Edit                                              
         //khi handhelp quet barcode thi data status = new                                              

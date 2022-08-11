@@ -10,6 +10,7 @@ using Xamarin.Forms;
 namespace MSAMobApp.ViewModels
 {
     /// <summary>
+    /// ViewName:StockMasteMaintainPage
     ///  Danh sach barcode da save vao CSDL
     ///  cung cap cho view StockMaster Maintain
     /// </summary>
@@ -85,7 +86,7 @@ namespace MSAMobApp.ViewModels
             
             string id = item.ID.ToString();
 
-            await Shell.Current.GoToAsync($"{nameof(StockSampleDetailPage)}?{nameof(StockSampleDetailViewModel.ID)}={item.ID}");
+            await Shell.Current.GoToAsync($"{nameof(StockItemPage)}?{"StockID"}={id}");
         }
     }
 }

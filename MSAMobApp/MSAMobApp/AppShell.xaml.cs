@@ -22,7 +22,7 @@ namespace MSAMobApp
 
             //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             //StockSampleDetailViewModel
-            Routing.RegisterRoute(nameof(StockSampleDetailPage), typeof(StockSampleDetailPage));
+            Routing.RegisterRoute(nameof(StockItemPage), typeof(StockItemPage));
 
         }
 

@@ -118,7 +118,7 @@ namespace MSAMobApp.ViewModels
 
         private async Task<bool> ExistBarCode(string barCode)
         {
-            StockSample item=await MSADataBase.GetMasterStockItemAsync(barCode);
+            MobStockMasterItem item=await MSADataBase.GetMasterStockItemAsync(barCode);
             return item != null;
             //return true;
         }

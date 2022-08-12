@@ -39,5 +39,6 @@ namespace MSAMobApp.Models
         public DateTime ModifiedDate { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
+        public List<StockTransDetail> StockDetails { get; set; }
     }
 }

@@ -59,7 +59,7 @@ namespace MSAMobApp.ViewModels
 
         private async void OnSave()
         {
-            StockSample newItem = new StockSample()
+            MobStockMasterItem newItem = new MobStockMasterItem()
             {
                 ID = Guid.NewGuid(),
                 BarCode = BarCode.Trim(),

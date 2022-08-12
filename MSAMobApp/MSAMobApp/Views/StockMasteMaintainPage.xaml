@@ -14,6 +14,7 @@
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="Sync" Command="{Binding SyncItemsCommand}" />
     </ContentPage.ToolbarItems>
     <RefreshView x:DataType="local:StockItemsViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
 
@@ -23,7 +24,7 @@
             
             <CollectionView.ItemTemplate>
             <DataTemplate>
-                    <Grid Padding="10" x:DataType="model:StockSample">
+                    <Grid Padding="10" x:DataType="model:MobStockMasterItem">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
                             

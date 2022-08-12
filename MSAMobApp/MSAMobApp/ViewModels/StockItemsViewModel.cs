@@ -1,5 +1,6 @@
 ﻿using MSAMobApp.Data;
 using MSAMobApp.Models;
+using MSAMobApp.Services;
 using MSAMobApp.Views;
 using System;
 using System.Collections.ObjectModel;
@@ -16,22 +17,24 @@ namespace MSAMobApp.ViewModels
     /// </summary>
     public class StockItemsViewModel : BaseViewModel
     {
-        private StockSample _selectedItem;
+        private MobStockMasterItem _selectedItem;
 
-        public ObservableCollection<StockSample> Items { get; }
+        public ObservableCollection<MobStockMasterItem> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<StockSample> ItemTapped { get; }
+        public Command SyncItemsCommand { get; }
+        public Command<MobStockMasterItem> ItemTapped { get; }
 
         public StockItemsViewModel()
         {
             Title = "Browse";
-            Items = new ObservableCollection<StockSample>();
+            Items = new ObservableCollection<MobStockMasterItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<StockSample>(OnItemSelected);
+            ItemTapped = new Command<MobStockMasterItem>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
+            SyncItemsCommand = new Command(OnSyncItems);
         }
 
         async Task ExecuteLoadItemsCommand()
@@ -41,7 +44,7 @@ namespace MSAMobApp.ViewModels
             try
             {
                 Items.Clear();
-                var items = await MSADataBase.GetStockSamples();
+                var items = await MSADataBase.GetStockMasterItems();
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -63,7 +66,7 @@ namespace MSAMobApp.ViewModels
             SelectedItem = null;
         }
 
-        public StockSample SelectedItem
+        public MobStockMasterItem SelectedItem
         {
             get => _selectedItem;
             set
@@ -77,8 +80,13 @@ namespace MSAMobApp.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(NewStockItem));
         }
-
-        async void OnItemSelected(StockSample item)
+        //OnSyncItems
+        private async void OnSyncItems(object obj)
+        {
+            StockMasterService stockMasterService = new StockMasterService();
+            stockMasterService.CreateStockItems(items)
+        }
+        async void OnItemSelected(MobStockMasterItem item)
         {
             if (item == null)
                 return;

@@ -35,7 +35,7 @@ namespace MSAMobApp.Views
             string barcode = scanResultText.Text.Trim();
             if (!string.IsNullOrEmpty(barcode))
             {
-                StockSample item = await MSADataBase.GetMasterStockItemAsync(barcode);
+                MobStockMasterItem item = await MSADataBase.GetMasterStockItemAsync(barcode);
                 if (item == null)
                 {
                     await App.Current.MainPage.DisplayAlert("Not exist  barcode,please declared", "BarCode check", "OK");

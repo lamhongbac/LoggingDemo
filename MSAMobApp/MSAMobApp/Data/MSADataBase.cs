@@ -16,7 +16,7 @@ namespace MSAMobApp.Data
         {
             if (database != null)
             {
-                database.CreateTableAsync<AppSetting>().Wait();
+               
                 return;
             }
             var databasePath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, dbName);
@@ -25,7 +25,7 @@ namespace MSAMobApp.Data
             database.CreateTableAsync<StockTrans>().Wait();
             database.CreateTableAsync<StockTransDetail>().Wait();
             database.CreateTableAsync<AppSetting>().Wait();
-
+            //database.CreateTableAsync<AppSetting>().Wait();
         }
         /// <summary>
         /// Xoa het cac bang de tao cau truc bang moi

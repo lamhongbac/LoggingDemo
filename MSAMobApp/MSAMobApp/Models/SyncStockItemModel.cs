@@ -6,6 +6,11 @@ namespace MSAMobApp.Models
 {
     public class SyncStockItemModel
     {
+        public SyncStockItemModel()
+        {
+            MobItems = new List<MobStockMasterItem>();
+
+        }
         /// <summary>
         /// client sycn date
         /// </summary>

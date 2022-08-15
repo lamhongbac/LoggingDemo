@@ -14,10 +14,13 @@ namespace MSAMobApp.Services
         private const string getStockMasterUrl = "";
         private const string updateStockMasterUrl = "";
         private const string createStockMasterUrl = "/api/StockMasterItem/CreateStockItems";
-
+        
         public static string BaseURL => baseURL;
         public static string GetStockMasterUrl  => getStockMasterUrl; 
         public static string UpdateStockMasterUrl => updateStockMasterUrl;
-        public static string CreateStockMasterUrl => createStockMasterUrl;               
+        public static string CreateStockMasterUrl => createStockMasterUrl;
+        //SyncStockItems
+        public static string SyncStockItems => "SyncStockItems";
+
     }
 }

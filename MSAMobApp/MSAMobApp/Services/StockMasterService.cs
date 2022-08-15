@@ -69,7 +69,7 @@ namespace MSAMobApp.Services
             };
 
 
-            string apiURL = ApiServices.CreateStockMasterUrl;
+            string apiURL = ApiServices.SyncStockItems;
             HttpClient client = new HttpClient();
             var json = JsonConvert.SerializeObject(postObject);
             var data = new StringContent(json, Encoding.UTF8, "application/json");

@@ -15,13 +15,17 @@ namespace MSAMobApp.Data
         public async static Task Init()
         {
             if (database != null)
+            {
+                database.CreateTableAsync<AppSetting>().Wait();
                 return;
+            }
             var databasePath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, dbName);
             database = new SQLiteAsyncConnection(databasePath);
             database.CreateTableAsync<MobStockMasterItem>().Wait();
             database.CreateTableAsync<StockTrans>().Wait();
             database.CreateTableAsync<StockTransDetail>().Wait();
-            
+            database.CreateTableAsync<AppSetting>().Wait();
+
         }
         /// <summary>
         /// Xoa het cac bang de tao cau truc bang moi
@@ -55,6 +59,18 @@ namespace MSAMobApp.Data
                 result = false;
             }
             return result;
+        }
+
+        public async static Task<AppSetting> GetLastSyncData(string group, string key)
+        {
+            await Init();
+            var appSetting = await database.Table<AppSetting>().Where(x => x.AppGroup == group && x.AppKey == key).FirstOrDefaultAsync();
+            return appSetting;
+        }
+
+        internal static Task UpdateSyncLastUpdateDate(DateTime lastSyncDate)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>

@@ -100,12 +100,10 @@ namespace MSAMobApp.ViewModels
         {
             StockMasterService stockMasterService = new StockMasterService();
 
-            List<MobStockMasterItem> toCreateItems = await MSADataBase.GetNewMasterStockItemAsync();
-            List<MobStockMasterItem>  created_items= await stockMasterService.CreateStockItems(toCreateItems);
+           var result= await stockMasterService.SyncStockItems();
 
             //createds.ForEach(x => x.SyncDate = DateTime.Now);
 
-          await  MSADataBase.UpdateSyncAsyncStockMasterItems(created_items);
         }
         async void OnItemSelected(MobStockMasterItem item)
         {

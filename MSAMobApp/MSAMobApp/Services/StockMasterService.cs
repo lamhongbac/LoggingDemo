@@ -1,4 +1,5 @@
-﻿using MSAMobApp.Models;
+﻿using MSAMobApp.Data;
+using MSAMobApp.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -45,8 +46,23 @@ namespace MSAMobApp.Services
         /// </summary>
         /// <param name="paraModel"></param>
         /// <returns></returns>
-        public async Task<List<MobStockMasterItem>> CreateStockItems(List<MobStockMasterItem> postObject)
+        public async Task<SyncMobStockItemResult> SyncStockItems()
         {
+            List<MobStockMasterItem> toCreateItems = await MSADataBase.GetNewMasterStockItemAsync();
+            AppSetting LastSyncData = await MSADataBase.GetLastSyncData("Sync","LastSyncDate");
+            DateTime LastSyncDate = DateTime.MinValue;
+            if (LastSyncData != null)
+            {
+                 LastSyncDate = Convert.ToDateTime(LastSyncData.AppValue);
+            }
+            
+            SyncStockItemModel postObject = new SyncStockItemModel()
+            {
+                LastSyncDate = LastSyncDate,
+                 MobItems= toCreateItems
+            };
+
+
             //HttpClientHelper<List<MobStockMasterItem>> httpClientHelper =
             //    new HttpClientHelper<List<MobStockMasterItem>>(ApiServices.BaseURL);
             string apiURL = ApiServices.CreateStockMasterUrl;
@@ -61,7 +77,11 @@ namespace MSAMobApp.Services
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                List<MobStockMasterItem> result = JsonConvert.DeserializeObject<List<MobStockMasterItem>>(content);
+                SyncMobStockItemResult result = JsonConvert.DeserializeObject<SyncMobStockItemResult>(content);
+                //update sync result to local
+                await MSADataBase.UpdateSyncAsyncStockMasterItems(result.ForMobileUpdate);
+                await MSADataBase.UpdateSyncLastUpdateDate(result.LastSyncDate);
+
                 return result;
             }
             else

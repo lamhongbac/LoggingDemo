@@ -18,7 +18,12 @@ namespace MSAMobApp.ViewModels
             get { return isBusy; }
             set { SetProperty(ref isBusy, value); }
         }
-
+        bool isRefreshing = false;
+        public bool IsRefreshing
+        {
+            get { return isRefreshing; }
+            set { SetProperty(ref isRefreshing, value); }
+        }
         string title = string.Empty;
         public string Title
         {

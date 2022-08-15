@@ -2,11 +2,11 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:MSAMobApp.ViewModels" xmlns:model="clr-namespace:MSAMobApp.Models"
              x:Class="MSAMobApp.Views.ListOfStockReceivePage">
-
-    <RefreshView x:DataType="local:NewStockReceiveViewModel" Command="{Binding LoadItemsCommand}" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+    <!--Command="{Binding LoadItemsCommand}"-->
+    <RefreshView x:DataType="local:NewStockReceiveViewModel" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
 
         <CollectionView x:Name="ItemsListView"
-                ItemsSource="{Binding StockTransCol}"
+                ItemsSource="{Binding StockTransDetailCol}"
                 SelectionMode="None">
 
             <CollectionView.ItemTemplate>
@@ -28,14 +28,7 @@
                             Style="{DynamicResource ListItemTextStyle}" 
                             FontSize="16" />
 
-                        <Label Grid.Column="1" 
-                       Text="{Binding Name}"
-                       Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
-
-                        <Label  Grid.Column="2"                    
-                       Text="{Binding Unit}"
-                       FontAttributes="Italic"/>
+                       
 
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer 

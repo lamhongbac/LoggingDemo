@@ -7,11 +7,13 @@ namespace MSAMobApp.Services
 {
   public  class ApiServices
     {
+        //http://localhost:31446/WeatherForecast
+        //http://localhost:31446
         //https://localhost:44346/api/StockMasterItem/CreateStockItems
-        private static  string baseURL = "https://localhost:44346/api/";
+        private static  string baseURL = $"http://10.0.2.2:31446";
         private const string getStockMasterUrl = "";
         private const string updateStockMasterUrl = "";
-        private const string createStockMasterUrl = "StockMasterItem/CreateStockItems";
+        private const string createStockMasterUrl = "/api/StockMasterItem/CreateStockItems";
 
         public static string BaseURL => baseURL;
         public static string GetStockMasterUrl  => getStockMasterUrl; 

@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,11 +17,12 @@ namespace MSAMobApp.Models
         public Guid ID { get; set; }
         public string Number { get; set; } //so chung tu
         public string UserID { get; set; } //login user
-        public string TCode { get; set; } //transaction Code
+        public string TCode { get; set; } //WHM transaction Code
         public string Description { get; set; } //Notes
         public string StoreNumber { get; set; } //Ma kho or Ma WH
         public string ShelfCode { get; set; } //Ma ke
-        
+        public DateTime TransDate { get; set; }
+        public DateTime SyncDate { get; set; } //Ngay sync len Server
         //public string BarCode { get; set; }
         //public DateTime ScanDateTimes { get; set; }
         //public int Quantity { get; set; }
@@ -35,10 +37,11 @@ namespace MSAMobApp.Models
         //khi push data len BackEnd thanh cong thi tra ve danh sach barcode voi trang thai la true/false                                              
         //can cu vao do de update vao local DB= Posted                                              
         //khi hand-helo sua data , data chuyen trang thai POSTED=>Edit (New thi kg co thay doi)
-        public DateTime CreatedDate { get; set; }
-        public DateTime ModifiedDate { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public DateTime ModifiedOn { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<StockTransDetail> StockDetails { get; set; }
     }
 }

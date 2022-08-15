@@ -52,14 +52,27 @@ namespace MSAMobApp.Services
             }
             public HttpClientHelper(string baseAddress)
             {
-                client = new HttpClient();
+            
+            client = new HttpClient(GetInsecureHandler());
                 client.BaseAddress = new Uri(baseAddress);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
-            }
-
-            private static HttpClient client;
+           
+            
+        }
+        public HttpClientHandler GetInsecureHandler()
+        {
+            HttpClientHandler handler = new HttpClientHandler();
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
+            {
+                if (cert.Issuer.Equals("CN=localhost"))
+                    return true;
+                return errors == System.Net.Security.SslPolicyErrors.None;
+            };
+            return handler;
+        }
+        private static HttpClient client;
             /// <summary>
             /// For getting a single item from a web api uaing GET
             /// </summary>

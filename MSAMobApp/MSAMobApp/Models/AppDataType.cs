@@ -7,14 +7,22 @@ namespace MSAMobApp.Models
    public class AppDataType
     {
     }
-    public enum ETCode
+    /// <summary>
+    /// Ware house management Tcode
+    /// </summary>
+    public enum EWHMTCode
     {
+        IC, //Inventory counting
         IR, //inventory receive
         IS,//inventory issue
-        IW, //Waste
+        DN, //Debit notes
+        CN, //Credit notes
         TI,//Transfer In
         TO, //Transfer Out
-
+        RW, //Raw waste
+        PW, //Product waste
+        SA, //Stock Adjust
+        SO, //Stock Opening
 
 
     }

@@ -21,7 +21,7 @@ namespace MSAMobApp.ViewModels
             CancelCommand = new Command(OnCancel);
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
-            StockTransDetailCol = new ObservableCollection<StockTrans>();
+            StockTransDetailCol = new ObservableCollection<StockTransDetail>();
             DocNo = UserID+DateTime.Now.ToString("ddmmhhss");
         }
         private string docNo;
@@ -94,19 +94,19 @@ namespace MSAMobApp.ViewModels
                 ID = Guid.NewGuid(),
                 
                 ShelfCode = shelfCode,
-                TCode = ETCode.IR.ToString(),
+                TCode = EWHMTCode.IR.ToString(),
                 UserID = userID,
                
                 CreatedBy = userID,
                 ModifiedBy = userID,
-                CreatedDate = DateTime.Now,
-                ModifiedDate = DateTime.Now,
+                CreatedOn = DateTime.Now,
+                ModifiedOn = DateTime.Now,
                 DataState = EDataState.New.ToString(),
             };
-            StockTransDetail stockTransDetail= new StockTransDetail()
+            StockTransDetail stockTransDetail = new StockTransDetail()
             {
 
-            }
+            };
             //await MSADataBase.AddStock(newItem);
             StockTransDetailCol.Add(stockTransDetail);
 

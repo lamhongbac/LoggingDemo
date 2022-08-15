@@ -52,7 +52,7 @@ namespace MSAMobApp.ViewModels
                 ModifiedBy = "Demo"
             };
 
-            int result = await MSADataBase.UpdateAsyncStockSample(editedItem);
+            int result = await MSADataBase.UpdateAsyncStockMaster(editedItem);
 
             // This will pop the current page off the navigation stack
             //await Shell.Current.GoToAsync("..");

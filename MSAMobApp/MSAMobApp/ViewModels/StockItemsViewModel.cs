@@ -3,9 +3,12 @@ using MSAMobApp.Models;
 using MSAMobApp.Services;
 using MSAMobApp.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace MSAMobApp.ViewModels
@@ -35,8 +38,16 @@ namespace MSAMobApp.ViewModels
 
             AddItemCommand = new Command(OnAddItem);
             SyncItemsCommand = new Command(OnSyncItems);
+            RefreshCommand = new Command(CmdRefresh);
         }
-
+        public ICommand RefreshCommand { get; set; }
+        private async void CmdRefresh()
+        {
+            IsRefreshing = true;
+            await Task.Delay(3000);
+            
+            IsRefreshing = false;
+        }
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
@@ -81,10 +92,20 @@ namespace MSAMobApp.ViewModels
             await Shell.Current.GoToAsync(nameof(NewStockItem));
         }
         //OnSyncItems
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="obj"></param>
         private async void OnSyncItems(object obj)
         {
             StockMasterService stockMasterService = new StockMasterService();
-            stockMasterService.CreateStockItems(items)
+
+            List<MobStockMasterItem> toCreateItems = await MSADataBase.GetNewMasterStockItemAsync();
+            List<MobStockMasterItem>  created_items= await stockMasterService.CreateStockItems(toCreateItems);
+
+            //createds.ForEach(x => x.SyncDate = DateTime.Now);
+
+          await  MSADataBase.UpdateSyncAsyncStockMasterItems(created_items);
         }
         async void OnItemSelected(MobStockMasterItem item)
         {

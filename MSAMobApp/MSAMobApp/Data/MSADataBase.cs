@@ -10,16 +10,53 @@ namespace MSAMobApp.Data
 {
     public class MSADataBase
     {
+        private static string dbName = "MSAMobDB.db";
         static SQLiteAsyncConnection database;
         public async static Task Init()
         {
             if (database != null)
                 return;
-            var databasePath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, "MyData.db");
+            var databasePath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, dbName);
             database = new SQLiteAsyncConnection(databasePath);
-            database.CreateTableAsync<StockTrans>().Wait();
             database.CreateTableAsync<MobStockMasterItem>().Wait();
+            database.CreateTableAsync<StockTrans>().Wait();
+            database.CreateTableAsync<StockTransDetail>().Wait();
+            
         }
+        /// <summary>
+        /// Xoa het cac bang de tao cau truc bang moi
+        /// </summary>
+        public static bool DropAllTables()
+        {
+            bool result = false;
+            try
+            {
+                var databasePath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, dbName);
+                SQLiteAsyncConnection database = new SQLiteAsyncConnection(databasePath);
+
+                string stocktransDetailTable = "StockTransDetail";
+                string stockTransTable = "StockTrans";
+                string mobStockMasterItemTable = "MobStockMasterItem";
+
+                string sqlexist_stocktransDetailTable = "SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name ='" + stocktransDetailTable + "'";
+                string sqlexist_stockTransTable = "SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name ='" + stockTransTable + "'";
+                string sqlexist_mobStockMasterItemTable = "SELECT count(*) FROM sqlite_master WHERE type = 'table' AND name ='" + mobStockMasterItemTable + "'";
+
+                //kiem tra neu exist thi xoa
+
+                database.DropTableAsync<StockTransDetail>();
+                database.DropTableAsync<StockTrans>();
+                database.DropTableAsync<MobStockMasterItem>();
+                result = true;
+            }
+            catch(Exception ex)
+            {
+                
+                result = false;
+            }
+            return result;
+        }
+
         /// <summary>
         /// quet barcode and add to DB
         /// </summary>
@@ -28,30 +65,30 @@ namespace MSAMobApp.Data
         /// <param name="barcode"></param>
         //public async static Task AddStock(StockTrans stock)
         //{
-            //await Init();
-            //await database.InsertAsync(stock);
-            //var stockSample = await GetMasterStockItemAsync(stock.BarCode);
+        //await Init();
+        //await database.InsertAsync(stock);
+        //var stockSample = await GetMasterStockItemAsync(stock.BarCode);
 
-            //if (stockSample == null)
-            //{
-            //    MobStockMasterItem newStockSample = new
-            //         MobStockMasterItem()
-            //    {
-            //        BarCode = stock.BarCode,
-            //        CreatedBy = "Demo",
-            //        CreatedOn = DateTime.Now,
-            //        DataState = EDataState.New.ToString(),
-            //        ID = Guid.NewGuid(),
-            //        Name = string.Empty,
-            //        Unit = string.Empty,
-            //        ModifiedBy = "Demo",
-            //        ModifiedDate = DateTime.Now
-            //    };
+        //if (stockSample == null)
+        //{
+        //    MobStockMasterItem newStockSample = new
+        //         MobStockMasterItem()
+        //    {
+        //        BarCode = stock.BarCode,
+        //        CreatedBy = "Demo",
+        //        CreatedOn = DateTime.Now,
+        //        DataState = EDataState.New.ToString(),
+        //        ID = Guid.NewGuid(),
+        //        Name = string.Empty,
+        //        Unit = string.Empty,
+        //        ModifiedBy = "Demo",
+        //        ModifiedDate = DateTime.Now
+        //    };
 
-            //    await AddStockSample(newStockSample);
+        //    await AddStockSample(newStockSample);
 
-            //}
-            //Console.WriteLine("{0} == {1}", stock.BarCode, stock.ID);
+        //}
+        //Console.WriteLine("{0} == {1}", stock.BarCode, stock.ID);
         //}
         #region stockSample
         /// <summary>
@@ -65,7 +102,13 @@ namespace MSAMobApp.Data
             var stockSample = await database.Table<MobStockMasterItem>().Where(x => x.ID == itemId).FirstOrDefaultAsync();
             return stockSample;
         }
-
+        public async static Task<List<MobStockMasterItem>> GetNewMasterStockItemAsync()
+        {
+            await Init();
+            string dataState = EDataState.New.ToString();
+            var stockSample = await database.Table<MobStockMasterItem>().Where(x => x.DataState == dataState).ToListAsync();
+            return stockSample;
+        }
         public async static Task<MobStockMasterItem> GetMasterStockItemAsync(string barcode)
         {
             await Init();
@@ -78,14 +121,58 @@ namespace MSAMobApp.Data
         /// <param name="userID"></param>
         /// <param name="barcode"></param>
         /// <returns></returns>
-        public async static Task<int> AddStockSample(MobStockMasterItem stockSample)
+        public async static Task<int> AddStockSample(MobStockMasterItem masterStockItem)
         {
             await Init();
-            stockSample.CreatedOn = DateTime.Now;
-            stockSample.ModifiedOn = DateTime.Now;           
+            masterStockItem.CreatedOn = DateTime.Now;
+            masterStockItem.ModifiedOn = DateTime.Now;           
             // await database.InsertAsync(stock);
-           return await database.InsertAsync(stockSample);
+           return await database.InsertAsync(masterStockItem);
 
+        }
+        /// <summary>
+        /// Update Sync List Items return from Data center Server.
+        /// Cac field SyncDate, dataState dc tra ve tu server
+        /// </summary>
+        /// <param name="updated_items"></param>
+        /// <returns></returns>
+        public async static Task<int> UpdateSyncAsyncStockMasterItems(List<MobStockMasterItem> synced_items)
+        {
+            int rows = -1;
+            foreach (var item in synced_items)
+            {
+                rows += await SyncAsyncStockMaster(item);
+            }
+            if (rows > 0)
+                return rows + 1;
+            else
+                return rows;
+        }
+        /// <summary>
+        /// Update sync stock item from server
+        /// Cac field SyncDate, dataState dc tra ve tu server
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="itemID"></param>
+        /// <param name="name"></param>
+        /// <param name="unit"></param>
+        /// <returns></returns>
+        private async static Task<int> SyncAsyncStockMaster(MobStockMasterItem synced_item)
+        {
+            await Init();
+            return await database.UpdateAsync(synced_item);
+        }
+        public async static Task<int> UpdateAsyncStockMasterItems(List<MobStockMasterItem> updated_items)
+        {
+            int rows = -1;
+            foreach (var item in updated_items)
+            {
+                rows+= await  UpdateAsyncStockMaster(item);
+            }
+            if (rows > 0)
+                return rows + 1;
+            else
+                return rows;
         }
         /// <summary>
         /// Update stock item
@@ -97,7 +184,7 @@ namespace MSAMobApp.Data
         /// <param name="name"></param>
         /// <param name="unit"></param>
         /// <returns></returns>
-        public async static Task<int> UpdateAsyncStockSample(MobStockMasterItem updated_item)
+        public async static Task<int> UpdateAsyncStockMaster(MobStockMasterItem updated_item)
         {
             await Init();
             MobStockMasterItem item = await GetMasterStockItemAsync(updated_item.ID);
@@ -106,12 +193,12 @@ namespace MSAMobApp.Data
             {
                 item.ModifiedOn = DateTime.Now;
                 if (item.DataState == EDataState.Posted.ToString())
-                    item.DataState = EDataState.Edited.ToString(); 
+                    item.DataState = EDataState.Edited.ToString();
 
-                if (item.DataState== EDataState.New.ToString())
+                if (item.DataState == EDataState.New.ToString())
                     //do notthing;
 
-                item.Name = updated_item.Name;
+                    item.Name = updated_item.Name;
                 item.Unit = updated_item.Unit;
 
                 return await database.UpdateAsync(item);

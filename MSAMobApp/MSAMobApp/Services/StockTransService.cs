@@ -30,20 +30,20 @@ namespace MSAMobApp.Services
             await Init();
             var stock = new StockTrans()
             {
-                BarCode = barcode,
+                //BarCode = barcode,
                 DataState = "New",
-                Direction = "In",
+                //Direction = "In",
                 ID = Guid.NewGuid(),
-                Quantity = 1,
-                ScanDateTimes = DateTime.Now,
+                //Quantity = 1,
+                //ScanDateTimes = DateTime.Now,
                 ShelfCode = "SDemo",
                 UserID = userID,
-                WHCode = "WDemo"
+                StoreNumber = "WDemo"
 
 
             };
             db.Insert(stock);
-            Console.WriteLine("{0} == {1}", stock.BarCode, stock.ID);
+            //Console.WriteLine("{0} == {1}", stock.BarCode, stock.ID);
         }
     }
 }

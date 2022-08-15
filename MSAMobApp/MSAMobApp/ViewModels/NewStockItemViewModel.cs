@@ -64,9 +64,18 @@ namespace MSAMobApp.ViewModels
                 ID = Guid.NewGuid(),
                 BarCode = BarCode.Trim(),
                 Name = Name,
-                Unit = Unit, CreatedBy = "Demo",ModifiedBy="Demo",
-                CreatedDate=DateTime.Now, ModifiedDate= DateTime.Now ,
-                 DataState=EDataState.New.ToString(),
+                Unit = Unit, CreatedBy = "Demo",
+                ModifiedBy = "Demo",
+                CreatedOn = DateTime.Now,
+                ModifiedOn = DateTime.Now,
+                DataState = EDataState.New.ToString(),
+                Description = "Demo",
+                GLocation = "100;15677",
+                HID = "34567890dfghjk",
+                Number = BarCode.Substring(3, 3),
+                 UserID="DemoUser"
+
+
             };
 
          int result=   await MSADataBase.AddStockSample(newItem);

@@ -42,7 +42,10 @@ namespace MSAMobApp.Services
 
 
         /// <summary>
-        /// tao 1 danh sach stock Items
+        /// lay danh sach moi tao (New)-> update len server
+        /// Kiem tra danh sach server moi tao >lastUpdate
+        /// lay ve danh sach moi tao luu vao mobile 
+        /// Update lai ngay lastUpdate= server last change
         /// </summary>
         /// <param name="paraModel"></param>
         /// <returns></returns>

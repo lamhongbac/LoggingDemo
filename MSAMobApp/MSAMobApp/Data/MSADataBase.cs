@@ -68,9 +68,21 @@ namespace MSAMobApp.Data
             return appSetting;
         }
 
-        internal static Task UpdateSyncLastUpdateDate(DateTime lastSyncDate)
+        internal async static Task UpdateSyncLastUpdateDate(DateTime lastSyncDate)
         {
-            throw new NotImplementedException();
+            await Init();
+            AppSetting appSetting = await GetLastSyncData("Sync", "LastSyncDate");
+            if (appSetting == null)
+            {
+                await database.InsertAsync(new AppSetting() { AppGroup= "Sync", AppKey= "LastSyncDate", AppValue= lastSyncDate.ToString() }); 
+
+            }
+            else
+            {
+                appSetting.AppValue = lastSyncDate.ToString();
+                await database.UpdateAsync(appSetting);
+            }
+
         }
 
         /// <summary>

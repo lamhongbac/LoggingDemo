@@ -68,13 +68,18 @@ namespace MSAMobApp.Data
             return appSetting;
         }
 
-        internal async static Task UpdateSyncLastUpdateDate(DateTime lastSyncDate)
+        public async static Task UpdateSyncDate(DateTime lastSyncDate)
         {
             await Init();
             AppSetting appSetting = await GetLastSyncData("Sync", "LastSyncDate");
             if (appSetting == null)
             {
-                await database.InsertAsync(new AppSetting() { AppGroup= "Sync", AppKey= "LastSyncDate", AppValue= lastSyncDate.ToString() }); 
+                await database.InsertAsync(new AppSetting() 
+                { 
+                    AppGroup= "Sync", 
+                    AppKey= "LastSyncDate",
+                    AppValue= lastSyncDate.ToString() 
+                }); 
 
             }
             else
@@ -161,21 +166,37 @@ namespace MSAMobApp.Data
         /// <summary>
         /// Update Sync List Items return from Data center Server.
         /// Cac field SyncDate, dataState dc tra ve tu server
+        /// data state=Posted , co nghia la item nay update tu server
         /// </summary>
         /// <param name="updated_items"></param>
         /// <returns></returns>
         public async static Task<int> UpdateSyncAsyncStockMasterItems(List<MobStockMasterItem> synced_items)
         {
-            int rows = -1;
+            await Init();
+            int rows = 0;
             foreach (var item in synced_items)
             {
-                rows += await SyncAsyncStockMaster(item);
+                item.DataState = EDataState.Posted.ToString();
+                var existitem=await database.GetAsync<MobStockMasterItem>(item.ID);
+
+                if (existitem != null)
+                {
+                    rows =+ await database.UpdateAsync(item);
+                    
+                }
+                else
+                {
+                    rows += await database.InsertAsync(item);
+                }
             }
-            if (rows > 0)
-                return rows + 1;
-            else
-                return rows;
+            return rows;
         }
+
+        private static async Task<int> CreateServerStockMaster(MobStockMasterItem item)
+        {
+            return await database.InsertAsync(item);
+        }
+
         /// <summary>
         /// Update sync stock item from server
         /// Cac field SyncDate, dataState dc tra ve tu server
@@ -185,7 +206,7 @@ namespace MSAMobApp.Data
         /// <param name="name"></param>
         /// <param name="unit"></param>
         /// <returns></returns>
-        private async static Task<int> SyncAsyncStockMaster(MobStockMasterItem synced_item)
+        private async static Task<int> UpdateServerStockMaster(MobStockMasterItem synced_item)
         {
             await Init();
             return await database.UpdateAsync(synced_item);
@@ -195,7 +216,8 @@ namespace MSAMobApp.Data
             int rows = -1;
             foreach (var item in updated_items)
             {
-                rows+= await  UpdateAsyncStockMaster(item);
+                item.DataState = EDataState.Posted.ToString();
+                   rows+= await  UpdateAsyncStockMaster(item);
             }
             if (rows > 0)
                 return rows + 1;

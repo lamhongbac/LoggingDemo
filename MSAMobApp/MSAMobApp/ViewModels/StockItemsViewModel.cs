@@ -20,6 +20,17 @@ namespace MSAMobApp.ViewModels
     /// </summary>
     public class StockItemsViewModel : BaseViewModel
     {
+        private DateTime lastUpdate;
+        public DateTime LastSyncDate
+        {
+            get => lastUpdate;
+            //set=
+            set
+            {
+                SetProperty(ref lastUpdate, value);
+                
+            }
+        }
         private MobStockMasterItem _selectedItem;
 
         public ObservableCollection<MobStockMasterItem> Items { get; }
@@ -59,6 +70,15 @@ namespace MSAMobApp.ViewModels
                 foreach (var item in items)
                 {
                     Items.Add(item);
+                }
+                AppSetting LastSyncData = await MSADataBase.GetLastSyncData("Sync", "LastSyncDate");
+                if (LastSyncData != null)
+                {
+                    lastUpdate = Convert.ToDateTime(LastSyncData.AppValue);
+                }
+                else
+                {
+                    lastUpdate = DateTime.MinValue;
                 }
             }
             catch (Exception ex)

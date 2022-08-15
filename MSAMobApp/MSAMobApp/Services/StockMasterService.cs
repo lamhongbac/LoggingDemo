@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace MSAMobApp.Services
 {
+    /// <summary>
+    /// Tap trung vao cac operation lien quan den sync data with server
+    /// </summary>
    public class StockMasterService
     {
 
@@ -66,13 +69,10 @@ namespace MSAMobApp.Services
             };
 
 
-            //HttpClientHelper<List<MobStockMasterItem>> httpClientHelper =
-            //    new HttpClientHelper<List<MobStockMasterItem>>(ApiServices.BaseURL);
             string apiURL = ApiServices.CreateStockMasterUrl;
             HttpClient client = new HttpClient();
             var json = JsonConvert.SerializeObject(postObject);
             var data = new StringContent(json, Encoding.UTF8, "application/json");
-            //new JsonContent(postObject)
             string apiUrl = ApiServices.BaseURL + apiURL;
 
             var response = await client.PostAsync(apiUrl, data);
@@ -83,7 +83,7 @@ namespace MSAMobApp.Services
                 SyncMobStockItemResult result = JsonConvert.DeserializeObject<SyncMobStockItemResult>(content);
                 //update sync result to local
                 await MSADataBase.UpdateSyncAsyncStockMasterItems(result.ForMobileUpdate);
-                await MSADataBase.UpdateSyncLastUpdateDate(result.LastSyncDate);
+                await MSADataBase.UpdateSyncDate(result.LastSyncDate);
 
                 return result;
             }

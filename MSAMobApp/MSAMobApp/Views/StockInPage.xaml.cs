@@ -13,11 +13,11 @@ namespace MSAMobApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StockInPage : ContentPage
     {
-        NewStockReceiveViewModel _viewModel;
+        StockTransViewModel _viewModel;
         public StockInPage()
         {
             InitializeComponent();
-            this.BindingContext = _viewModel = new NewStockReceiveViewModel();
+            this.BindingContext = _viewModel = new StockTransViewModel();
         }
 
         private void scanResultText_TextChanged(object sender, TextChangedEventArgs e)

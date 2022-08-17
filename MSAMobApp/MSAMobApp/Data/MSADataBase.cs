@@ -90,6 +90,11 @@ namespace MSAMobApp.Data
 
         }
 
+        internal static void CreateStockTrans(StockTrans stockTrans)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// quet barcode and add to DB
         /// </summary>

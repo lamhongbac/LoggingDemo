@@ -12,13 +12,13 @@ namespace MSAMobApp.Models
     /// </summary>
     public enum EWHMTCode
     {
-        IC, //Inventory counting
-        IR, //inventory receive
-        IS,//inventory issue
+        SC, //Stock counting
+        SR, //stock receive
+        SI,//stock issue
         DN, //Debit notes
         CN, //Credit notes
-        TI,//Transfer In
-        TO, //Transfer Out
+        STI,//Stock Transfer In
+        STO, //Stock Transfer Out
         RW, //Raw waste
         PW, //Product waste
         SA, //Stock Adjust

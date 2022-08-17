@@ -15,11 +15,11 @@ namespace MSAMobApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class StockReceivePage : ContentPage
     {
-        NewStockReceiveViewModel _viewModel;
+        StockTransViewModel _viewModel;
         public StockReceivePage()
         {
             InitializeComponent();
-            this.BindingContext = _viewModel = new NewStockReceiveViewModel();
+            this.BindingContext = _viewModel = new StockTransViewModel();
         }
         protected async override void OnAppearing()
         {
@@ -46,6 +46,17 @@ namespace MSAMobApp.Views
                     this.txtUnit.Text = item.Unit;
                 }
             }
+        }
+
+        private async void Button_Clicked(object sender, EventArgs e)
+        {
+            MobStockMasterItem item = await MSADataBase.GetMasterStockItemAsync(scanResultText.Text.Trim());
+            if (item != null)
+            {
+                _viewModel.Unit = item.Unit;
+                _viewModel.Name = item.Name;
+            }
+
         }
     }
 }

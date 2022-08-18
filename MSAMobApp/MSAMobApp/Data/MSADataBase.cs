@@ -92,7 +92,9 @@ namespace MSAMobApp.Data
 
         internal static void CreateStockTrans(StockTrans stockTrans)
         {
-            throw new NotImplementedException();
+           //Save to Local with Status= New
+           //Read local and Save to DB, Update status= Posted
+
         }
 
         /// <summary>

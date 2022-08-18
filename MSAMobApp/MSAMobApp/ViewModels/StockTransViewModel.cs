@@ -3,6 +3,7 @@ using MSAMobApp.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -17,7 +18,7 @@ namespace MSAMobApp.ViewModels
     {
         public StockTransViewModel()
         {
-            SaveCommand = new Command(OnSave, ValidateSave);
+            SaveCommand = new Command(OnSave);
             CancelCommand = new Command(OnCancel);
             //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -27,35 +28,15 @@ namespace MSAMobApp.ViewModels
             UserID = "DemoUser";
             DocNo = UserID+DateTime.Now.ToString("ddmmhhss");
             ID = Guid.NewGuid();
+            StockTransDetails = new List<StockTransDetail>();
+            Quantity = 1;
         }
-        //async Task ExecuteLoadItemsCommand()
-        //{
-        //    IsBusy = true;
 
-        //    try
-        //    {
-        //        ProductItems.Clear();
-        //        List<MSA.MobileModel.BaseMenuItem> items = await MenuItemData.GetItemsAsync(true); ;
-        //        foreach (var item in items)
-        //        {
-        //            ProductItems.Add(item);
-        //        }
-        //        //ProductGroupItems.Clear();
-        //        //List<BaseMenuItemGroup> prodGroupItems = await MenuItemGroupData.GetItemsAsync(true); ;
-        //        //foreach (var item in prodGroupItems)
-        //        //{
-        //        //    ProductGroupItems.Add(item);
-        //        //}
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex);
-        //    }
-        //    finally
-        //    {
-        //        IsBusy = false;
-        //    }
-        //}
+        internal bool ExistBarCode(string scanedBarCode)
+        {
+            return StockTransDetailCol.Where(x => x.BarCode == scanedBarCode).FirstOrDefault() != null;
+        }
+        #region prop
         private Guid id;
         public Guid ID
         {
@@ -88,7 +69,7 @@ namespace MSAMobApp.ViewModels
             set => SetProperty(ref userID, value);
         }
 
-        #region scan barcode
+      
         private int quantity;
         public int Quantity
         {
@@ -117,19 +98,10 @@ namespace MSAMobApp.ViewModels
             set => SetProperty(ref name, value);
         }
         #endregion
-        private bool ValidateSave()
-        {
-            return true;
-            //bool validItem = !String.IsNullOrWhiteSpace(ScanedBarCode);
-            //MobStockMasterItem exsitedItem = ExistBarCode(ScanedBarCode).Result;
-            //bool isExisted = (exsitedItem != null) ;
-            //if (isExisted )
-            //{
-            //    Name = exsitedItem.Name;
-            //    Unit = exsitedItem.Unit;
-
-            //}
-            //return validItem && isExisted;
+        private bool ValidateAddItem()
+        {            
+            bool isExisted = ExistBarCode(ScanedBarCode);
+            return !string.IsNullOrWhiteSpace(ScanedBarCode) && !isExisted;
         }
         private List<StockTransDetail> StockTransDetails;
         ObservableCollection<StockTransItemViewModel> stockTransDetailCol;
@@ -153,7 +125,6 @@ namespace MSAMobApp.ViewModels
         /// </summary>
         private  void OnSave()
         {
-
             StockTrans stockTrans = new StockTrans()
             {
                 ID = ID,
@@ -168,15 +139,10 @@ namespace MSAMobApp.ViewModels
                 StockDetails = StockTransDetails,
             };
             MSADataBase.CreateStockTrans(stockTrans);
-            //Save detail
-
-            // This will pop the current page off the navigation stack
-            //await Shell.Current.GoToAsync("..");
-
-            
-            
-
+ 
         }
+
+
         /// <summary>
         /// Button add one just ScanBarCode item to list
         /// </summary>
@@ -204,11 +170,13 @@ namespace MSAMobApp.ViewModels
             StockTransDetailCol.Add(item);
             ScanedBarCode = ""; Quantity = 1;
         }
-        private async Task<MobStockMasterItem> ExistBarCode(string barCode)
+        private async Task<MobStockMasterItem> ExistItem(string barCode)
         {
             MobStockMasterItem item=await MSADataBase.GetMasterStockItemAsync(barCode);
             return item;
             //return true;
         }
+
+
     }
 }

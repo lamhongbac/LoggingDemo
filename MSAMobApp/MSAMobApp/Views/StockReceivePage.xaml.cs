@@ -50,13 +50,19 @@ namespace MSAMobApp.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            MobStockMasterItem item = await MSADataBase.GetMasterStockItemAsync(scanResultText.Text.Trim());
+            string scanedBarCode = scanResultText.Text.Trim();
+            if (_viewModel.ExistBarCode(scanedBarCode))
+            {
+                return;
+            }
+            MobStockMasterItem item = await MSADataBase.GetMasterStockItemAsync(scanedBarCode);
             if (item != null)
             {
                 _viewModel.Unit = item.Unit;
                 _viewModel.Name = item.Name;
+                _viewModel.AddDetail();
             }
-
+            
         }
     }
 }

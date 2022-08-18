@@ -29,13 +29,15 @@ namespace MSAMobApp.ViewModels
             ID = detailItem.ID;
             StockTransID = detailItem.StockTransID;
             BarCode = detailItem.BarCode;
+            Quantity = detailItem.Quantity;
             Number = detailItem.ItemNumber;
             CreatedBy = detailItem.CreatedBy;
             ModifiedBy = detailItem.ModifiedBy;
             CreatedOn = DateTime.Now;
             ModifiedOn = DateTime.Now;
             DataState = EDataState.New.ToString();
-            Name = name;Unit = unit;
+            Name = name;
+            Unit = unit;
 
         }
     }

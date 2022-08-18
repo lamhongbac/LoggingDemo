@@ -69,19 +69,19 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0"  Text="BarCode" FontSize="Medium" />
                 <Entry Grid.Row="0" Grid.Column="1" x:Name="scanResultText" 
-                       Text="{Binding BarCode, Mode=TwoWay}"
+                       Text="{Binding ScanedBarCode, Mode=TwoWay}"
                        WidthRequest="200"/>
                 <Entry Grid.Row="0" Grid.Column="2" x:Name="txtQuantity" 
                        Text="{Binding Quantity, Mode=TwoWay}"
-                       WidthRequest="200"/>
+                       WidthRequest="50"/>
                 
-                <Button Grid.Row="1" Grid.Column="1"  Text="Check" Clicked="Button_Clicked"/>
+                <Button Grid.Row="1" Grid.Column="0"  Text="Check" Clicked="Button_Clicked"/>
                 
-                <Label  Grid.Row="2" Grid.Column="0"  Text="Name" FontSize="Medium" />
-                <Label Grid.Row="2" Grid.Column="1" x:Name="txtName"  
+                <!--<Label  Grid.Row="1" Grid.Column="0"  Text="Name" FontSize="Medium" />-->
+                <Label Grid.Row="1" Grid.Column="1" x:Name="txtName"  
                        Text="{Binding Name, Mode=TwoWay}" FontSize="Medium" />
-                <Label Grid.Row="3" Grid.Column="0" Text="Unit" FontSize="Medium" />
-                <Label Grid.Row="3" Grid.Column="1" x:Name="txtUnit"  Text="{Binding Unit, Mode=TwoWay}" FontSize="Medium"  />
+                <!--<Label Grid.Row="3" Grid.Column="0" Text="Unit" FontSize="Medium" />-->
+                <Label Grid.Row="1" Grid.Column="2" x:Name="txtUnit"  Text="{Binding Unit, Mode=TwoWay}" FontSize="Medium"  />
 
             </Grid>
             <CollectionView ItemsSource="{Binding StockTransDetailCol}"

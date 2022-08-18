@@ -19,6 +19,8 @@ namespace MSAMobApp.ViewModels
         {
             SaveCommand = new Command(OnSave, ValidateSave);
             CancelCommand = new Command(OnCancel);
+            //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
             StockTransDetailCol = new ObservableCollection<StockTransItemViewModel>();
@@ -26,6 +28,34 @@ namespace MSAMobApp.ViewModels
             DocNo = UserID+DateTime.Now.ToString("ddmmhhss");
             ID = Guid.NewGuid();
         }
+        //async Task ExecuteLoadItemsCommand()
+        //{
+        //    IsBusy = true;
+
+        //    try
+        //    {
+        //        ProductItems.Clear();
+        //        List<MSA.MobileModel.BaseMenuItem> items = await MenuItemData.GetItemsAsync(true); ;
+        //        foreach (var item in items)
+        //        {
+        //            ProductItems.Add(item);
+        //        }
+        //        //ProductGroupItems.Clear();
+        //        //List<BaseMenuItemGroup> prodGroupItems = await MenuItemGroupData.GetItemsAsync(true); ;
+        //        //foreach (var item in prodGroupItems)
+        //        //{
+        //        //    ProductGroupItems.Add(item);
+        //        //}
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex);
+        //    }
+        //    finally
+        //    {
+        //        IsBusy = false;
+        //    }
+        //}
         private Guid id;
         public Guid ID
         {
@@ -102,11 +132,17 @@ namespace MSAMobApp.ViewModels
             //return validItem && isExisted;
         }
         private List<StockTransDetail> StockTransDetails;
-        public ObservableCollection<StockTransItemViewModel> StockTransDetailCol { get; }
+        ObservableCollection<StockTransItemViewModel> stockTransDetailCol;
+        public ObservableCollection<StockTransItemViewModel> StockTransDetailCol 
+        { 
+            get=> stockTransDetailCol;
+            set => SetProperty(ref stockTransDetailCol, value);
+        }
         
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
-
+        //public Command LoadItemsCommand { get; }
+        
         private async void OnCancel()
         {
             // This will pop the current page off the navigation stack

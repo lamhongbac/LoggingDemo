@@ -5,6 +5,8 @@ using System.Text;
 
 namespace MSAMobApp.Models
 {
+
+    [Table("MobStockMasterItem")]
     /// <summary>
     /// Table for storing sample barcode
     /// </summary>

@@ -14,9 +14,10 @@
             <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="2*"/>
@@ -29,11 +30,14 @@
                 <Entry Grid.Row="0" Grid.Column="1" Placeholder="User ID" IsReadOnly="True" x:Name="txtUserID" 
                        FontSize="Medium"   Text="{Binding UserID}" 
                        VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
-                <Label Grid.Row="0" Grid.Column="2" Text="Ngày Quét" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
-                <Entry Grid.Row="0" Grid.Column="3" Placeholder="Ngày Quét" IsReadOnly="True" x:Name="txtScanDate" 
-                       FontSize="Medium"  Text="{Binding ScanDate}"
-                       VerticalOptions="Center" HorizontalOptions="CenterAndExpand"  />
-                    <!--</StackLayout>-->
+                <Label Grid.Row="0" Grid.Column="2" Text="Ngày G.Dịch" FontSize="Medium" 
+                       VerticalOptions="Center" HorizontalOptions="Start" />
+
+                <DatePicker Grid.Row="0" Grid.Column="3" MinimumDate="{Binding MinDate}"
+                MaximumDate="{Binding MaxDate}" x:Name="txtScanDate"
+                Date="{Binding TransDate}" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"  />
+                
+                
 
                 <Label Grid.Row="1" Grid.Column="0"   Text="Mã kho" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
                 <Entry Grid.Row="1" Grid.Column="1" Placeholder="Mã kho" IsReadOnly="True" x:Name="txtWHCode" 
@@ -47,11 +51,13 @@
 
 
                 <Label Grid.Row="2" Grid.Column="0"  Text="DocNo" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
-                <Entry Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2"  Placeholder="Số phiếu" IsReadOnly="True" x:Name="txtDocNo" 
+                <Entry Grid.Row="2" Grid.Column="1"  Placeholder="Số phiếu" IsReadOnly="True" x:Name="txtDocNo" 
                            Text="{Binding DocNo, Mode=TwoWay}"  
                         VerticalOptions="Center" HorizontalOptions="CenterAndExpand"   />
-                
 
+                <Entry Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"  Placeholder="Notes" 
+                       x:Name="txtNotes" Text="{Binding Notes, Mode=TwoWay}"  
+                        VerticalOptions="Center"  />
             </Grid>
             
             <Grid>

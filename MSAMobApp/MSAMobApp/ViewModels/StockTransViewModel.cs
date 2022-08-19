@@ -16,9 +16,11 @@ namespace MSAMobApp.ViewModels
     /// </summary>
     public class StockTransViewModel : BaseViewModel
     {
+        public DateTime MinDate { get; set; }
+        public DateTime MaxDate { get; set; }
         public StockTransViewModel()
         {
-            SaveCommand = new Command(OnSave);
+            SaveCommand = new Command( OnSave);
             CancelCommand = new Command(OnCancel);
             //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -30,6 +32,9 @@ namespace MSAMobApp.ViewModels
             ID = Guid.NewGuid();
             StockTransDetails = new List<StockTransDetail>();
             Quantity = 1;
+            MinDate = DateTime.Now.AddDays( - 10);
+            MaxDate = DateTime.Now;
+            TransDate = DateTime.Now;
         }
 
         internal bool ExistBarCode(string scanedBarCode)
@@ -68,17 +73,22 @@ namespace MSAMobApp.ViewModels
             get => userID;
             set => SetProperty(ref userID, value);
         }
-
-      
-        private int quantity;
-        public int Quantity
-        {
-            get => quantity;
-            set => SetProperty(ref quantity, value); 
+        private DateTime transDate;
+        public DateTime TransDate { 
+            get => transDate; 
+            set => SetProperty(ref transDate, value); 
         }
-        /// <summary>
-        /// Just scaned barcode
-        /// </summary>
+
+        private string notes = "demo transaction";
+        public string Notes
+        {
+            get => notes;
+            set => SetProperty(ref notes, value);
+        }
+
+        #endregion
+
+        #region scan barCode
         private string barcode;
         public string ScanedBarCode
         {
@@ -96,6 +106,12 @@ namespace MSAMobApp.ViewModels
         {
             get => name;
             set => SetProperty(ref name, value);
+        }
+        private int quantity;
+        public int Quantity
+        {
+            get => quantity;
+            set => SetProperty(ref quantity, value);
         }
         #endregion
         private bool ValidateAddItem()
@@ -123,7 +139,7 @@ namespace MSAMobApp.ViewModels
         /// <summary>
         /// save to local DB
         /// </summary>
-        private  void OnSave()
+        private async  void OnSave()
         {
             StockTrans stockTrans = new StockTrans()
             {
@@ -135,10 +151,14 @@ namespace MSAMobApp.ViewModels
                 ModifiedBy = userID,
                 CreatedOn = DateTime.Now,
                 ModifiedOn = DateTime.Now,
-                DataState = EDataState.New.ToString(),
-                StockDetails = StockTransDetails,
+                DataState = EDataState.New.ToString(), 
+                Description=Notes, 
+                Number=DocNo, 
+                StoreNumber=WhCode, 
+                TransDate=DateTime.Now,
+                StockTransDetails = StockTransDetails,
             };
-            MSADataBase.CreateStockTrans(stockTrans);
+          await  StockTransDatabase.CreateStockTrans(stockTrans);
  
         }
 

@@ -90,12 +90,7 @@ namespace MSAMobApp.Data
 
         }
 
-        internal static void CreateStockTrans(StockTrans stockTrans)
-        {
-           //Save to Local with Status= New
-           //Read local and Save to DB, Update status= Posted
-
-        }
+        
 
         /// <summary>
         /// quet barcode and add to DB

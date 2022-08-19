@@ -6,11 +6,13 @@ using System.Text;
 
 namespace MSAMobApp.Models
 {
+
     /// <summary>
     /// table chua noi dung qet bar code cho cac giao dich
     /// stock receive (SR), stock transfer(STI/STO), stock issue (SI), Waste (SW), StockCount (kiem ke)
     /// data 1 lan quet barcode tren thiet bi
     /// </summary>
+   [Table("StockTrans")]
     public class StockTrans
     {
         [PrimaryKey]
@@ -42,6 +44,6 @@ namespace MSAMobApp.Models
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
         [OneToMany(CascadeOperations = CascadeOperation.All)]
-        public List<StockTransDetail> StockDetails { get; set; }
+        public List<StockTransDetail> StockTransDetails { get; set; }
     }
 }

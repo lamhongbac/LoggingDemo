@@ -6,7 +6,7 @@ using SQLiteNetExtensions.Attributes;
 
 namespace MSAMobApp.Models
 {
-  //  [Table]
+    [Table("StockTransDetails")]
   public  class StockTransDetail
     {
         [PrimaryKey]

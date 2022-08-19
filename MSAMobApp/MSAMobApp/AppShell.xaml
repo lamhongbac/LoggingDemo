@@ -105,9 +105,9 @@
     </FlyoutItem>
    
     
-    <!--<FlyoutItem Title="Sync MasterData" Icon="icon_feed.png">
-        <ShellContent Route="SyncMasterDataPage" ContentTemplate="{DataTemplate local:SyncMasterDataPage}" />
-    </FlyoutItem>-->
+    <FlyoutItem Title="All Transactions" Icon="icon_feed.png">
+        <ShellContent Route="ListOfStockReceivePage" ContentTemplate="{DataTemplate local:ListOfStockReceivePage}" />
+    </FlyoutItem>
 
     
     <FlyoutItem Title="Nhập kho" Icon="icon_feed.png">

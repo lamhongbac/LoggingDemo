@@ -11,25 +11,28 @@
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Padding="10" x:DataType="model:StockTransDetail">
+                    <Grid Padding="10" x:DataType="model:StockTrans">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="1*" />
 
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <Label 
-                       Text="{Binding BarCode}"
-                       FontAttributes="Bold"  
-                           LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
-
                        
 
+                        <Label Grid.Column="0" Grid.Row="0" 
+                                   Text="{Binding Number}" 
+                                   FontAttributes="None"  x:Name="Number"/>
+                        <Label Grid.Column="1" Grid.Row="0" 
+                                   Text="{Binding TCode}" 
+                                   FontAttributes="None"  x:Name="TCode"/>
+                        <Label Grid.Column="2" Grid.Row="0" 
+                                   Text="{Binding Description}" 
+                                   FontAttributes="None"  x:Name="Description"/>
+                        
                         <Grid.GestureRecognizers>
                             <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"

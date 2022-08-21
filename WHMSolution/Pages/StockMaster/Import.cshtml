@@ -1,0 +1,36 @@
+﻿@page
+@model WHMSolution.Pages.StockMaster.ImportModel
+@{ 
+}
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Import excel to StockMaster</title>
+</head>
+<body>
+    <h1>Displaying an Image On the Fly</h1>
+    <form method="post" enctype="multipart/form-data">
+       
+        <div class="row">
+            <div class="col-8">
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Default file input example</label>
+                    <input type="file" name="file" id="FormFile">
+                </div>
+            </div>
+            <div class="col-8">
+                <div class="mb-3">
+                    <input class="btn" type="submit" value="Upload" />
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div >
+        <a asp-page="Index"> Back to Index</a>
+    </div>
+</body>
+</html>

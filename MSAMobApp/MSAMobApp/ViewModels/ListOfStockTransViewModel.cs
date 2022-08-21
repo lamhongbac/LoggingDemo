@@ -16,20 +16,20 @@ namespace MSAMobApp.ViewModels
         public ListOfStockTransViewModel()
         {
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
-            ListStockTransViewModels = new ObservableCollection<StockTrans>();
+            DataList = new ObservableCollection<StockTrans>();
         }
-        public ObservableCollection<StockTrans> ListStockTransViewModels { get; set; }
+        public ObservableCollection<StockTrans> DataList { get; set; }
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
 
             try
             {
-                ListStockTransViewModels.Clear();
-                List<StockTrans> items = await StockTransDatabase.GetStockTrans(); ;
+                DataList.Clear();
+                List<StockTrans> items = await MSADataBase.GetStockTrans(); ;
                 foreach (var item in items)
                 {                    
-                    ListStockTransViewModels.Add(item);
+                    DataList.Add(item);
                 }
 
             }
@@ -41,6 +41,25 @@ namespace MSAMobApp.ViewModels
             {
                 IsBusy = false;
             }
+        }
+        public StockTrans SelectedItem { get; set; }
+        internal void OnAppearing()
+        {
+            try
+            {
+                IsBusy = true;
+                SelectedItem = null;
+                
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+
         }
     }
 }

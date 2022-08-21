@@ -158,7 +158,7 @@ namespace MSAMobApp.ViewModels
                 TransDate=DateTime.Now,
                 StockTransDetails = StockTransDetails,
             };
-          await  StockTransDatabase.CreateStockTrans(stockTrans);
+          await MSADataBase.CreateStockTrans(stockTrans);
  
         }
 
@@ -171,7 +171,7 @@ namespace MSAMobApp.ViewModels
             StockTransDetail stockTransDetail = new StockTransDetail()
             {
                 ID = Guid.NewGuid(),
-                StockTransID = this.ID,
+                TransID = this.ID,
                 BarCode = ScanedBarCode,
                 ItemNumber = ScanedBarCode, 
                 Quantity=Quantity, 

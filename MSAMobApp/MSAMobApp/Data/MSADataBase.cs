@@ -12,11 +12,13 @@ namespace MSAMobApp.Data
     {
         private static string dbName = "MSAMobDB.db";
         static SQLiteAsyncConnection database;
+        static StockTransDatabase stockTransHandler;
         public async static Task Init()
         {
             if (database != null)
             {
-               
+                //if (stockTransHandler==null)
+                //    stockTransHandler = new StockTransDatabase(database);
                 return;
             }
             var databasePath = Path.Combine(Xamarin.Essentials.FileSystem.AppDataDirectory, dbName);
@@ -26,6 +28,7 @@ namespace MSAMobApp.Data
             database.CreateTableAsync<StockTransDetail>().Wait();
             database.CreateTableAsync<AppSetting>().Wait();
             //database.CreateTableAsync<AppSetting>().Wait();
+            stockTransHandler = new StockTransDatabase(database);
         }
         /// <summary>
         /// Xoa het cac bang de tao cau truc bang moi
@@ -265,6 +268,29 @@ namespace MSAMobApp.Data
             await Init();
             var stockSamples = await database.Table<MobStockMasterItem>().ToListAsync();
             return stockSamples;
+        }
+        #endregion
+
+        #region stock Transactions
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="stockTrans"></param>
+        /// <returns></returns>
+        public async static Task CreateStockTrans(StockTrans stockTrans)
+        {
+             await stockTransHandler.CreateStockTrans(stockTrans);
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<List<StockTrans>> GetStockTrans()
+        {
+            //if (stockTransHandler == null)
+            //    stockTransHandler = new StockTransDatabase(database);
+
+             return await database.Table<StockTrans>().ToListAsync();
         }
         #endregion
     }

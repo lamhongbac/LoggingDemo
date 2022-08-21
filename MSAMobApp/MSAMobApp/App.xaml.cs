@@ -8,12 +8,13 @@ namespace MSAMobApp
 {
     public partial class App : Application
     {
-
+       public static XAppContext AppContext;
         public App()
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            //DependencyService.Register<MockDataStore>();
+            AppContext = XAppContext.GetInstance();
             MainPage = new AppShell();
         }
 

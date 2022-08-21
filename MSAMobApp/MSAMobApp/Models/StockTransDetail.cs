@@ -13,7 +13,7 @@ namespace MSAMobApp.Models
         public Guid ID { get; set; }
 
         [ForeignKey(typeof(StockTrans))]
-        public Guid StockTransID { get; set; } //khoa ngoai
+        public Guid TransID { get; set; } //khoa ngoai
 
         public string BarCode { get; set; } //dung ra la phai chi dinh khoa ngoai vao bang master stock Item
         public string ItemNumber { get; set; } //ma item

@@ -9,7 +9,7 @@ namespace MSAMobApp.Data
 {
   public  class StockTransDatabase
     {
-        static SQLiteAsyncConnection _database;
+         SQLiteAsyncConnection _database;
         public StockTransDatabase(SQLiteAsyncConnection database)
         {
             _database = database;
@@ -18,7 +18,7 @@ namespace MSAMobApp.Data
         /// 
         /// </summary>
         /// <param name="stockTrans"></param>
-        public async static Task CreateStockTrans(StockTrans stockTrans)
+        public async  Task CreateStockTrans(StockTrans stockTrans)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace MSAMobApp.Data
             
 
         }
-        public async static Task<List<StockTrans>> GetStockTrans()
+        public async  Task<List<StockTrans>> GetStockTrans()
         {
            return await _database.Table<StockTrans>().ToListAsync();
         }

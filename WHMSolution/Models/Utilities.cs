@@ -11,59 +11,100 @@ namespace WHMSolution.Models
 {
     public class Utilities
     {
-        public static async Task ImportMasterItemBarCode(IFormFile file)
+        
+        WHMApplication _application;
+        public Utilities(WHMApplication application)
         {
-
-            List<MobMasterStockModel> list = new List<MobMasterStockModel>();
-            StringBuilder sb = new StringBuilder();
-            using (var stream = new MemoryStream())
-            {
-                await file.CopyToAsync(stream);
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using (var package = new ExcelPackage(stream))
-                {
-                    ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-                    var rowcount = worksheet.Dimension.Rows;
-
-                    #region string builder HTML
-                    sb.Append("<table class='table table-bordered'><tr>");
-                    List<string> columnNames = new List<string>();
-                    foreach (var firstRowCell in worksheet.Cells[worksheet.Dimension.Start.Row, worksheet.Dimension.Start.Column, 1, worksheet.Dimension.End.Column])
-                    {
-                        columnNames.Add(firstRowCell.Text);
-                        sb.Append("<th>" + firstRowCell.Text.ToString() + "</th>");
-                    }
-                    sb.Append("</tr>");
-                    sb.AppendLine("<tr>");
-                    var start = worksheet.Dimension.Start;
-                    var end = worksheet.Dimension.End;
-                    for (int i = start.Row + 1; i <= end.Row; i++)
-                    { // Row by row...
-                        for (int col = start.Column; col <= end.Column; col++)
-                        { // ... Cell by cell...
-                            object cellValue = worksheet.Cells[i, col].Text; // This got me the actual value I needed.
-                            sb.Append("<td>" + cellValue.ToString() + "</td>");
-                        }
-                        sb.AppendLine("</tr>");
-                    }
-                    sb.Append("</table>");
-
-
-                    #endregion
-
-                    for (int row = 2; row <= rowcount; row++)
-                    {
-                        list.Add(new MobMasterStockModel
-                        {
-                            BarCode = worksheet.Cells[row, 1].Value.ToString().Trim(),
-                            Name = worksheet.Cells[row, 2].Value.ToString().Trim(),
-                            Unit = worksheet.Cells[row, 3].Value.ToString().Trim(),
-                            Description = worksheet.Cells[row, 4].Value.ToString().Trim()
-                        });
-                    }
-
-                }
-            }
+            _application = application;
         }
+        /// <summary>
+        /// import stock master data from Excel upload file
+        /// </summary>
+        /// <param name="file"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public  async Task<bool> ImportMasterItemBarCode(IFormFile file)
+        {
+            string userID = _application.UserID;
+            bool result = false;
+            try
+            {
+                List<MobMasterStockModel> list = new List<MobMasterStockModel>();
+                StringBuilder sb = new StringBuilder();
+                using (var stream = new MemoryStream())
+                {
+                    await file.CopyToAsync(stream);
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                        var rowcount = worksheet.Dimension.Rows;
+
+                        int NumberRowHeader = 1;
+                        int BarCodeRowHeader = 2;
+                        int NameRowHeader = 3;
+                        int UnitRowHeader = 4;
+                        int DescriptionRowHeader = 5;
+                        int StartRow = 2;
+
+                        for (int row = StartRow; row <= rowcount; row++)
+                        {
+                            string number = worksheet.Cells[row, NumberRowHeader].Value.ToString().Trim();
+                            string barCode = worksheet.Cells[row, BarCodeRowHeader].Value.ToString().Trim();
+                            string name = worksheet.Cells[row, NameRowHeader].Value.ToString().Trim();
+                            string unit = worksheet.Cells[row, UnitRowHeader].Value.ToString().Trim();
+                            string description = worksheet.Cells[row, DescriptionRowHeader].Value.ToString().Trim();
+
+                            list.Add(new MobMasterStockModel
+                            {
+                                CreatedBy = userID, //login user
+                                CreatedOn = DateTime.Now,
+                                DataState = "Posted",
+                                GLocation = "",//mobile only
+                                HID = "", //mobile only
+                                ID = Guid.NewGuid(),
+                                ModifiedBy = userID,
+                                ModifiedOn = DateTime.Now,
+                                Number = number,
+                                BarCode = barCode,
+                                UserID = userID,
+                                Name = name,
+                                Unit = unit,
+                                Description = description,
+                                SyncDate = DateTime.Now
+
+                            }) ;
+                        }
+
+                    }
+                }
+                SQLDataBase database = _application.DataBase;
+                int rows =await database.ImportData(list);
+                result = rows>0;
+            }
+            catch(Exception)
+            {
+                result = false;
+                //throw ex;
+            }
+
+           
+            return result;
+        }
+    }
+    public class FileViewModel
+    {
+        public FileViewModel()
+        {
+           
+
+        }
+        public IFormFile FormFile { get; set; }
+    }
+    public class AppFile
+    {
+        public int Id { get; set; }
+        public string FileName { get; set; }
+        public byte[] Content { get; set; }
     }
 }

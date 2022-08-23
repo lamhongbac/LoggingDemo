@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WHMSolution.Models;
 
 namespace WHMSolution
 {
@@ -23,7 +25,25 @@ namespace WHMSolution
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var appConfigSection = Configuration.GetSection("AppConfig");
+            AppConfig appConfiguration = appConfigSection.Get<AppConfig>();
+            string connectionString = appConfiguration.DBConfiguration.GetConnectionString();
+            services.AddAutoMapper(typeof(AppAutoMapper));
             services.AddRazorPages();
+            #region Add repo services
+            //1. SettingRepository
+            services.AddSingleton<SQLDataBase>(x =>
+            {
+                IMapper mapper = x.GetRequiredService<IMapper>();
+                return new SQLDataBase(appConfiguration.DBConfiguration, mapper);
+            });
+            //AppConfig
+            services.Configure<AppConfig>(options => Configuration.GetSection("AppConfig").Bind(options));
+
+            
+            services.AddSingleton<WHMApplication>();
+            
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

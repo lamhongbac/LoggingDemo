@@ -1,0 +1,44 @@
+﻿@page
+@model WHMSolution.Pages.StockTrans.StockTransDetailModel
+@{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Export excel to StockMaster</title>
+</head>
+<body>
+    <h1>Export Stock Transaction</h1>
+
+
+    <form method="post">
+        <fieldset>
+            <legend>input parametter for export data</legend>
+            <div>
+                <label asp-for="FromDate">  From Date </label>
+                
+                <input asp-for="FromDate" type="datetime-local" id="beginDate"
+                       name="beginDate">
+
+            </div>
+            <div>
+                <label asp-for="ToDate">  To Date </label>
+                <input asp-for="ToDate" type="datetime" name="endDate" />
+            </div>
+            <div>
+                <label asp-for="TCode"> TCode </label>
+                <input asp-for="TCode" type="text">
+            </div>
+            <div>
+                <label asp-for="StoreNo"> Store No </label>
+                <input asp-for="StoreNo" type="text">
+            </div>
+            <div>
+                <label>&nbsp;</label>
+                <input class="btn btn-primary" type="submit" value="Export...">
+            </div>
+        </fieldset>
+    </form>
+    
+</body>
+</html>

@@ -21,7 +21,8 @@
                 <input asp-for="FileUpload.FormFile" type="file">
             </dd>
         </dl>
-        <input asp-page-handler="Upload" class="btn" type="submit" value="Upload">
+        @*asp-page-handler="Upload"*@
+        <input class="btn" type="submit" value="Upload">
     </form>
     <div >
         <a asp-page="/StockMaster/Index"> Back to Index</a>

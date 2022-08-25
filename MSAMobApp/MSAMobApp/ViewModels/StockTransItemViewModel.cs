@@ -27,7 +27,7 @@ namespace MSAMobApp.ViewModels
         public StockTransItemViewModel(StockTransDetail detailItem, string name, string unit)
         {
             ID = detailItem.ID;
-            StockTransID = detailItem.StockTransID;
+            StockTransID = detailItem.TransID;
             BarCode = detailItem.BarCode;
             Quantity = detailItem.Quantity;
             Number = detailItem.ItemNumber;

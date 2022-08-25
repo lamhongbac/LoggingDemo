@@ -54,7 +54,8 @@ namespace WHMSolution.Pages.StockTrans
             SQLDataBase database = _application.DataBase;
 
             List<StockTransData> stockTransList = await database.GetStockTransData(FromDate, ToDate, TCode, StoreNo); ;
-            isSuccess= appUtil.ExportToExcel(stockTransList);
+            List<string> header = new List<string> { "DocNo", "Notes", "UserID", "BarCode", "ItemNumber", "Name", "Unit", "Quantity" };
+            isSuccess= appUtil.ExportToExcel(stockTransList, header);
             //save image to database.
             if (!isSuccess)
             {

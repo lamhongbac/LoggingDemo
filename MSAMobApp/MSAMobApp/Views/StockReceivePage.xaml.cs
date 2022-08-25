@@ -47,7 +47,12 @@ namespace MSAMobApp.Views
                 }
             }
         }
-
+        /// <summary>
+        /// kiem tra xem barcode co ton tai trong masterdata, neu co se add vao danh sach barcode
+        /// se move vao viewmodel sau
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private async void Button_Clicked(object sender, EventArgs e)
         {
             string scanedBarCode = scanResultText.Text.Trim();

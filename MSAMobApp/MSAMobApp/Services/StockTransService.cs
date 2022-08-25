@@ -9,12 +9,12 @@ using Xamarin.Essentials;
 
 namespace MSAMobApp.Services
 {
-  public static  class StockTransService
+    public static class StockTransService
     {
-      static  SQLiteAsyncConnection db;
+        static SQLiteAsyncConnection db;
         static async Task Init()
         {
-            if (db!=null)
+            if (db != null)
             {
                 return;
             }
@@ -22,7 +22,7 @@ namespace MSAMobApp.Services
             // SQLiteAsyncConnection database;
             var dbPath = Path.Combine(FileSystem.AppDataDirectory, "MobData.db");
             db = new SQLiteAsyncConnection(dbPath);
-          await  db.CreateTableAsync<StockTrans>();
+            await db.CreateTableAsync<StockTrans>();
 
         }
         public static async Task AddStock(SQLiteConnection db, string userID, string barcode)
@@ -45,5 +45,8 @@ namespace MSAMobApp.Services
             db.Insert(stock);
             //Console.WriteLine("{0} == {1}", stock.BarCode, stock.ID);
         }
+        //public async Task<SyncMobStockItemResult> SyncStockItems()
+        //{
+        //}
     }
 }

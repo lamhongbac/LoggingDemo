@@ -17,4 +17,14 @@ namespace WHMAPI.Models
         //item update from mobile to server
         public List<MobStockMasterItem> MobItems;
     }
+
+    public class SyncStockTransModel
+    {
+        /// <summary>
+        /// client sycn date
+        /// </summary>
+        public DateTime LastSyncDate { get; set; }
+        //item update from mobile to server
+        public List<MobStockTrans> MobItems;
+    }
 }

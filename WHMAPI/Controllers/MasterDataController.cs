@@ -12,7 +12,7 @@ namespace WHMAPI.Controllers
     [ApiController]
     public class MasterDataController : ControllerBase
     {
-        private string connectionString = "Data Source=203.205.30.159,85;User ID=sa;Password=@saomai2022;persist security info=True;initial catalog=CLMHQ4GIGA";
+        private string connectionString = "Data Source=203.205.30.159,85;User ID=sa;Password=@saomai2022;persist security info=True;initial catalog=FnBSCM";
         [Route("CreateStockItems")]
         [HttpPost]
         public async Task<IActionResult> CreateStockItems(List<MobStockMasterItem> items)

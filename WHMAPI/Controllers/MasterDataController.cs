@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SCMDAL.DataHandler;
+using SCMDAL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +28,7 @@ namespace WHMAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SyncStockItems(SyncStockItemModel model)
         {
-            MobStockMasterHandler stockHandler = new MobStockMasterHandler(connectionString);
+            MobSyncHandler stockHandler = new MobSyncHandler(connectionString);
             SyncMobStockItemResult result = await stockHandler.MobSyncStockItem(model);
             return Ok(result);
         }

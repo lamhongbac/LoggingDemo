@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SCMDAL.DataHandler;
+using SCMDAL.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,23 +15,25 @@ namespace WHMAPI.Controllers
     public class StockTransController : ControllerBase
     {
         private string connectionString = "Data Source=203.205.30.159,85;User ID=sa;Password=@saomai2022;persist security info=True;initial catalog=FnBSCM";
-
+        /// <summary>
+        /// Create truc tiep tu mob xuong DB
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
         [Route("CreateStockTrans")]
         [HttpPost]
         public async Task<IActionResult> CreateStockItems(List<MobStockTrans> items)
         {
-            //MobStockMasterHandler stockHandler = new MobStockMasterHandler(connectionString);
-            //List<MobStockMasterItem> result = await stockHandler.CreateStockItems(items);
-            //return Ok(result);
+            MobStockTransHandler stockHandler = new MobStockTransHandler(connectionString);
+            foreach (var item in items)
+            {
+                //kiem tra va loai bo cac item kg can
+                item.SyncDate = DateTime.Now;
+                item.DataState = "Posted";
+            }
+            var result = await stockHandler.CreateStockTrans(items);
+            return Ok(result);
         }
-
-        [Route("SyncStockItems")]
-        [HttpPost]
-        public async Task<IActionResult> SyncStockItems(SyncStockTransModel model)
-        {
-            //MobStockMasterHandler stockHandler = new MobStockMasterHandler(connectionString);
-            //SyncMobStockItemResult result = await stockHandler.MobSyncStockItem(model);
-            //return Ok(result);
-        }
+       
     }
 }

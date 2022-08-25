@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Dapper.Contrib.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WHMAPI.Models
+namespace SCMDAL.DTO
 {
+    [Table("G_Setting")]
     public class SettingUI
     {
+        public int ID { get; set; }
         public string Group { get; set; }
         public string Key { get; set; }
         public string Value { get; set; }

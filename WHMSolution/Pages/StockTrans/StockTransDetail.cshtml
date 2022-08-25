@@ -12,32 +12,38 @@
 
 
     <form method="post">
-        <fieldset>
-            <legend>input parametter for export data</legend>
-            <div>
-                <label asp-for="FromDate">  From Date </label>
-                
-                <input asp-for="FromDate" type="datetime-local" id="beginDate"
-                       name="beginDate">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            </div>
-            <div>
-                <label asp-for="ToDate">  To Date </label>
-                <input asp-for="ToDate" type="datetime" name="endDate" />
-            </div>
-            <div>
-                <label asp-for="TCode"> TCode </label>
-                <input asp-for="TCode" type="text">
-            </div>
-            <div>
-                <label asp-for="StoreNo"> Store No </label>
-                <input asp-for="StoreNo" type="text">
-            </div>
-            <div>
-                <label>&nbsp;</label>
-                <input class="btn btn-primary" type="submit" value="Export...">
-            </div>
-        </fieldset>
+
+        <div class="form-group">
+            <label asp-for="FromDate" class="control-label">  From Date </label>
+
+            <input asp-for="FromDate" class="form-control" type="datetime-local"
+                   name="beginDate" />
+            @Html.ValidationMessage("beginDate")
+        </div>
+        <div class="form-group">
+            <label asp-for="ToDate" class="control-label">  To Date </label>
+            <input asp-for="ToDate" class="form-control" type="datetime" name="endDate" />
+            @Html.ValidationMessage("endDate")
+        </div>
+        <div class="form-group">
+            <label asp-for="TCode" class="control-label"> TCode </label>
+            <input asp-for="TCode" class="form-control" type="text" name="tCode">
+            @Html.ValidationMessage("tCode")
+        </div>
+
+        <div class="form-group">
+            <label asp-for="StoreNo" class="control-label"> Store No </label>
+            <input asp-for="StoreNo" class="form-control" type="text" name="storeNo">
+            @Html.ValidationMessage("storeNo")
+        </div>
+
+        <div class="form-group">
+            
+            <input class="btn btn-primary" type="submit" value="Export...">
+        </div>
+
     </form>
     
 </body>

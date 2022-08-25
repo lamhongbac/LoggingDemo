@@ -18,7 +18,7 @@ namespace WHMSolution.Models
         public SQLDataBase(DBConfig Dbcongig, IMapper mapper)
         {
             _mapper = mapper;
-               _connectionString = Dbcongig.GetConnectionString();
+            _connectionString = Dbcongig.GetConnectionString();
             // connection = new SqlConnection(connectionString);
         }
 
@@ -88,14 +88,33 @@ namespace WHMSolution.Models
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.ToString());
-               
+
 
             }
             finally
             {
-                
+
             }
             return record;
+        }
+        public async Task<List<StockTransData>> GetStockTransData(DateTime fromDate, DateTime toDate, string tCode, string storeNo)
+        {
+            List<StockTransData> data = new List<StockTransData>();
+            var procedure = "[InvTransByDate]";
+            var values = new { Beginning_Date = fromDate, Ending_Date = toDate, TCode = tCode, StoreNo = storeNo };
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    var results = await connection.QueryAsync<StockTransData>(procedure, values, commandType: CommandType.StoredProcedure);
+                    data = results.ToList();
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+            return data;
         }
     }
 }

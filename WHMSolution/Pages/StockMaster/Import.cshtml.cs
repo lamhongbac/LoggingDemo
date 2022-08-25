@@ -16,7 +16,7 @@ namespace WHMSolution.Pages.StockMaster
     public class ImportModel : PageModel
     {
       
-        public string UserID { get; set; }
+        //public string UserID { get; set; }
         private IWebHostEnvironment _hostenvironment;
         
         WHMApplication _application;

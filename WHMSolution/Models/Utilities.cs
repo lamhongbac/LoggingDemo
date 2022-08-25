@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Http;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -90,6 +93,79 @@ namespace WHMSolution.Models
 
            
             return result;
+        }
+
+        public bool ExportToExcel(List<StockTransData> stockTransList, List<String> headers)
+        {
+            string fileName = "InvTransDetail" + DateTime.Now.ToString("ddMMyyhhmm");
+            //throw new NotImplementedException();
+            using (SpreadsheetDocument document = SpreadsheetDocument.Create(fileName, SpreadsheetDocumentType.Workbook))
+            {
+                WorkbookPart workbookPart = document.AddWorkbookPart();
+                workbookPart.Workbook = new Workbook();
+                WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+                var sheetData = new SheetData();
+                worksheetPart.Worksheet = new Worksheet(sheetData);
+
+                Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
+                Sheet sheet = new Sheet() { Id = workbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "Sheet1" };
+
+                sheets.Append(sheet);
+
+                Row headerRow = new Row();
+
+                foreach (string itemheader in headers)
+                {
+
+
+                    Cell cell = new Cell();
+                    cell.DataType = CellValues.String;
+                    cell.CellValue = new CellValue(itemheader);
+                    headerRow.AppendChild(cell);
+                }
+
+                sheetData.AppendChild(headerRow);
+
+                int count = stockTransList.Count;
+
+                for (int i = 0; i < count; i++)
+                {
+                    Row newRow = new Row();
+                    StockTransData item = stockTransList[i];
+                    //cell barcode
+                    Cell cell_barcode = new Cell();
+                    cell_barcode.DataType = CellValues.String;
+                    cell_barcode.CellValue = new CellValue(item.BarCode.ToString());
+                    newRow.AppendChild(cell_barcode);
+
+                    Cell cell_name = new Cell();
+                    cell_name.DataType = CellValues.String;
+                    cell_name.CellValue = new CellValue(item.Name.ToString());
+                    newRow.AppendChild(cell_name);
+
+
+                    Cell cell_unit = new Cell();
+                    cell_unit.DataType = CellValues.String;
+                    cell_unit.CellValue = new CellValue(item.Unit.ToString());
+                    newRow.AppendChild(cell_unit);
+
+                    Cell cell_quantity = new Cell();
+                    cell_quantity.DataType = CellValues.Number;
+                    cell_quantity.CellValue = new CellValue(cell_quantity.ToString());
+                    newRow.AppendChild(cell_quantity);
+                    //...
+
+
+
+
+                    //...
+                    sheetData.AppendChild(newRow);
+                }
+
+
+                workbookPart.Workbook.Save();
+                return true;
+            }
         }
     }
     public class FileViewModel

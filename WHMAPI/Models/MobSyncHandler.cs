@@ -26,7 +26,12 @@ namespace WHMAPI.Models
             MobStockMasterHandler dal = new MobStockMasterHandler(_connectionstring);
                SyncMobStockItemResult result = new SyncMobStockItemResult();
             bool isFirstSync = model.LastSyncDate == DateTime.MinValue;
-            DateTime serverLastChangeDate = dal.GetServerLastChangeDate();
+            DateTime serverLastChangeDate = DateTime.MinValue;
+            if (dal.GetServerLastChangeDate()!=null)
+            {
+                serverLastChangeDate = Convert.ToDateTime(dal.GetServerLastChangeDate().Key);
+            }
+            
 
             result.LastSyncDate = serverLastChangeDate;
 

@@ -15,12 +15,18 @@ namespace WHMAPI.Controllers
     public class MasterDataController : ControllerBase
     {
         private string connectionString = "Data Source=203.205.30.159,85;User ID=sa;Password=@saomai2022;persist security info=True;initial catalog=FnBSCM";
-        [Route("CreateStockItems")]
+        
+        /// <summary>
+        /// ham nay dung de luu vao CSDL khi mobile bam nut SAVE, tren man hinh NEW Product
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
+        [Route("CreateMobStockItems")]
         [HttpPost]
-        public async Task<IActionResult> CreateStockItems(List<MobStockMasterItem> items)
+        public async Task<IActionResult> CreateMobStockItems(List<MobStockMasterItem> items)
         {
             MobStockMasterHandler stockHandler = new MobStockMasterHandler(connectionString);
-            List<MobStockMasterItem> result = await stockHandler.CreateStockItems(items);
+            List<MobStockMasterItem> result = await stockHandler.CreateMobStockItems(items);
             return Ok(result);
         }
 

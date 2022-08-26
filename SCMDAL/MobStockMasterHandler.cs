@@ -19,31 +19,28 @@ namespace SCMDAL.DataHandler
             ConnectionString = _connection;
         }
 
-        public async Task<List<MobStockMasterItem>> CreateStockItems(List<MobStockMasterItem> items)
-        {
-            long return_item = -1;
-
+        //public async Task<List<MobStockMasterItem>> CreateMobStockItems(List<MobStockMasterItem> items)
+        //{
+        //    long return_item = -1;
             
-            List<MobStockMasterItem> toInsert_items = items;
-
-            using (IDbConnection db = new SqlConnection(ConnectionString))
-            {
-
-                return_item = await db.InsertAsync<List<MobStockMasterItem>>(items);
-            }
-            if (return_item > 0)
-            {
-                return toInsert_items;
-            }
-            else
-            {
-                return null;
-            }
-        }
+        //    List<MobStockMasterItem> toInsert_items = items;
+        //    using (IDbConnection db = new SqlConnection(ConnectionString))
+        //    {
+        //        return_item = await db.InsertAsync<List<MobStockMasterItem>>(items);
+        //    }
+        //    if (return_item > 0)
+        //    {
+        //        return toInsert_items;
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
 
         /// <summary>
         /// create item that scan from mobile
-        /// kiem tra xem neu barcode co ton tai thi tu choi
+        /// kiem tra xem neu barcode co ton tai thi tu choi, quay ve se xoa khoi Local
         /// cac item ma tao boi mobile va chua dua len server thi co the thay doi duoi mob
         /// 
         /// </summary>
@@ -118,10 +115,14 @@ namespace SCMDAL.DataHandler
                 sql += " WHERE " + whereCondition;
             }
 
-            IDbConnection db = new SqlConnection(ConnectionString);
+            using (IDbConnection db = new SqlConnection(ConnectionString))
+            {
 
-            var data = await db.QueryAsync<MobStockMasterItem>(sql, para);
-            return data.ToList();
+                var data = await db.QueryAsync<MobStockMasterItem>(sql, para);
+                return data.ToList();
+            }
+            //return new List<MobStockMasterItem>();
+            
         }
         
         private async Task<List<MobStockMasterItem>> GetAllLastChangeItems(List<MobStockMasterItem> exceptist)
@@ -130,8 +131,8 @@ namespace SCMDAL.DataHandler
             List<MobStockMasterItem> result = items.Where(p => !exceptist.Any(p2 => p2.ID == p.ID)).ToList();
             return result;
         }
-
-        public DateTime GetServerLastChangeDate()
+        #region update lastchange
+        public SettingUI GetServerLastChangeDate()
         {
             //Group=[group]='MasterData'
             //Key=LastChangedDate
@@ -144,7 +145,28 @@ namespace SCMDAL.DataHandler
             IDbConnection db = new SqlConnection(ConnectionString);
 
             SettingUI data = db.QueryFirstOrDefault<SettingUI>(sql);
-            return Convert.ToDateTime(data.Value);
+            return data;
         }
+        /// <summary>
+        /// update LastChange Date khi update master data thanh cong
+        /// </summary>
+        /// <param name="ChangeDate"></param>
+        public async Task<bool> UpdateLastChangeDate(DateTime ChangeDate)
+        {
+            bool record = false;
+
+
+            SettingUI data = GetServerLastChangeDate();
+
+            data.Key = ChangeDate.ToString();
+
+            using (IDbConnection db = new SqlConnection(ConnectionString))
+            {
+               record=await  db.UpdateAsync<SettingUI>(data);
+            }
+
+            return record;
+        }
+        #endregion
     }
 }

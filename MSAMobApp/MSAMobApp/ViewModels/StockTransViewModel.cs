@@ -16,11 +16,18 @@ namespace MSAMobApp.ViewModels
     /// </summary>
     public class StockTransViewModel : BaseViewModel
     {
+        public Command SaveCommand { get; }
+        public Command CancelCommand { get; }
+        public Command AddQtyCommand { get; }
+        public Command RemoveQtyCommand { get; }
         public DateTime MinDate { get; set; }
         public DateTime MaxDate { get; set; }
         public StockTransViewModel()
         {
-            SaveCommand = new Command( OnSave);
+            AddQtyCommand = new Command(OnAddQty);
+            RemoveQtyCommand = new Command(OnRemoveQty);
+
+               SaveCommand = new Command( OnSave);
             CancelCommand = new Command(OnCancel);
             //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
@@ -127,14 +134,21 @@ namespace MSAMobApp.ViewModels
             set => SetProperty(ref stockTransDetailCol, value);
         }
         
-        public Command SaveCommand { get; }
-        public Command CancelCommand { get; }
+        
         //public Command LoadItemsCommand { get; }
         
         private async void OnCancel()
         {
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
+        }
+        private async void OnAddQty()
+        {
+
+        }
+        private async void OnRemoveQty()
+        {
+
         }
         /// <summary>
         /// save to local DB

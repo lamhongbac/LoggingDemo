@@ -50,4 +50,8 @@
     <Folder Include="wwwroot\UploadFile\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SCMDAL\SCMDAL.csproj" />
+  </ItemGroup>
+
 </Project>

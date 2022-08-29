@@ -107,6 +107,8 @@
                                 <ColumnDefinition Width="4*"/>
                                 <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>
 
                             <Label Grid.Column="0" Grid.Row="0" 
@@ -122,6 +124,13 @@
                             <Label Grid.Column="3" Grid.Row="0" 
                                    Text="{Binding Quantity}" 
                                    FontAttributes="None"  x:Name="Qty"/>
+                            
+                            <Button Grid.Column="4" Grid.Row="0" 
+                                   Text="+" Command="{Binding AddQtyCommand}" 
+                                   />
+                            <Button Grid.Column="5" Grid.Row="0" 
+                                   Text="-" Command="{Binding RemoveQtyCommand}" 
+                                                                       />
                         </Grid>
                         
                     </DataTemplate>

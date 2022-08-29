@@ -6,6 +6,7 @@ namespace MSAMobApp.Models
 {
    public class AppDataType
     {
+       public static  DateTime UsingAppDate = new DateTime(2022, 1, 1);
     }
     /// <summary>
     /// Ware house management Tcode

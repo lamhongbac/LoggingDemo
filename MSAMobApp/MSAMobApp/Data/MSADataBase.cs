@@ -181,15 +181,30 @@ namespace MSAMobApp.Data
             int rows = 0;
             foreach (var item in synced_items)
             {
-                item.DataState = EDataState.Posted.ToString();
-                var existitem=await database.GetAsync<MobStockMasterItem>(item.ID);
-
-                if (existitem != null)
+                //item.DataState = EDataState.Posted.ToString();
+                //var existitem=await database.GetAsync<MobStockMasterItem>(item.ID);
+                MobStockMasterItem existitem =await database.Table<MobStockMasterItem>().
+                    FirstOrDefaultAsync(p => p.BarCode== item.BarCode);
+                
+                if (existitem != null) //tim thay
                 {
-                    rows =+ await database.UpdateAsync(item);
-                    
+                    existitem.CreatedBy = item.CreatedBy;
+                    existitem.CreatedOn = item.CreatedOn;
+                    existitem.DataState = item.DataState;
+                    existitem.Description = item.Description;
+                    existitem.ModifiedBy = item.ModifiedBy;
+                    existitem.ModifiedOn = item.ModifiedOn;
+                    existitem.Name = item.Name;
+                    existitem.Number = item.Number;
+                    existitem.SyncDate = item.SyncDate;
+                    existitem.UserID = item.UserID;
+                    existitem.Unit = item.Unit;
+                    existitem.GLocation = item.GLocation;
+                    existitem.HID = item.HID;
+
+                    rows =+ await database.UpdateAsync(item);                    
                 }
-                else
+                else //khong tim thay
                 {
                     rows += await database.InsertAsync(item);
                 }

@@ -3,6 +3,8 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Http;
 using OfficeOpenXml;
+using SCMDAL.DataHandler;
+using SCMDAL.DTO;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +34,7 @@ namespace WHMSolution.Models
             bool result = false;
             try
             {
-                List<MobMasterStockModel> list = new List<MobMasterStockModel>();
+                List<MobStockMasterItem> list = new List<MobStockMasterItem>();
                 StringBuilder sb = new StringBuilder();
                 using (var stream = new MemoryStream())
                 {
@@ -58,7 +60,7 @@ namespace WHMSolution.Models
                             string unit = worksheet.Cells[row, UnitRowHeader].Value.ToString().Trim();
                             string description = worksheet.Cells[row, DescriptionRowHeader].Value.ToString().Trim();
 
-                            list.Add(new MobMasterStockModel
+                            list.Add(new MobStockMasterItem
                             {
                                 CreatedBy = userID, //login user
                                 CreatedOn = DateTime.Now,
@@ -81,7 +83,7 @@ namespace WHMSolution.Models
 
                     }
                 }
-                SQLDataBase database = _application.DataBase;
+                MobStockMasterHandler database = _application.StockMasterDataBase;
                 int rows =await database.ImportData(list);
                 result = rows>0;
             }

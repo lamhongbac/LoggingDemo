@@ -56,7 +56,7 @@ namespace MSAMobApp.Services
         {
             List<MobStockMasterItem> toCreateItems = await MSADataBase.GetNewMasterStockItemAsync();
             AppSetting LastSyncData = await MSADataBase.GetLastSyncData("Sync","LastSyncDate");
-            DateTime LastSyncDate = DateTime.MinValue;
+            DateTime LastSyncDate = AppDataType.UsingAppDate;
             if (LastSyncData != null)
             {
                  LastSyncDate = Convert.ToDateTime(LastSyncData.AppValue);
@@ -69,7 +69,7 @@ namespace MSAMobApp.Services
             };
 
 
-            string apiURL = ApiServices.SyncStockItems;
+            string apiURL = ApiServices.SyncStockMasterUrl;
             HttpClient client = new HttpClient();
             var json = JsonConvert.SerializeObject(postObject);
             var data = new StringContent(json, Encoding.UTF8, "application/json");

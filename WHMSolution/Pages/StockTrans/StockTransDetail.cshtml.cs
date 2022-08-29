@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using SCMDAL.DataHandler;
+using SCMDAL.DTO;
 using WHMSolution.Models;
 
 namespace WHMSolution.Pages.StockTrans
@@ -51,7 +53,7 @@ namespace WHMSolution.Pages.StockTrans
             {
                 return Page();
             }
-            SQLDataBase database = _application.DataBase;
+            MobStockTransHandler database = _application.StockTransDataBase;
 
             List<StockTransData> stockTransList = await database.GetStockTransData(FromDate, ToDate, TCode, StoreNo); ;
             List<string> header = new List<string> { "DocNo", "Notes", "UserID", "BarCode", "ItemNumber", "Name", "Unit", "Quantity" };

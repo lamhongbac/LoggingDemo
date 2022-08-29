@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SCMDAL.DataHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,10 +33,15 @@ namespace WHMSolution
             services.AddRazorPages();
             #region Add repo services
             //1. SettingRepository
-            services.AddSingleton<SQLDataBase>(x =>
+            services.AddSingleton<MobStockMasterHandler>(x =>
             {
-                IMapper mapper = x.GetRequiredService<IMapper>();
-                return new SQLDataBase(appConfiguration.DBConfiguration, mapper);
+                //IMapper mapper = x.GetRequiredService<IMapper>();
+                return new MobStockMasterHandler(appConfiguration.DBConfiguration.GetConnectionString());
+            });
+            services.AddSingleton<MobStockTransHandler>(x =>
+            {
+                //IMapper mapper = x.GetRequiredService<IMapper>();
+                return new MobStockTransHandler(appConfiguration.DBConfiguration.GetConnectionString());
             });
             //AppConfig
             services.Configure<AppConfig>(options => Configuration.GetSection("AppConfig").Bind(options));

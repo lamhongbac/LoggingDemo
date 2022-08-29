@@ -16,13 +16,14 @@ namespace WHMAPI.Controllers
     {
         private string connectionString = "Data Source=203.205.30.159,85;User ID=sa;Password=@saomai2022;persist security info=True;initial catalog=FnBSCM";
         /// <summary>
-        /// Create truc tiep tu mob xuong DB
+        /// Luu data tu mob vao trong CSDL
+        /// Tra ve Danh sach cac GUID ID da cap nhat thanh cong
         /// </summary>
         /// <param name="items"></param>
         /// <returns></returns>
         [Route("CreateStockTrans")]
         [HttpPost]
-        public async Task<IActionResult> CreateStockItems(List<MobStockTrans> items)
+        public async Task<IActionResult> CreateStockTrans(List<MobStockTrans> items)
         {
             MobStockTransHandler stockHandler = new MobStockTransHandler(connectionString);
             foreach (var item in items)

@@ -24,34 +24,46 @@ namespace WHMAPI.Models
         public async Task<SyncMobStockItemResult> MobSyncStockItem(SyncStockItemModel model)
         {
             MobStockMasterHandler dal = new MobStockMasterHandler(_connectionstring);
-               SyncMobStockItemResult result = new SyncMobStockItemResult();
+            SyncMobStockItemResult result = new SyncMobStockItemResult();
             bool isFirstSync = model.LastSyncDate == DateTime.MinValue;
             DateTime serverLastChangeDate = DateTime.MinValue;
-            if (dal.GetServerLastChangeDate()!=null)
+            if (dal.GetServerLastChangeDate() != null)
             {
                 serverLastChangeDate = Convert.ToDateTime(dal.GetServerLastChangeDate().Key);
             }
-            
+
 
             result.LastSyncDate = serverLastChangeDate;
-
-            List<MobStockMasterItem> to_created = new List<MobStockMasterItem>();
+            #region post mobile items
+            List<MobStockMasterItem> mobItems = new List<MobStockMasterItem>();
             if (model.MobItems != null && model.MobItems.Count > 0)
             {
-                to_created = await dal.CreateMobStockItems(model.MobItems);
+                foreach (var item in model.MobItems)
+                {
+                    item.ModifiedOn = DateTime.Now;
+                    item.DataState = EDataState.Posted.ToString();
+                }
+                mobItems  = await dal.CreateMobStockItems(model.MobItems);
             }
-
-
+            #endregion
+            //danh sach item tra ve mob de cap nhat lai
             List<MobStockMasterItem> syncitems = new List<MobStockMasterItem>();
-            syncitems.AddRange(to_created);
+           
 
+            //lay het DB neu la lan dau tien
             if (isFirstSync)
             {
                 syncitems = await dal.GetItems(string.Empty, null);
+                result.LastSyncDate = DateTime.Now;
                 result.ForMobileUpdate = syncitems;
                 return result;
             }
-
+            else
+            {
+                syncitems.AddRange(mobItems);
+            }
+            #region get change item from server
+            //neu kg phai lan dau tien , so sanh voi lan update cuoi
             DateTime mobLastSyncDate = DateTime.MinValue;
             List<MobStockMasterItem> change_items = new List<MobStockMasterItem>();
 
@@ -59,14 +71,13 @@ namespace WHMAPI.Models
             {
                 change_items = await dal.GetLastChangeItems(mobLastSyncDate);
 
-
                 if (change_items.Count > 0)
                 {
                     syncitems.AddRange(change_items);
                 }
             }
-
-            result.ForMobileUpdate = change_items;
+            #endregion
+            result.ForMobileUpdate = syncitems;
 
             return result;
         }

@@ -28,12 +28,13 @@ namespace MSAMobApp.Models
         //public string BarCode { get; set; }
         //public DateTime ScanDateTimes { get; set; }
         //public int Quantity { get; set; }
-        public string DataState { get; set; }  
+        public string DataState { get; set; }
         //theo doi trang thai da dua len Central DB hay chua
         //New: chua dua len=> Posted
         //New->edit--> posted
         //neu da POSTED: thi kg the sua
-        
+        public string HID { get; set; } //HardWare ID       
+        public string GLocation { get; set; } //Google location
         //New/Posted/Edit                                              
         //khi handhelp quet barcode thi data status = new                                              
         //khi push data len BackEnd thanh cong thi tra ve danh sach barcode voi trang thai la true/false                                              

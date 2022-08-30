@@ -9,7 +9,8 @@ namespace SCMDAL.DTO
     {
         public MobStockTrans()
         {
-            ID = Guid.NewGuid(); StockTransDetails = new List<StockTransDetail>();
+            ID = Guid.NewGuid(); 
+            StockTransDetails = new List<StockTransDetail>();
         }
         public Guid ID { get; set; }
         public string Number { get; set; } //so chung tu
@@ -22,8 +23,9 @@ namespace SCMDAL.DTO
         public DateTime SyncDate { get; set; } //Ngay sync len Server
        
         public string DataState { get; set; }
-        
 
+        public string HID { get; set; } //HardWare ID       
+        public string GLocation { get; set; } //Google location
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
         public string CreatedBy { get; set; }

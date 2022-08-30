@@ -1,19 +1,22 @@
 ﻿using MSAMobApp.Models;
+using MSAMobApp.Shared;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace MSAMobApp.Services
 {
     public class XAppContext
     {
+        public string DeviceID => deviceIdentifier;
         const string StockMasterItemSyncDate = "StockMasterItemSyncDate";
         public  MobUser LoginedUser;//login ID
         static XAppContext instance;
          DateTime LoginDate;
         CompanyInfo CompanyLogined;
-
+        string deviceIdentifier;
         //login thanh cong goi function nay
         public  void SetLogin(MobUser loginedUser)
         {
@@ -22,7 +25,8 @@ namespace MSAMobApp.Services
         }
         XAppContext()
         {
-           
+            IDevice device = DependencyService.Get<IDevice>();
+            deviceIdentifier = device.GetIdentifier();
         }
         public static XAppContext GetInstance()
         {

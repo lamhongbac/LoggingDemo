@@ -73,23 +73,28 @@
                     <ColumnDefinition Width="1*"/>
 
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Grid.Column="0"  Text="BarCode" FontSize="Medium" />
-                <Entry Grid.Row="0" Grid.Column="1" x:Name="scanResultText" 
-                       Text="{Binding ScanedBarCode, Mode=TwoWay}"
-                       WidthRequest="200"/>
+                <Label Grid.Row="0" Grid.Column="0"  Text="BarCode" 
+                       FontSize="Medium" VerticalOptions="Center"  />
+                <Entry Grid.Row="0" Grid.Column="1" x:Name="justScanedBarCode" 
+                       Text="{Binding ScanedBarCode, Mode=TwoWay}" Focused="justScanedBarCode_Focused"
+                       VerticalOptions="Center"   WidthRequest="200"/>
                 <Entry Grid.Row="0" Grid.Column="2" x:Name="txtQuantity" 
-                       Text="{Binding Quantity, Mode=TwoWay}"
-                       WidthRequest="50"/>
+                       Text="{Binding Quantity, Mode=TwoWay}" Focused="txtQuantity_Focused"
+                       VerticalOptions="Center"  WidthRequest="50"/>
                 
-                <Button Grid.Row="1" Grid.Column="0"  Text="Check" Clicked="Button_Clicked"/>
+                <Button Grid.Row="1" Grid.Column="0"  Text="Add" 
+                        Command="{Binding AddDetailCommand}"  Clicked="Button_Clicked"
+                        VerticalOptions="Center"/>
                 
-                <!--<Label  Grid.Row="1" Grid.Column="0"  Text="Name" FontSize="Medium" />-->
-                <Label Grid.Row="1" Grid.Column="1" x:Name="txtName"  
-                       Text="{Binding Name, Mode=TwoWay}" FontSize="Medium" />
-                <!--<Label Grid.Row="3" Grid.Column="0" Text="Unit" FontSize="Medium" />-->
-                <Label Grid.Row="1" Grid.Column="2" x:Name="txtUnit"  Text="{Binding Unit, Mode=TwoWay}" FontSize="Medium"  />
+                <!--<Label Grid.Row="1" Grid.Column="1" x:Name="txtName"  
+                       Text="{Binding Name, Mode=TwoWay}" 
+                   VerticalOptions="Center"    FontSize="Medium" />
+                <Label Grid.Row="1" Grid.Column="2" x:Name="txtUnit"  
+                       Text="{Binding Unit, Mode=TwoWay}" 
+                       VerticalOptions="Center"  FontSize="Medium"  />-->
 
             </Grid>
+            <BoxView HeightRequest="2" Color="Blue" IsVisible="True"/>
             <CollectionView ItemsSource="{Binding StockTransDetailCol}"
                             ItemsLayout="VerticalGrid,1"
                             EmptyView="No items to display"
@@ -104,9 +109,9 @@
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="4*"/>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="1*"/>
                             </Grid.ColumnDefinitions>

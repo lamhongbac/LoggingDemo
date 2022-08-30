@@ -18,12 +18,18 @@ namespace MSAMobApp.Data
         /// 
         /// </summary>
         /// <param name="stockTrans"></param>
-        public async  Task CreateStockTrans(StockTrans stockTrans)
+        public async  Task<bool> CreateStockTrans(StockTrans stockTrans)
         {
+            int rec = -1;
             try
             {
+                var find = _database.Table<StockTrans>().Where(x => x.ID == stockTrans.ID).FirstOrDefaultAsync();
+                //var appSetting = await database.Table<AppSetting>().Where(x => x.AppGroup == group && x.AppKey == key).FirstOrDefaultAsync();
+                if (find != null)
+                    return false;
+
                 //Save to Local with Status= New
-                await _database.InsertAsync(stockTrans);
+                rec =   await _database.InsertAsync(stockTrans);
                 //Read local and Save to DB, Update status= Posted
                 foreach (var item in stockTrans.StockTransDetails)
                 {
@@ -34,8 +40,8 @@ namespace MSAMobApp.Data
             {
                 throw ex;
             }
-            
 
+            return rec > 0;
         }
         public async  Task<List<StockTrans>> GetStockTrans()
         {

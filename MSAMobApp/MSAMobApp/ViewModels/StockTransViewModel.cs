@@ -18,35 +18,40 @@ namespace MSAMobApp.ViewModels
     {
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
-        public Command AddQtyCommand { get; }
-        public Command RemoveQtyCommand { get; }
+        public Command AddDetailCommand { get; }
         public DateTime MinDate { get; set; }
         public DateTime MaxDate { get; set; }
+        private string hid;
         public StockTransViewModel()
         {
-            AddQtyCommand = new Command(OnAddQty);
-            RemoveQtyCommand = new Command(OnRemoveQty);
+            hid = App.AppContext.HID;
 
-               SaveCommand = new Command( OnSave);
+                SaveCommand = new Command( OnSave);
             CancelCommand = new Command(OnCancel);
+            AddDetailCommand = new Command(AddDetail);
             //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
             this.PropertyChanged +=
                 (_, __) => SaveCommand.ChangeCanExecute();
             StockTransDetailCol = new ObservableCollection<StockTransItemViewModel>();
+            //StockTransDetails = new List<StockTransDetail>();
+            Reset();
+        }
+        void Reset()
+        {
             UserID = "DemoUser";
-            DocNo = UserID+DateTime.Now.ToString("ddmmhhss");
+            DocNo = UserID + DateTime.Now.ToString("ddmmhhss");
             ID = Guid.NewGuid();
-            StockTransDetails = new List<StockTransDetail>();
+            //StockTransDetails.Clear();
             Quantity = 1;
-            MinDate = DateTime.Now.AddDays( - 10);
+            MinDate = DateTime.Now.AddDays(-10);
             MaxDate = DateTime.Now;
             TransDate = DateTime.Now;
+            StockTransDetailCol.Clear();
         }
-
-        internal bool ExistBarCode(string scanedBarCode)
+        internal StockTransItemViewModel ExistBarCode(string scanedBarCode)
         {
-            return StockTransDetailCol.Where(x => x.BarCode == scanedBarCode).FirstOrDefault() != null;
+            return StockTransDetailCol.Where(x => x.BarCode == scanedBarCode).FirstOrDefault();
         }
         #region prop
         private Guid id;
@@ -86,7 +91,7 @@ namespace MSAMobApp.ViewModels
             set => SetProperty(ref transDate, value); 
         }
 
-        private string notes = "demo transaction";
+        private string notes = "demo transaction "+DateTime.Now.ToString("dd/MM/yy hhmm");
         public string Notes
         {
             get => notes;
@@ -102,18 +107,18 @@ namespace MSAMobApp.ViewModels
             get => barcode;
             set => SetProperty(ref barcode, value);
         }
-        private string unit;
-        public string Unit
-        {
-            get => unit;
-            set => SetProperty(ref unit, value);
-        }
-        private string name;
-        public string Name
-        {
-            get => name;
-            set => SetProperty(ref name, value);
-        }
+        //private string unit;
+        //public string Unit
+        //{
+        //    get => unit;
+        //    set => SetProperty(ref unit, value);
+        //}
+        //private string name;
+        //public string Name
+        //{
+        //    get => name;
+        //    set => SetProperty(ref name, value);
+        //}
         private int quantity;
         public int Quantity
         {
@@ -123,10 +128,10 @@ namespace MSAMobApp.ViewModels
         #endregion
         private bool ValidateAddItem()
         {            
-            bool isExisted = ExistBarCode(ScanedBarCode);
+            bool isExisted = ExistBarCode(ScanedBarCode)!=null;
             return !string.IsNullOrWhiteSpace(ScanedBarCode) && !isExisted;
         }
-        private List<StockTransDetail> StockTransDetails;
+        
         ObservableCollection<StockTransItemViewModel> stockTransDetailCol;
         public ObservableCollection<StockTransItemViewModel> StockTransDetailCol 
         { 
@@ -142,20 +147,26 @@ namespace MSAMobApp.ViewModels
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");
         }
-        private async void OnAddQty()
-        {
 
-        }
-        private async void OnRemoveQty()
-        {
-
-        }
         /// <summary>
         /// save to local DB
         /// </summary>
-        private async  void OnSave()
+        private async void OnSave()
         {
-            StockTrans stockTrans = new StockTrans()
+            List<StockTransDetail> StockTransDetails=new List<StockTransDetail>();
+            foreach (var item in StockTransDetailCol)
+            {
+                //StockTransDetail transDetail = new StockTransDetail()
+                //{ CreatedOn = item.CreatedOn, CreatedBy = item.CreatedBy,
+                //    BarCode = item.BarCode, DataState = EDataState.New.ToString(),
+                //    ID = Guid.NewGuid(), ItemNumber=item.Number, ModifiedBy=item.ModifiedBy,
+                //     ModifiedOn=item.ModifiedOn, Quantity=item.Quantity, ScanDateTimes=item.ScanDateTimes,
+                //      TransID= ID
+
+                //};
+                StockTransDetails.Add(item.TransDetail);
+            }
+        StockTrans stockTrans = new StockTrans()
             {
                 ID = ID,
                 ShelfCode = shelfCode,
@@ -165,23 +176,52 @@ namespace MSAMobApp.ViewModels
                 ModifiedBy = userID,
                 CreatedOn = DateTime.Now,
                 ModifiedOn = DateTime.Now,
-                DataState = EDataState.New.ToString(), 
-                Description=Notes, 
-                Number=DocNo, 
-                StoreNumber=WhCode, 
-                TransDate=DateTime.Now,
+                DataState = EDataState.New.ToString(),
+                Description = Notes,
+                Number = DocNo,
+                StoreNumber = WhCode,
+                TransDate = DateTime.Now,
                 StockTransDetails = StockTransDetails,
+                GLocation = "11000;87654",
+                HID = hid
+
             };
-          await MSADataBase.CreateStockTrans(stockTrans);
- 
+            bool ret = await MSADataBase.CreateStockTrans(stockTrans);
+            if (ret)
+                Reset();
         }
 
 
         /// <summary>
         /// Button add one just ScanBarCode item to list
         /// </summary>
-        public void AddDetail()
+        public async void AddDetail()
         {
+            string scanedBarCode = ScanedBarCode.Trim();
+            StockTransItemViewModel find_stockTransDetail=ExistBarCode(scanedBarCode);
+            
+            //neu da add roi thi chi tang so luong
+            if (find_stockTransDetail != null)
+            {
+                find_stockTransDetail.Quantity += Quantity;
+                ScanedBarCode = ""; Quantity = 1;
+                return;
+            }
+
+            //else part
+            MobStockMasterItem item = await MSADataBase.GetMasterStockItemAsync(scanedBarCode);
+            string name;
+            string unit;
+            if (item != null)
+            {
+                unit = item.Unit;
+                name = item.Name;
+                //_viewModel.AddDetail();
+            }
+            else
+            {
+                return;
+            }
             StockTransDetail stockTransDetail = new StockTransDetail()
             {
                 ID = Guid.NewGuid(),
@@ -197,11 +237,11 @@ namespace MSAMobApp.ViewModels
                 DataState = EDataState.New.ToString(),
 
             };
-            StockTransDetails.Add(stockTransDetail);
-            StockTransItemViewModel item = new StockTransItemViewModel(stockTransDetail,Name,Unit);
+            //StockTransDetails.Add(stockTransDetail);
+            StockTransItemViewModel stkviewModel = new StockTransItemViewModel(stockTransDetail,name,unit);
 
             //await MSADataBase.AddStock(newItem);
-            StockTransDetailCol.Add(item);
+            StockTransDetailCol.Add(stkviewModel);
             ScanedBarCode = ""; Quantity = 1;
         }
         private async Task<MobStockMasterItem> ExistItem(string barCode)

@@ -25,14 +25,14 @@ namespace MSAMobApp.Views
         {
             base.OnAppearing();
             await Task.Delay(50);
-            scanResultText.Focus();
+            justScanedBarCode.Focus();
         }
 
         
 
         private async void scanResultText_TextChanged(object sender, TextChangedEventArgs e)
         {
-            string barcode = scanResultText.Text.Trim();
+            string barcode = justScanedBarCode.Text.Trim();
             if (!string.IsNullOrEmpty(barcode))
             {
                 MobStockMasterItem item = await MSADataBase.GetMasterStockItemAsync(barcode);
@@ -42,32 +42,37 @@ namespace MSAMobApp.Views
                 }
                 else
                 {
-                    this.txtName.Text = item.Name;
-                    this.txtUnit.Text = item.Unit;
+                    //this.txtName.Text = item.Name;
+                    //this.txtUnit.Text = item.Unit;
+                    _viewModel.AddDetail();
                 }
             }
         }
+
+        private void txtQuantity_Focused(object sender, FocusEventArgs e)
+        {
+            //txtQuantity.SelectionLength;
+            txtQuantity.CursorPosition = 0;
+            txtQuantity.SelectionLength = txtQuantity.Text.Length;
+        }
+
         /// <summary>
         /// kiem tra xem barcode co ton tai trong masterdata, neu co se add vao danh sach barcode
         /// se move vao viewmodel sau
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private async void Button_Clicked(object sender, EventArgs e)
+        private  void Button_Clicked(object sender, EventArgs e)
         {
-            string scanedBarCode = scanResultText.Text.Trim();
-            if (_viewModel.ExistBarCode(scanedBarCode))
-            {
-                return;
-            }
-            MobStockMasterItem item = await MSADataBase.GetMasterStockItemAsync(scanedBarCode);
-            if (item != null)
-            {
-                _viewModel.Unit = item.Unit;
-                _viewModel.Name = item.Name;
-                _viewModel.AddDetail();
-            }
-            
+            _viewModel.Quantity = 1;
+            justScanedBarCode.Focus();
+        }
+
+        private void justScanedBarCode_Focused(object sender, FocusEventArgs e)
+        {
+            justScanedBarCode.CursorPosition = 0;
+            if (!string.IsNullOrEmpty(justScanedBarCode.Text))
+                justScanedBarCode.SelectionLength = justScanedBarCode.Text.Length;
         }
     }
 }

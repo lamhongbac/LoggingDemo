@@ -292,9 +292,9 @@ namespace MSAMobApp.Data
         /// </summary>
         /// <param name="stockTrans"></param>
         /// <returns></returns>
-        public async static Task CreateStockTrans(StockTrans stockTrans)
+        public async static Task<bool> CreateStockTrans(StockTrans stockTrans)
         {
-             await stockTransHandler.CreateStockTrans(stockTrans);
+           return  await stockTransHandler.CreateStockTrans(stockTrans);
         }
         /// <summary>
         /// 

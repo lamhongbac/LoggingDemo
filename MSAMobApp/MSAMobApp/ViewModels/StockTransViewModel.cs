@@ -1,5 +1,6 @@
 ﻿using MSAMobApp.Data;
-using MSAMobApp.Models;
+using MSAMobApp.DataBase;
+using MSAMobApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using MSAMobApp.Models;
 
 namespace MSAMobApp.ViewModels
 {
@@ -166,7 +168,7 @@ namespace MSAMobApp.ViewModels
                 //};
                 StockTransDetails.Add(item.TransDetail);
             }
-        StockTrans stockTrans = new StockTrans()
+            StockTrans stockTrans = new StockTrans()
             {
                 ID = ID,
                 ShelfCode = shelfCode,
@@ -179,13 +181,13 @@ namespace MSAMobApp.ViewModels
                 DataState = EDataState.New.ToString(),
                 Description = Notes,
                 Number = DocNo,
-                StoreNumber = WhCode,
+                StoreNumber = XAppContext.StoreNumber,
                 TransDate = DateTime.Now,
                 StockTransDetails = StockTransDetails,
                 GLocation = "11000;87654",
-                HID = hid
+                HID = hid,
 
-            };
+        };
             bool ret = await MSADataBase.CreateStockTrans(stockTrans);
             if (ret)
                 Reset();

@@ -12,7 +12,7 @@ namespace SCMDAL.DataHandler
 {
     public class MobStockTransHandler
     {
-        string tableName = "StockTrans";
+        string tableName = "mssInvTrans";
         string _connectionString;
 
         public MobStockTransHandler(string _connection)
@@ -57,7 +57,7 @@ namespace SCMDAL.DataHandler
                 if (existItem != null)
                     return null;
                 result = await connection.ExecuteAsync(sql, parameters);
-                var resultdetail = await connection.InsertAsync<List<StockTransDetail>>(invTransUI.StockTransDetails);
+                var resultdetail = await connection.InsertAsync<List<MobStockTransDetail>>(invTransUI.StockTransDetails);
             }
 
 
@@ -100,5 +100,45 @@ namespace SCMDAL.DataHandler
             }
             return data;
         }
+
+
+        public async Task<List<MobStockTrans>> GetStockTrans(DateTime fromDate, DateTime toDate, string storeNumber)
+        {
+            List<MobStockTrans> data = new List<MobStockTrans>();
+           
+            var paras = new { FromDate = fromDate, ToDate = toDate,StoreNumber = storeNumber };
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    string sql="Select * from "+tableName +" WHERE TransDate>=@FromDate AND TransDate<=@ToDate AND StoreNumber=@StoreNumber";
+                    string sqldetail = "Select * from  mssInvTransDetail WHERE TransID=@TransID";
+                    var results = await connection.QueryAsync<MobStockTrans>(sql, paras);
+                    
+                    if (results==null || results.Count()==0)
+                    {
+                        return null;
+                    }
+
+                    //else
+                    data = results.ToList();
+                    foreach (var item in data)
+                    {
+                        Guid transID = item.ID;
+                        var detailresults = await connection.QueryAsync<MobStockTransDetail>
+                            (sqldetail, new {TransID= transID });
+                        List<MobStockTransDetail> details = detailresults.ToList();
+
+                        item.StockTransDetails.AddRange(detailresults.ToList());
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+            return data;
+        }
+
     }
 }

@@ -1,4 +1,4 @@
-﻿using MSAMobApp.Models;
+﻿using MSAMobApp.DataBase;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -23,9 +23,10 @@ namespace MSAMobApp.Data
             int rec = -1;
             try
             {
-                var find = _database.Table<StockTrans>().Where(x => x.ID == stockTrans.ID).FirstOrDefaultAsync();
-                //var appSetting = await database.Table<AppSetting>().Where(x => x.AppGroup == group && x.AppKey == key).FirstOrDefaultAsync();
-                if (find != null)
+
+                StockTrans findData = await _database.Table<StockTrans>().Where(x => x.ID == stockTrans.ID).FirstOrDefaultAsync();
+                 
+                if (findData != null)
                     return false;
 
                 //Save to Local with Status= New
@@ -46,6 +47,11 @@ namespace MSAMobApp.Data
         public async  Task<List<StockTrans>> GetStockTrans()
         {
            return await _database.Table<StockTrans>().ToListAsync();
+        }
+
+        public async Task<bool> UpdateStockTrans(StockTrans stockTrans)
+        {
+            return await _database.UpdateAsync(stockTrans)>0;
         }
     }
 }

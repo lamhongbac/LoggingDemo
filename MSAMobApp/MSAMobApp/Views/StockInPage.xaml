@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MSAMobApp.Views.StockInPage"
-             xmlns:model="clr-namespace:MSAMobApp.Models"
+             xmlns:model="clr-namespace:MSAMobApp.DataBase"
              xmlns:vm="clr-namespace:MSAMobApp.ViewModels"
              >
     <ContentPage.Content>

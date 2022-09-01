@@ -1,10 +1,14 @@
-﻿using Dapper.Contrib.Extensions;
+﻿
 using System;
 using System.Collections.Generic;
 
+
+/// <summary>
+/// This for Service dataType
+/// </summary>
 namespace SCMDAL.DTO
 {
-    [Table("mssInvTrans")]
+   
     public class MobStockTrans
     {
         public MobStockTrans()
@@ -34,13 +38,17 @@ namespace SCMDAL.DTO
         public List<MobStockTransDetail> StockTransDetails { get; set; }
     }
 
-    [Table("mssInvTransDetail")]
+    
     public class MobStockTransDetail
     {
         public MobStockTransDetail(Guid parentID)
         {
             TransID = parentID;
             ID = Guid.NewGuid(); Quantity = 1;
+        }
+        public MobStockTransDetail()
+        {
+         
         }
         public Guid ID { get; set; }
 

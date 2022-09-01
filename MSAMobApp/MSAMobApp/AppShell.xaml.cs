@@ -23,6 +23,9 @@ namespace MSAMobApp
             //Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
             //StockSampleDetailViewModel
             Routing.RegisterRoute(nameof(StockItemPage), typeof(StockItemPage));
+            Routing.RegisterRoute(nameof(StockReceivePage), typeof(StockReceivePage));
+
+            
 
         }
 

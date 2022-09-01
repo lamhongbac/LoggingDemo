@@ -1,52 +1,109 @@
-﻿using MSAMobApp.Models;
+﻿using MSAMobApp.DataBase;
+using SCMDAL.DTO;
 using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
 namespace MSAMobApp.Services
 {
-    public static class StockTransService
+    /// <summary>
+    /// stock transaction service , deal with API/DB
+    /// </summary>
+    public static class StockTransDBService
     {
-        static SQLiteAsyncConnection db;
-        static async Task Init()
+
+
+
+        /// <summary>
+        /// get stock transaction from DB
+        /// para=GetStockTransModel
+        /// </summary>
+        /// <returns></returns>
+        public static async Task<List<StockTrans>> GetStockTrans(object paraModel)
         {
-            if (db != null)
+            HttpClientHelper<List<StockTrans>> stockTransService = new HttpClientHelper<List<StockTrans>>(ApiServices.BaseURL);
+            string apiURL = ApiServices.GetStockTransUrl;
+            return await stockTransService.PostRequest(apiURL, paraModel, new CancellationToken(false));
+        }
+        /// <summary>
+        /// Create stock trans on DB by using API
+        /// </summary>
+        /// <param name="paraModel">StockTrans</param>
+        /// <returns></returns>
+        public static async Task<bool> CreateStockTrans(StockTrans paraModel)
+        {
+            MobStockTrans dbStockTrans = ConvertToDBStockTrans(paraModel);
+            bool OK = false;
+ 
+            HttpClientHelper<bool> stockTransService = new HttpClientHelper<bool>(ApiServices.BaseURL);
+            string apiURL = ApiServices.CreateStockTransUrl;
+            try
             {
-                return;
+                OK = await stockTransService.PostRequest(apiURL, dbStockTrans, new CancellationToken(false));
             }
-
-            // SQLiteAsyncConnection database;
-            var dbPath = Path.Combine(FileSystem.AppDataDirectory, "MobData.db");
-            db = new SQLiteAsyncConnection(dbPath);
-            await db.CreateTableAsync<StockTrans>();
-
-        }
-        public static async Task AddStock(SQLiteConnection db, string userID, string barcode)
-        {
-            await Init();
-            var stock = new StockTrans()
+            catch(Exception ex)
             {
-                //BarCode = barcode,
-                DataState = "New",
-                //Direction = "In",
-                ID = Guid.NewGuid(),
-                //Quantity = 1,
-                //ScanDateTimes = DateTime.Now,
-                ShelfCode = "SDemo",
-                UserID = userID,
-                StoreNumber = "WDemo"
-
-
-            };
-            db.Insert(stock);
-            //Console.WriteLine("{0} == {1}", stock.BarCode, stock.ID);
+                string error = ex.Message;
+                OK = false;
+                return OK;
+            }
+            return OK;
         }
-        //public async Task<SyncMobStockItemResult> SyncStockItems()
-        //{
-        //}
+
+        private static MobStockTrans ConvertToDBStockTrans(StockTrans paraModel)
+        {
+            MobStockTrans db = new MobStockTrans();
+            db.CreatedBy = paraModel.CreatedBy;
+            db.CreatedOn = paraModel.CreatedOn;
+            db.DataState = paraModel.DataState;
+            db.Description = paraModel.Description;
+            db.GLocation = paraModel.GLocation;
+            db.HID = paraModel.HID;
+            db.ID= paraModel.ID;
+            db.ModifiedBy= paraModel.ModifiedBy;
+            db.ModifiedOn = paraModel.ModifiedOn;
+
+            db.Number= paraModel.Number;
+            db.ShelfCode = paraModel.ShelfCode;
+            db.StoreNumber = paraModel.CreatedBy;
+            db.SyncDate = paraModel.SyncDate;
+            db.TCode = paraModel.TCode;
+            db.TransDate = paraModel.TransDate;
+            db.UserID = paraModel.UserID;
+            db.StockTransDetails = ConvertStockTransDetails(paraModel.StockTransDetails);
+            return db;
+
+        }
+
+        private static List<MobStockTransDetail> ConvertStockTransDetails(List<StockTransDetail> stockTransDetails)
+        {
+            List<MobStockTransDetail> ret = new List<MobStockTransDetail>();
+            foreach (var item in stockTransDetails)
+            {
+                MobStockTransDetail retitem = new MobStockTransDetail()
+                {
+                    BarCode = item.BarCode,
+                    CreatedBy = item.CreatedBy,
+                    CreatedOn = item.CreatedOn,
+                    DataState = item.DataState,
+                    ID = item.ID,
+                    ItemNumber = item.ItemNumber,
+                    ModifiedBy = item.ModifiedBy,
+                    ModifiedOn = item.ModifiedOn,
+                    Quantity = item.Quantity,
+                    ScanDateTimes = item.ScanDateTimes,
+                    TransID = item.TransID
+
+
+                };
+                ret.Add(retitem);
+            }
+            return ret;
+        }
     }
 }

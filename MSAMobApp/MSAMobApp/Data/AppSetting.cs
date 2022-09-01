@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MSAMobApp.Models
+namespace MSAMobApp.DataBase
 {
    public class AppSetting
     {

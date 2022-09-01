@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MSAMobApp.Models
+namespace MSAMobApp.DataBase
 {
 
     /// <summary>
@@ -25,26 +25,30 @@ namespace MSAMobApp.Models
         public string ShelfCode { get; set; } //Ma ke
         public DateTime TransDate { get; set; }
         public DateTime SyncDate { get; set; } //Ngay sync len Server
-        //public string BarCode { get; set; }
-        //public DateTime ScanDateTimes { get; set; }
-        //public int Quantity { get; set; }
+  
         public string DataState { get; set; }
-        //theo doi trang thai da dua len Central DB hay chua
-        //New: chua dua len=> Posted
-        //New->edit--> posted
-        //neu da POSTED: thi kg the sua
+       
         public string HID { get; set; } //HardWare ID       
         public string GLocation { get; set; } //Google location
-        //New/Posted/Edit                                              
-        //khi handhelp quet barcode thi data status = new                                              
-        //khi push data len BackEnd thanh cong thi tra ve danh sach barcode voi trang thai la true/false                                              
-        //can cu vao do de update vao local DB= Posted                                              
-        //khi hand-helo sua data , data chuyen trang thai POSTED=>Edit (New thi kg co thay doi)
+      
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
         public string CreatedBy { get; set; }
         public string ModifiedBy { get; set; }
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public List<StockTransDetail> StockTransDetails { get; set; }
+    }
+
+    public class StockTransData
+    {
+        //DocNo,Notes,UserID,BarCode,ItemNumber,[Name],Unit,Quantity
+        public string DocNo { get; set; }
+        public string Notes { get; set; }
+        public string UserID { get; set; }
+        public string BarCode { get; set; }
+        public string ItemNumber { get; set; }
+        public string Name { get; set; }
+        public string Unit { get; set; }
+        public int Quantity { get; set; }
     }
 }

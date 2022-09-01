@@ -1,37 +1,60 @@
-﻿using MSAMobApp.Data;
-using MSAMobApp.Models;
+﻿
+using MSAMobApp.DataBase;
+using MSAMobApp.Services;
+using MSAMobApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using MSAMobApp.Models;
 
 namespace MSAMobApp.ViewModels
 {
  public   class ListOfStockTransViewModel: BaseViewModel
     {
+        public Command StockReceiveCommand { get; }
+        
         public Command LoadItemsCommand { get; }
         public ListOfStockTransViewModel()
         {
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            StockReceiveCommand = new Command(async () => await GoToReceiveStockPage());
             DataList = new ObservableCollection<StockTrans>();
         }
+        //await Shell.Current.GoToAsync(nameof(NewStockItem));
         public ObservableCollection<StockTrans> DataList { get; set; }
+        async Task GoToReceiveStockPage()
+        {
+          await  Shell.Current.GoToAsync(nameof(StockReceivePage));
+        }
         async Task ExecuteLoadItemsCommand()
         {
             IsBusy = true;
-
+            string TCode = EWHMTCode.SR.ToString();
             try
             {
                 DataList.Clear();
-                List<StockTrans> items = await MSADataBase.GetStockTrans(); ;
-                foreach (var item in items)
-                {                    
-                    DataList.Add(item);
+                DateTime now = DateTime.Now.Date;
+                GetStockTransModel model = new GetStockTransModel()
+                {
+                    FromDate = now,
+                    ToDate = now,
+                    StoreNumber = XAppContext.StoreNumber
+                };
+
+                List<StockTrans> items = await StockTransDBService.GetStockTrans(model);
+                if (items == null || items.Count == 0)
+                {
+                    return;
                 }
 
+                foreach (var item in items)
+                {
+                    DataList.Add(item);
+                }
+            
             }
             catch (Exception ex)
             {

@@ -1,5 +1,5 @@
 ﻿using MSAMobApp.Data;
-using MSAMobApp.Models;
+using MSAMobApp.DataBase;
 using MSAMobApp.Services;
 using MSAMobApp.Views;
 using System;
@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using MSAMobApp.Models;
 
 namespace MSAMobApp.ViewModels
 {

@@ -1,4 +1,5 @@
-﻿using MSAMobApp.Models;
+﻿using MSAMobApp.DataBase;
+using MSAMobApp.Models;
 using MSAMobApp.Shared;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,10 @@ namespace MSAMobApp.Services
          DateTime LoginDate;
         CompanyInfo CompanyLogined;
         string deviceIdentifier;
+        private static string storeNumber;
+        public static string StoreNumber => storeNumber;
+
+
         //login thanh cong goi function nay
         public  void SetLogin(MobUser loginedUser)
         {
@@ -64,7 +69,7 @@ namespace MSAMobApp.Services
                 Pwd = "*****"
             };
             LoginDate = DateTime.Now;
-
+            storeNumber = "DemoStore";
             //load master data
 
         }

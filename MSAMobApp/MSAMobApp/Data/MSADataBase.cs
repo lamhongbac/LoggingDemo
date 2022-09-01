@@ -1,9 +1,10 @@
-﻿using MSAMobApp.Models;
+﻿using MSAMobApp.DataBase;
+using MSAMobApp.Models;
+using MSAMobApp.Services;
 using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MSAMobApp.Data
@@ -12,7 +13,7 @@ namespace MSAMobApp.Data
     {
         private static string dbName = "MSAMobDB.db";
         static SQLiteAsyncConnection database;
-        static StockTransDatabase stockTransHandler;
+        static StockTransDatabase stockTransLocalDBHandler;
         public async static Task Init()
         {
             if (database != null)
@@ -28,7 +29,7 @@ namespace MSAMobApp.Data
             database.CreateTableAsync<StockTransDetail>().Wait();
             database.CreateTableAsync<AppSetting>().Wait();
             //database.CreateTableAsync<AppSetting>().Wait();
-            stockTransHandler = new StockTransDatabase(database);
+            stockTransLocalDBHandler = new StockTransDatabase(database);
         }
         /// <summary>
         /// Xoa het cac bang de tao cau truc bang moi
@@ -95,39 +96,7 @@ namespace MSAMobApp.Data
 
         
 
-        /// <summary>
-        /// quet barcode and add to DB
-        /// </summary>
-        /// <param name="db"></param>
-        /// <param name="userID"></param>
-        /// <param name="barcode"></param>
-        //public async static Task AddStock(StockTrans stock)
-        //{
-        //await Init();
-        //await database.InsertAsync(stock);
-        //var stockSample = await GetMasterStockItemAsync(stock.BarCode);
-
-        //if (stockSample == null)
-        //{
-        //    MobStockMasterItem newStockSample = new
-        //         MobStockMasterItem()
-        //    {
-        //        BarCode = stock.BarCode,
-        //        CreatedBy = "Demo",
-        //        CreatedOn = DateTime.Now,
-        //        DataState = EDataState.New.ToString(),
-        //        ID = Guid.NewGuid(),
-        //        Name = string.Empty,
-        //        Unit = string.Empty,
-        //        ModifiedBy = "Demo",
-        //        ModifiedDate = DateTime.Now
-        //    };
-
-        //    await AddStockSample(newStockSample);
-
-        //}
-        //Console.WriteLine("{0} == {1}", stock.BarCode, stock.ID);
-        //}
+  
         #region stockSample
         /// <summary>
         /// Get One Item stockSample
@@ -294,18 +263,32 @@ namespace MSAMobApp.Data
         /// <returns></returns>
         public async static Task<bool> CreateStockTrans(StockTrans stockTrans)
         {
-           return  await stockTransHandler.CreateStockTrans(stockTrans);
+            bool OK = await stockTransLocalDBHandler.CreateStockTrans(stockTrans);
+            if (OK)
+            {
+                List<StockTrans> stock_trans = new List<StockTrans>() { stockTrans };
+                bool server_updated = await StockTransDBService.CreateStockTrans(stock_trans);
+                if (server_updated)
+                {
+                    stockTrans.DataState = EDataState.Posted.ToString();
+                    stockTrans.SyncDate = DateTime.Now;
+                    await stockTransLocalDBHandler.UpdateStockTrans(stockTrans);
+                }
+            }
+            return OK;
         }
         /// <summary>
-        /// 
+        /// Ham trung gian
         /// </summary>
         /// <returns></returns>
         public static async Task<List<StockTrans>> GetStockTrans()
         {
-            //if (stockTransHandler == null)
-            //    stockTransHandler = new StockTransDatabase(database);
+            stockTransLocalDBHandler = new StockTransDatabase(database);
+          List<StockTrans> data=await  stockTransLocalDBHandler.GetStockTrans();
+            return data;
+                //await database.Table<StockTrans>().ToListAsync();
 
-             return await database.Table<StockTrans>().ToListAsync();
+
         }
         #endregion
     }

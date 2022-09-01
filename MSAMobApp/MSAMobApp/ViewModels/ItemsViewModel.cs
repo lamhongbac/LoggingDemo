@@ -1,4 +1,5 @@
-﻿using MSAMobApp.Models;
+﻿using MSAMobApp.DataBase;
+using MSAMobApp.Models;
 using MSAMobApp.Views;
 using System;
 using System.Collections.ObjectModel;

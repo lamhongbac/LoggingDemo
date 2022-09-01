@@ -18,9 +18,12 @@ namespace MSAMobApp.Services
          DateTime LoginDate;
         CompanyInfo CompanyLogined;
         string deviceIdentifier;
-        private static string storeNumber;
-        public static string StoreNumber => storeNumber;
-
+        
+        private string defaultShelfCode;
+        private  string storeNumber;
+        public  string StoreNumber => storeNumber;
+        public string DefaultShelfCode => defaultShelfCode;
+        public  string UserID => LoginedUser.UserID;
 
         //login thanh cong goi function nay
         public  void SetLogin(MobUser loginedUser)
@@ -32,6 +35,11 @@ namespace MSAMobApp.Services
         {
             IDevice device = DependencyService.Get<IDevice>();
             deviceIdentifier = device.GetIdentifier();
+            if (string.IsNullOrEmpty(deviceIdentifier))
+            {
+                deviceIdentifier = "DemoDevice";
+            }
+            defaultShelfCode = "demoShelf";
         }
         public static XAppContext GetInstance()
         {
@@ -98,6 +106,6 @@ namespace MSAMobApp.Services
         }
         
         public string GLocation { get; set; } //dia chi cua thiet bi
-        public string HID { get; set; } //HID cua thiet bi
+        public string HID { get => deviceIdentifier; } //HID cua thiet bi
     }
 }

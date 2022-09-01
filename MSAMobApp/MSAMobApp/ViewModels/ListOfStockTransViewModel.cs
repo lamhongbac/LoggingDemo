@@ -14,12 +14,14 @@ namespace MSAMobApp.ViewModels
 {
  public   class ListOfStockTransViewModel: BaseViewModel
     {
+        XAppContext appContext;
         public Command StockReceiveCommand { get; }
         
         public Command LoadItemsCommand { get; }
         public ListOfStockTransViewModel()
         {
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            appContext = XAppContext.GetInstance();
+               LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             StockReceiveCommand = new Command(async () => await GoToReceiveStockPage());
             DataList = new ObservableCollection<StockTrans>();
         }
@@ -41,7 +43,7 @@ namespace MSAMobApp.ViewModels
                 {
                     FromDate = now,
                     ToDate = now,
-                    StoreNumber = XAppContext.StoreNumber
+                    StoreNumber = appContext.StoreNumber
                 };
 
                 List<StockTrans> items = await StockTransDBService.GetStockTrans(model);
@@ -76,7 +78,7 @@ namespace MSAMobApp.ViewModels
             }
             catch (Exception ex)
             {
-
+                string error = ex.Message;
             }
             finally
             {

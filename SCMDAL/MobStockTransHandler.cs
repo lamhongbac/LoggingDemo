@@ -28,9 +28,9 @@ namespace SCMDAL.DataHandler
         {
            
 
-            string fields = "ID, NUMBER, DESCRIPTION, CREATEDBY, CREATEDON,MODIFIEDON,MODIFIEDBY, USERID, TCODE, StoreNumber,SHELFCODE, TRANSDATE, DATASTATE,SYNCDATE";
-            string paras = "@ID, @NUMBER,@DESCRIPTION, @CREATEDBY, @CREATEDON,@MODIFIEDON,@MODIFIEDBY, @USERID, @TCODE, @StoreNumber, @SHELFCODE, @TRANSDATE, @DATASTATE,@SYNCDATE)";
-            string sql = "INSERT INTO " + tableName + "(" + fields + ")VALUES (" + paras + ")";
+            string fields = "ID, NUMBER, DESCRIPTION, CREATEDBY, CREATEDON,MODIFIEDON,MODIFIEDBY, USERID, TCODE, StoreNumber,SHELFCODE, TRANSDATE, DATASTATE,SYNCDATE,HID,GLocation";
+            string paras = "@ID, @NUMBER,@DESCRIPTION, @CREATEDBY, @CREATEDON,@MODIFIEDON,@MODIFIEDBY, @USERID, @TCODE, @StoreNumber, @SHELFCODE, @TRANSDATE, @DATASTATE,@SYNCDATE,@HID,@GLocation";
+            string sql = "INSERT INTO " + tableName + "(" + fields + ") VALUES (" + paras + ")";
 
             var parameters = new
             {
@@ -48,7 +48,9 @@ namespace SCMDAL.DataHandler
                 ShelfCode = invTransUI.ShelfCode,
                 TransDate = invTransUI.TransDate,
                 SyncDate = invTransUI.SyncDate,
-                DataState = "Posted"
+                DataState = "Posted",
+                HID= invTransUI.HID,
+                GLOCATION= invTransUI.GLocation
             };
             int result = -1;
             using (IDbConnection connection = new SqlConnection(_connectionString))

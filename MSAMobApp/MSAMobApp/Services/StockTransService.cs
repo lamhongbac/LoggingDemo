@@ -39,12 +39,13 @@ namespace MSAMobApp.Services
         {
             MobStockTrans dbStockTrans = ConvertToDBStockTrans(paraModel);
             bool OK = false;
- 
+            List<MobStockTrans> stock_trans = new List<MobStockTrans>() { dbStockTrans };
+
             HttpClientHelper<bool> stockTransService = new HttpClientHelper<bool>(ApiServices.BaseURL);
             string apiURL = ApiServices.CreateStockTransUrl;
             try
             {
-                OK = await stockTransService.PostRequest(apiURL, dbStockTrans, new CancellationToken(false));
+                OK = await stockTransService.PostRequest(apiURL, stock_trans, new CancellationToken(false));
             }
             catch(Exception ex)
             {

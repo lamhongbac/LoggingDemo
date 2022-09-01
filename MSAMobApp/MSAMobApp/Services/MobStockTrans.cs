@@ -41,11 +41,11 @@ namespace SCMDAL.DTO
     
     public class MobStockTransDetail
     {
-        public MobStockTransDetail(Guid parentID)
-        {
-            TransID = parentID;
-            ID = Guid.NewGuid(); Quantity = 1;
-        }
+        //public MobStockTransDetail(Guid parentID)
+        //{
+        //    TransID = parentID;
+        //    ID = Guid.NewGuid(); Quantity = 1;
+        //}
         public MobStockTransDetail()
         {
          

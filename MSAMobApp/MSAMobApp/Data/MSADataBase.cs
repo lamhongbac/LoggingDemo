@@ -266,8 +266,7 @@ namespace MSAMobApp.Data
             bool OK = await stockTransLocalDBHandler.CreateStockTrans(stockTrans);
             if (OK)
             {
-                List<StockTrans> stock_trans = new List<StockTrans>() { stockTrans };
-                bool server_updated = await StockTransDBService.CreateStockTrans(stock_trans);
+                bool server_updated = await StockTransDBService.CreateStockTrans(stockTrans);
                 if (server_updated)
                 {
                     stockTrans.DataState = EDataState.Posted.ToString();

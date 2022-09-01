@@ -7,6 +7,7 @@ namespace SCMDAL.DTO
     [Table("mssInvTrans")]
     public class MobStockTrans
     {
+       
         public MobStockTrans()
         {
             ID = Guid.NewGuid(); 
@@ -37,6 +38,11 @@ namespace SCMDAL.DTO
     [Table("mssInvTransDetail")]
     public class MobStockTransDetail
     {
+        public MobStockTransDetail()
+        {
+            ID = Guid.NewGuid();
+            Quantity = 1;
+        }
         public MobStockTransDetail(Guid parentID)
         {
             TransID = parentID;

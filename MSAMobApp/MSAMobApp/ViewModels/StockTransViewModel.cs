@@ -18,17 +18,28 @@ namespace MSAMobApp.ViewModels
     /// </summary>
     public class StockTransViewModel : BaseViewModel
     {
+        private string tCode;
+        public string TCode { get=>tCode; set => SetProperty(ref tCode, value); }
         public Command SaveCommand { get; }
         public Command CancelCommand { get; }
         public Command AddDetailCommand { get; }
         public DateTime MinDate { get; set; }
         public DateTime MaxDate { get; set; }
         private string hid;
+        XAppContext appContext;
+        string loginUserID;string loginStore;
         public StockTransViewModel()
         {
-            hid = App.AppContext.HID;
+            TCode = EWHMTCode.SR.ToString();//Nhan qua
+               appContext = XAppContext.GetInstance();
 
-                SaveCommand = new Command( OnSave);
+            UserID = appContext.UserID;
+            WhCode = appContext.StoreNumber;
+            ShelfCode = appContext.DefaultShelfCode;
+            hid = appContext.HID;
+            loginUserID = appContext.UserID;
+            loginStore = appContext.StoreNumber;
+            SaveCommand = new Command( OnSave, IsSaveValid);
             CancelCommand = new Command(OnCancel);
             AddDetailCommand = new Command(AddDetail);
             //LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
@@ -41,8 +52,8 @@ namespace MSAMobApp.ViewModels
         }
         void Reset()
         {
-            UserID = "DemoUser";
-            DocNo = UserID + DateTime.Now.ToString("ddmmhhss");
+            UserID = loginUserID;
+            DocNo = loginUserID + "_"+ DateTime.Now.ToString("ddmmhhss")+"_"+ loginStore;
             ID = Guid.NewGuid();
             //StockTransDetails.Clear();
             Quantity = 1;
@@ -69,19 +80,19 @@ namespace MSAMobApp.ViewModels
             set => SetProperty(ref docNo, value);
         }
         //private string direction = "IN";
-        private string shelfCode = "ShDedmo";
+        private string shelfCode ;
         public string ShelfCode
         {
             get => shelfCode;
             set => SetProperty(ref shelfCode, value);
         }
-        private string whCode = "WHDemo";
+        private string whCode;
         public string WhCode
         {
             get => whCode;
             set => SetProperty(ref whCode, value);
         }
-        private string userID = "DemoUser";
+        private string userID;
         public string UserID
         {
             get => userID;
@@ -155,19 +166,6 @@ namespace MSAMobApp.ViewModels
         /// </summary>
         private async void OnSave()
         {
-            List<StockTransDetail> StockTransDetails=new List<StockTransDetail>();
-            foreach (var item in StockTransDetailCol)
-            {
-                //StockTransDetail transDetail = new StockTransDetail()
-                //{ CreatedOn = item.CreatedOn, CreatedBy = item.CreatedBy,
-                //    BarCode = item.BarCode, DataState = EDataState.New.ToString(),
-                //    ID = Guid.NewGuid(), ItemNumber=item.Number, ModifiedBy=item.ModifiedBy,
-                //     ModifiedOn=item.ModifiedOn, Quantity=item.Quantity, ScanDateTimes=item.ScanDateTimes,
-                //      TransID= ID
-
-                //};
-                StockTransDetails.Add(item.TransDetail);
-            }
             StockTrans stockTrans = new StockTrans()
             {
                 ID = ID,
@@ -181,19 +179,37 @@ namespace MSAMobApp.ViewModels
                 DataState = EDataState.New.ToString(),
                 Description = Notes,
                 Number = DocNo,
-                StoreNumber = XAppContext.StoreNumber,
+                StoreNumber = loginStore,
                 TransDate = DateTime.Now,
-                StockTransDetails = StockTransDetails,
+                //StockTransDetails = StockTransDetails,
                 GLocation = "11000;87654",
                 HID = hid,
 
-        };
+            };
+            List<StockTransDetail> StockTransDetails=new List<StockTransDetail>();
+            foreach (var item in StockTransDetailCol)
+            {
+
+                StockTransDetails.Add(item.TransDetail);
+            }
+            stockTrans.StockTransDetails = StockTransDetails;
+
             bool ret = await MSADataBase.CreateStockTrans(stockTrans);
             if (ret)
                 Reset();
         }
 
-
+        private bool IsSaveValid()
+        {
+           
+                return !string.IsNullOrEmpty(DocNo) &&
+                    !string.IsNullOrEmpty(TCode) &&
+                    !string.IsNullOrEmpty(WhCode) &&
+                    !string.IsNullOrEmpty(ShelfCode) &&
+                !string.IsNullOrEmpty(UserID) &&
+                StockTransDetailCol.Count > 0;
+            
+        }
         /// <summary>
         /// Button add one just ScanBarCode item to list
         /// </summary>

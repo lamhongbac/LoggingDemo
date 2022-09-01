@@ -15,6 +15,7 @@ namespace MSAMobApp.DataBase
    [Table("StockTrans")]
     public class StockTrans
     {
+        
         [PrimaryKey]
         public Guid ID { get; set; }
         public string Number { get; set; } //so chung tu

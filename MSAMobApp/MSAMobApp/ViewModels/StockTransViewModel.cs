@@ -52,10 +52,10 @@ namespace MSAMobApp.ViewModels
         }
         void Reset()
         {
-            UserID = loginUserID;
+            
             DocNo = loginUserID + "_"+ DateTime.Now.ToString("ddmmhhss")+"_"+ loginStore;
             ID = Guid.NewGuid();
-            //StockTransDetails.Clear();
+            Notes= "demo transaction " + DocNo;
             Quantity = 1;
             MinDate = DateTime.Now.AddDays(-10);
             MaxDate = DateTime.Now;
@@ -104,7 +104,7 @@ namespace MSAMobApp.ViewModels
             set => SetProperty(ref transDate, value); 
         }
 
-        private string notes = "demo transaction "+DateTime.Now.ToString("dd/MM/yy hhmm");
+        private string notes;
         public string Notes
         {
             get => notes;
@@ -196,7 +196,14 @@ namespace MSAMobApp.ViewModels
 
             bool ret = await MSADataBase.CreateStockTrans(stockTrans);
             if (ret)
+            {
                 Reset();
+            }
+            else
+            {
+             await   App.Current.MainPage.DisplayAlert("Error ", "Co loi gui data len server", "OK");
+           
+        }
         }
 
         private bool IsSaveValid()

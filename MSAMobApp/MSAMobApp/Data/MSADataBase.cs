@@ -273,6 +273,10 @@ namespace MSAMobApp.Data
                     stockTrans.SyncDate = DateTime.Now;
                     await stockTransLocalDBHandler.UpdateStockTrans(stockTrans);
                 }
+                else
+                {
+
+                }
             }
             return OK;
         }

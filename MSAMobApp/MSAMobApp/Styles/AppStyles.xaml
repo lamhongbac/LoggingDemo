@@ -1,11 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Color x:Key="PrimaryColor">#2196F3</Color>
+    <Color x:Key="Primary">#2196F3</Color>
+    <Color x:Key="Accent">#96d1ff</Color>
+    <Color x:Key="Secondary">#F215    </Color>
+    <Color x:Key="BackGroundButton">Gray</Color>
+    <Color x:Key="TextButton">White</Color>
     
-    <Color x:Key="SecondaryColor">#F215    </Color>
+    <Thickness x:Key="PageMargin">20</Thickness>
+
+    <!-- Colors -->
+    <Color x:Key="AppBackgroundColor">AliceBlue</Color>
+    <Color x:Key="NavigationBarColor">#1976D2</Color>
+    <Color x:Key="NavigationBarTextColor">White</Color>
+    <Color x:Key="NormalTextColor">Black</Color>
+
+    <!-- Form -->
+    <Style TargetType="Label" x:Key="FormLabel">
+        <Setter Property="FontSize" Value="Medium"/>
+        <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+    </Style>
+    <Style TargetType="Entry" x:Key="EntryForm">
+       
+        <Setter Property="FontSize" Value="Medium"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="TextColor" Value="{StaticResource Secondary}"/>
+    </Style>
+    <Style TargetType="Button" x:Key="ButtonForm">
+        <Setter Property="TextColor" Value="{StaticResource TextButton}"/>
+        <Setter Property="BackgroundColor" Value="{StaticResource BackGroundButton}"/>
+
+    </Style>
+    <Style TargetType="DatePicker" x:Key="DateForm">
+        <Setter Property="BackgroundColor" Value="{StaticResource Accent}"/>
+        <Setter Property="FontSize" Value="Medium" />
+        <Setter Property="TextColor" Value="{StaticResource Secondary}"/>
+    </Style>
+    <!-- Implicit styles -->
+    <Style TargetType="{x:Type NavigationPage}">
+        <Setter Property="BarBackgroundColor"
+                    Value="{StaticResource NavigationBarColor}" />
+        <Setter Property="BarTextColor"
+                    Value="{StaticResource NavigationBarTextColor}" />
+    </Style>
+
+    <Style TargetType="{x:Type ContentPage}"
+               ApplyToDerivedTypes="True">
+        <Setter Property="BackgroundColor"
+                    Value="{StaticResource AppBackgroundColor}" />
+    </Style>
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="White"></Setter>
+        <Setter Property="BackgroundColor" Value="#1976D2" />
+        <Setter Property="CornerRadius" Value="5" />
+        
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">

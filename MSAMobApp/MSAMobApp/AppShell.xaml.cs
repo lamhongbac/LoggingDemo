@@ -3,7 +3,7 @@ using MSAMobApp.Views;
 using System;
 using System.Collections.Generic;
 using Xamarin.Forms;
-
+using FontAwesomeNS;
 namespace MSAMobApp
 {
     public partial class AppShell : Xamarin.Forms.Shell

@@ -39,7 +39,7 @@ namespace MSAMobApp.Services
             {
                 deviceIdentifier = "DemoDevice";
             }
-            defaultShelfCode = "demoShelf";
+            defaultShelfCode = "DemoShelf";
         }
         public static XAppContext GetInstance()
         {

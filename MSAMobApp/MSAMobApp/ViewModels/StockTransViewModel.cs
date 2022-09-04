@@ -55,7 +55,7 @@ namespace MSAMobApp.ViewModels
             
             DocNo = loginUserID + "_"+ DateTime.Now.ToString("ddmmhhss")+"_"+ loginStore;
             ID = Guid.NewGuid();
-            Notes= "demo transaction " + DocNo;
+            Notes = "Demo trans " + "_" + DateTime.Now.ToString("ddmmhhss");
             Quantity = 1;
             MinDate = DateTime.Now.AddDays(-10);
             MaxDate = DateTime.Now;

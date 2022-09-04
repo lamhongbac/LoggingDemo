@@ -2,6 +2,7 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:MSAMobApp.Views"
+       xmlns:FASNS="clr-namespace:FontAwesomeNS"
        Title="MSAMobApp"
        x:Class="MSAMobApp.AppShell">
 
@@ -82,20 +83,26 @@
         <ShellContent Title="Login " Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" />
 
     </FlyoutItem>-->
-    <FlyoutItem Title="General" Icon="icon_about.png">
+    <!--<FlyoutItem Title="General" Icon="icon_about.png">
         <Tab Title="Home Info">
             <ShellContent Title="Home " Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
             <ShellContent Title="About" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-            <!--<FlyoutItem Title="App Option Maintain" Icon="icon_feed.png">-->
-            <!--</FlyoutItem>-->
+            --><!--<FlyoutItem Title="App Option Maintain" Icon="icon_feed.png">-->
+            <!--</FlyoutItem>--><!--
         </Tab>
         <Tab Title="Account">
             <ShellContent Title="User Info" Route="UserInfoPage" ContentTemplate="{DataTemplate local:UserInfoPage}" />
             <ShellContent Title="WH Check-In" Route="CheckInPage" ContentTemplate="{DataTemplate local:CheckInPage}" />
         </Tab>
-    </FlyoutItem>
+    </FlyoutItem>-->
 
-    <FlyoutItem Title="App Setting" Icon="icon_about.png">
+    <FlyoutItem Title="App Setting">
+        
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"  
+                             Glyph="&#xf36f;"/>
+        </FlyoutItem.Icon>
+        
         <Tab Title="Stock Master">
             <ShellContent Title="Stock Master" Route="StockMasteMaintainPage" ContentTemplate="{DataTemplate local:StockMasteMaintainPage}" />
         </Tab>
@@ -105,12 +112,20 @@
     </FlyoutItem>
    
     
-    <FlyoutItem Title="All Transactions" Icon="icon_feed.png">
+    <FlyoutItem Title="Tất cả giao dịch" >
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"  
+                             Glyph="&#xf36f;"/>
+        </FlyoutItem.Icon>
         <ShellContent Route="ListOfStockReceivePage" ContentTemplate="{DataTemplate local:ListOfStockReceivePage}" />
     </FlyoutItem>
 
     
-    <FlyoutItem Title="Nhập kho" Icon="icon_feed.png">
+    <FlyoutItem Title="Nhập kho" >
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"  
+                             Glyph="&#xf36f;"/>
+        </FlyoutItem.Icon>
         <Tab Title="Nhập kho">
             <ShellContent Route="StockReceivePage" ContentTemplate="{DataTemplate local:StockReceivePage}" />
         </Tab>
@@ -118,19 +133,36 @@
             <ShellContent Route="NewStockItem" ContentTemplate="{DataTemplate local:NewStockItem}" />
         </Tab>
     </FlyoutItem>
-    <FlyoutItem Title="Batch Stock Receive" Icon="icon_feed.png">
+    <!--<FlyoutItem Title="Batch Stock Receive" Icon="icon_feed.png">
         <ShellContent Route="BatchStockReceivePage" ContentTemplate="{DataTemplate local:BatchStockReceivePage}" />
-    </FlyoutItem>
-    <FlyoutItem Title="Stock Issue" Icon="icon_feed.png">
+    </FlyoutItem>-->
+    <FlyoutItem Title="Xuất kho" >
+        
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"  
+                             Glyph="&#xf311;"/>
+        </FlyoutItem.Icon>
         <ShellContent Route="StockIssuePage" ContentTemplate="{DataTemplate local:StockIssuePage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Stock Transfer" Icon="icon_feed.png">
+    <FlyoutItem Title="Chuyển khoho" >
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"  
+                             Glyph="&#xf311;"/>
+        </FlyoutItem.Icon>
         <ShellContent Route="StockTransferPage" ContentTemplate="{DataTemplate local:StockTransferPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Stock Return" Icon="icon_feed.png">
+    <FlyoutItem Title="Trả hàng" >
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"  
+                             Glyph="&#xe018;"/>
+        </FlyoutItem.Icon>
         <ShellContent Route="StockResturnPage" ContentTemplate="{DataTemplate local:StockResturnPage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Stock Waste" Icon="icon_feed.png">
+    <FlyoutItem Title="Hủy hàng" >
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FAS"  
+                             Glyph="&#xf011;"/>
+        </FlyoutItem.Icon>
         <ShellContent Route="StockWastePage" ContentTemplate="{DataTemplate local:StockWastePage}" />
     </FlyoutItem>
    

@@ -26,37 +26,53 @@
                     </Grid.ColumnDefinitions>
 
                 <!--<StackLayout Grid.Row="0" Grid.ColumnSpan="3" Orientation="Horizontal">-->
-                <Label Grid.Row="0" Grid.Column="0"  Text="UserID" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
-                <Entry Grid.Row="0" Grid.Column="1" Placeholder="User ID" IsReadOnly="True" x:Name="txtUserID" 
-                       FontSize="Medium"   Text="{Binding UserID}" 
+                <Label Grid.Row="0" Grid.Column="0"  Text="UserID" 
+                       Style="{StaticResource  FormLabel}" 
+                       VerticalOptions="Center" HorizontalOptions="Start" />
+                <Entry Grid.Row="0" Grid.Column="1" Placeholder="User ID" IsReadOnly="True" 
+                       x:Name="txtUserID" Text="{Binding UserID}" 
+                       Style="{StaticResource EntryForm}"
                        VerticalOptions="Center" HorizontalOptions="CenterAndExpand"/>
-                <Label Grid.Row="0" Grid.Column="2" Text="Ngày G.Dịch" FontSize="Medium" 
+                <Label Grid.Row="0" Grid.Column="2" Text="Ngày G.Dịch" 
+                       Style="{StaticResource  FormLabel}"
                        VerticalOptions="Center" HorizontalOptions="Start" />
 
-                <DatePicker Grid.Row="0" Grid.Column="3" MinimumDate="{Binding MinDate}"
-                MaximumDate="{Binding MaxDate}" x:Name="txtScanDate"
-                Date="{Binding TransDate}" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"  />
+                <DatePicker Grid.Row="0" Grid.Column="3" 
+                            MinimumDate="{Binding MinDate}" MaximumDate="{Binding MaxDate}" x:Name="txtScanDate"
+                            Style="{StaticResource DateForm}"
+                            Date="{Binding TransDate}" 
+                            VerticalOptions="Center" HorizontalOptions="CenterAndExpand"  />
                 
                 
 
-                <Label Grid.Row="1" Grid.Column="0"   Text="Mã kho" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
-                <Entry Grid.Row="1" Grid.Column="1" Placeholder="Mã kho" IsReadOnly="True" x:Name="txtWHCode" 
-                      FontSize="Medium"     Text="{Binding WhCode}"
+                <Label Grid.Row="1" Grid.Column="0"   Text="Mã kho"
+                        Style="{StaticResource  FormLabel}" 
+                       VerticalOptions="Center" HorizontalOptions="Start" />
+                <Entry Grid.Row="1" Grid.Column="1" Placeholder="Mã kho" 
+                       IsReadOnly="True" x:Name="txtWHCode" Text="{Binding WhCode}"
+                       Style="{StaticResource EntryForm}"
                         VerticalOptions="Center" HorizontalOptions="CenterAndExpand"  />
 
-                <Label Grid.Row="1" Grid.Column="2" Text="Mã Kệ" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
-                <Entry Grid.Row="1" Grid.Column="3" Placeholder="Mã Kệ" IsReadOnly="True"  x:Name="txtShelfCode" 
-                           Text="{Binding ShelfCode}" 
+                <Label Grid.Row="1" Grid.Column="2" Text="Mã Kệ" 
+                        Style="{StaticResource  FormLabel}" 
+                       VerticalOptions="Center" HorizontalOptions="Start" />
+                <Entry Grid.Row="1" Grid.Column="3" Placeholder="Mã Kệ" IsReadOnly="True"  
+                       x:Name="txtShelfCode"                            Text="{Binding ShelfCode}"
+                       Style="{StaticResource EntryForm}"
                        VerticalOptions="Center" HorizontalOptions="CenterAndExpand"  />
 
 
-                <Label Grid.Row="2" Grid.Column="0"  Text="DocNo" FontSize="Medium" VerticalOptions="Center" HorizontalOptions="Start" />
-                <Entry Grid.Row="2" Grid.Column="1"  Placeholder="Số phiếu" IsReadOnly="True" x:Name="txtDocNo" 
-                           Text="{Binding DocNo, Mode=TwoWay}"  
+                <Label Grid.Row="2" Grid.Column="0"  Text="DocNo" 
+                        Style="{StaticResource  FormLabel}" 
+                       VerticalOptions="Center" HorizontalOptions="Start" />
+                <Entry Grid.Row="2" Grid.Column="1"  Placeholder="Số phiếu" IsReadOnly="True" 
+                       x:Name="txtDocNo"   Text="{Binding DocNo, Mode=TwoWay}"  
+                       Style="{StaticResource EntryForm}"
                         VerticalOptions="Center" HorizontalOptions="CenterAndExpand"   />
 
                 <Entry Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"  Placeholder="Notes" 
                        x:Name="txtNotes" Text="{Binding Notes, Mode=TwoWay}"  
+                       Style="{StaticResource EntryForm}"
                         VerticalOptions="Center"  />
             </Grid>
             
@@ -74,15 +90,19 @@
 
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0"  Text="BarCode" 
-                       FontSize="Medium" VerticalOptions="Center"  />
+                       Style="{StaticResource  FormLabel}"
+                        VerticalOptions="Center"  />
                 <Entry Grid.Row="0" Grid.Column="1" x:Name="justScanedBarCode" 
                        Text="{Binding ScanedBarCode, Mode=TwoWay}" Focused="justScanedBarCode_Focused"
+                       Style="{StaticResource EntryForm}"
                        VerticalOptions="Center"   WidthRequest="200"/>
                 <Entry Grid.Row="0" Grid.Column="2" x:Name="txtQuantity" 
                        Text="{Binding Quantity, Mode=TwoWay}" Focused="txtQuantity_Focused"
+                      Style="{StaticResource EntryForm}" Keyboard="Numeric"
                        VerticalOptions="Center"  WidthRequest="50"/>
-                
-                <Button Grid.Row="1" Grid.Column="0"  Text="Add" 
+
+                <Button Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Text="Add Detail" 
+                        Style="{StaticResource ButtonForm}"
                         Command="{Binding AddDetailCommand}"  Clicked="Button_Clicked"
                         VerticalOptions="Center"/>
                 

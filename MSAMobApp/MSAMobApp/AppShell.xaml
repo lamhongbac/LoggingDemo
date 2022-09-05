@@ -2,7 +2,7 @@
 <Shell xmlns="http://xamarin.com/schemas/2014/forms" 
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:MSAMobApp.Views"
-       xmlns:FASNS="clr-namespace:FontAwesomeNS"
+       xmlns:fontAwesome="clr-namespace:FontAwesomeNS"
        Title="MSAMobApp"
        x:Class="MSAMobApp.AppShell">
 
@@ -140,36 +140,43 @@
         
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="FAS"  
-                             Glyph="&#xf311;"/>
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.InboxOut}"/>
         </FlyoutItem.Icon>
         <ShellContent Route="StockIssuePage" ContentTemplate="{DataTemplate local:StockIssuePage}" />
     </FlyoutItem>
-    <FlyoutItem Title="Chuyển khoho" >
+    <FlyoutItem Title="Chuyển kho" >
         <FlyoutItem.Icon>
-            <FontImageSource FontFamily="FAS"  
-                             Glyph="&#xf311;"/>
+            <FontImageSource FontFamily="FASFreeSolid"  
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Warehouse}"/>
         </FlyoutItem.Icon>
         <ShellContent Route="StockTransferPage" ContentTemplate="{DataTemplate local:StockTransferPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Trả hàng" >
         <FlyoutItem.Icon>
-            <FontImageSource FontFamily="FAS"  
-                             Glyph="&#xe018;"/>
+            <FontImageSource FontFamily="FASFreeSolid"  
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ThumbsUp}"/>
         </FlyoutItem.Icon>
+        
         <ShellContent Route="StockResturnPage" ContentTemplate="{DataTemplate local:StockResturnPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Hủy hàng" >
         <FlyoutItem.Icon>
-            <FontImageSource FontFamily="FAS"  
-                             Glyph="&#xf011;"/>
+            <FontImageSource FontFamily="FASFreeSolid"  
+             Glyph="{x:Static fontAwesome:FontAwesomeIcons.HandsWash}"/>
         </FlyoutItem.Icon>
         <ShellContent Route="StockWastePage" ContentTemplate="{DataTemplate local:StockWastePage}" />
     </FlyoutItem>
    
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
-        
-    <!--</MenuItem>
+        <MenuItem.IconImageSource>
+            <FontImageSource
+                FontFamily="FASFreeSolid"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.SignOut}"
+                Color="Blue"
+                Size="24">
+            </FontImageSource>
+        </MenuItem.IconImageSource>    <!--</MenuItem>
     <MenuItem Text="Scan Barcode Demo" StyleClass="MenuItemLayoutStyle" Clicked="MenuItem_Clicked">-->
 
     </MenuItem>

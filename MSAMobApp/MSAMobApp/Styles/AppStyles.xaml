@@ -6,6 +6,7 @@
     <Color x:Key="Secondary">#F215    </Color>
     <Color x:Key="BackGroundButton">Gray</Color>
     <Color x:Key="TextButton">White</Color>
+    <!--<x:Key="WarehouseIcon" Value="f494"/>-->
     
     <Thickness x:Key="PageMargin">20</Thickness>
 

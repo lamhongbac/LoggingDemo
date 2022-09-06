@@ -99,8 +99,10 @@
     <FlyoutItem Title="App Setting">
         
         <FlyoutItem.Icon>
-            <FontImageSource FontFamily="FAS"  
-                             Glyph="&#xf36f;"/>
+            <FontImageSource FontFamily="FASFreeSolid"  
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Helicopter}"
+                             Color="Black" 
+                Size="24"/>
         </FlyoutItem.Icon>
         
         <Tab Title="Stock Master">
@@ -114,8 +116,10 @@
     
     <FlyoutItem Title="Tất cả giao dịch" >
         <FlyoutItem.Icon>
-            <FontImageSource FontFamily="FAS"  
-                             Glyph="&#xf36f;"/>
+            <FontImageSource FontFamily="FASFreeSolid"  
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.University}"
+                             Color="Black" 
+                Size="24"/>
         </FlyoutItem.Icon>
         <ShellContent Route="ListOfStockReceivePage" ContentTemplate="{DataTemplate local:ListOfStockReceivePage}" />
     </FlyoutItem>
@@ -123,8 +127,10 @@
     
     <FlyoutItem Title="Nhập kho" >
         <FlyoutItem.Icon>
-            <FontImageSource FontFamily="FAS"  
-                             Glyph="&#xf36f;"/>
+            <FontImageSource FontFamily="FASFreeSolid"  
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Directions}"
+                             Color="Black" 
+                Size="24"/>
         </FlyoutItem.Icon>
         <Tab Title="Nhập kho">
             <ShellContent Route="StockReceivePage" ContentTemplate="{DataTemplate local:StockReceivePage}" />
@@ -139,22 +145,29 @@
     <FlyoutItem Title="Xuất kho" >
         
         <FlyoutItem.Icon>
-            <FontImageSource FontFamily="FAS"  
-                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.InboxOut}"/>
+            <FontImageSource FontFamily="FASFreeSolid"  
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Barcode}"
+                             Color="Black" 
+                Size="24"/>
         </FlyoutItem.Icon>
         <ShellContent Route="StockIssuePage" ContentTemplate="{DataTemplate local:StockIssuePage}" />
     </FlyoutItem>
     <FlyoutItem Title="Chuyển kho" >
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="FASFreeSolid"  
-                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Warehouse}"/>
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Warehouse}"
+                             Color="Black" 
+                Size="24"/>
         </FlyoutItem.Icon>
         <ShellContent Route="StockTransferPage" ContentTemplate="{DataTemplate local:StockTransferPage}" />
     </FlyoutItem>
     <FlyoutItem Title="Trả hàng" >
         <FlyoutItem.Icon>
-            <FontImageSource FontFamily="FASFreeSolid"  
-                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.ThumbsUp}"/>
+            <FontImageSource 
+                FontFamily="FASFreeSolid"                               
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.ThumbsUp}"
+                Color="Black" 
+                Size="24"/>
         </FlyoutItem.Icon>
         
         <ShellContent Route="StockResturnPage" ContentTemplate="{DataTemplate local:StockResturnPage}" />
@@ -162,7 +175,9 @@
     <FlyoutItem Title="Hủy hàng" >
         <FlyoutItem.Icon>
             <FontImageSource FontFamily="FASFreeSolid"  
-             Glyph="{x:Static fontAwesome:FontAwesomeIcons.HandsWash}"/>
+             Glyph="{x:Static fontAwesome:FontAwesomeIcons.HandsWash}"
+                             Color="Black" 
+                Size="24"/>
         </FlyoutItem.Icon>
         <ShellContent Route="StockWastePage" ContentTemplate="{DataTemplate local:StockWastePage}" />
     </FlyoutItem>
@@ -172,8 +187,8 @@
         <MenuItem.IconImageSource>
             <FontImageSource
                 FontFamily="FASFreeSolid"
-                Glyph="{x:Static fontAwesome:FontAwesomeIcons.SignOut}"
-                Color="Blue"
+                Glyph="{x:Static fontAwesome:FontAwesomeIcons.SignOutAlt}"
+                Color="Black"
                 Size="24">
             </FontImageSource>
         </MenuItem.IconImageSource>    <!--</MenuItem>

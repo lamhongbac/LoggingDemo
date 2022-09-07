@@ -4,9 +4,12 @@
              x:Class="MSAMobApp.Views.StockIssuePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome Stock Issue form!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Frame Style ="{StaticResource formHeader}">
+                <Label Text="Welcome Stock Issue form!" 
+                       Style="{StaticResource headerLabel}"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand" />
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

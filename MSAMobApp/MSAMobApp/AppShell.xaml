@@ -96,23 +96,17 @@
         </Tab>
     </FlyoutItem>-->
 
-    <FlyoutItem Title="App Setting">
-        
-        <FlyoutItem.Icon>
-            <FontImageSource FontFamily="FASFreeSolid"  
-                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Helicopter}"
-                             Color="Black" 
-                Size="24"/>
-        </FlyoutItem.Icon>
-        
-        <Tab Title="Stock Master">
-            <ShellContent Title="Stock Master" Route="StockMasteMaintainPage" ContentTemplate="{DataTemplate local:StockMasteMaintainPage}" />
-        </Tab>
-        <Tab Title="App Options">
-            <ShellContent Title="App Options" Route="AppOptionsPage" ContentTemplate="{DataTemplate local:AppOptionsPage}" />
-        </Tab>
-    </FlyoutItem>
-   
+
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid HeightRequest="70"
+                  BackgroundColor="{StaticResource Primary}">
+                <Image Aspect="AspectFit" Source="xamarin_logo.png"></Image>
+            </Grid>
+
+
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
     
     <FlyoutItem Title="Tất cả giao dịch" >
         <FlyoutItem.Icon>
@@ -181,7 +175,22 @@
         </FlyoutItem.Icon>
         <ShellContent Route="StockWastePage" ContentTemplate="{DataTemplate local:StockWastePage}" />
     </FlyoutItem>
-   
+    <FlyoutItem Title="Danh mục BarCode">
+
+        <FlyoutItem.Icon>
+            <FontImageSource FontFamily="FASFreeSolid"  
+                             Glyph="{x:Static fontAwesome:FontAwesomeIcons.Helicopter}"
+                             Color="Black" 
+                Size="24"/>
+        </FlyoutItem.Icon>
+
+        <Tab Title="Danh mục BarCode">
+            <ShellContent Title="Stock Master" Route="StockMasteMaintainPage" ContentTemplate="{DataTemplate local:StockMasteMaintainPage}" />
+        </Tab>
+        <!--<Tab Title="App Options">
+            <ShellContent Title="App Options" Route="AppOptionsPage" ContentTemplate="{DataTemplate local:AppOptionsPage}" />
+        </Tab>-->
+    </FlyoutItem>
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
         <MenuItem.IconImageSource>
@@ -240,6 +249,15 @@
         </DataTemplate>
     </Shell.MenuItemTemplate>-->
 
-    
+    <Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <Grid HeightRequest="100"
+                  BackgroundColor="{StaticResource Secondary}">
+                <Image Aspect="AspectFit" Source="xamarin_logo.png"></Image>
+            </Grid>
+
+
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>
 
 </Shell>

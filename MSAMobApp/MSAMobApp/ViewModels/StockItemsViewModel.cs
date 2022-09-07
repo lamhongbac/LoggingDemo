@@ -42,7 +42,7 @@ namespace MSAMobApp.ViewModels
 
         public StockItemsViewModel()
         {
-            Title = "Browse";
+            Title = "Local Stock Master";
             Items = new ObservableCollection<MobStockMasterItem>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 

@@ -10,7 +10,12 @@
     
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="0,10,0,10">
-            
+            <Frame Style ="{StaticResource formHeader}">
+                <Label Text="Welcome Stock Receive Form!" 
+                       Style="{StaticResource headerLabel}"
+                    VerticalOptions="CenterAndExpand" 
+                    HorizontalOptions="CenterAndExpand" />
+            </Frame>
             <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

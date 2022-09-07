@@ -16,7 +16,7 @@
     </ContentPage.Content>-->
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}" />
+        <ToolbarItem Text="Add" Command="{Binding AddItemCommand}"  />
         <ToolbarItem Text="Sync" Command="{Binding SyncItemsCommand}" />
     </ContentPage.ToolbarItems>
     <ContentPage.Content>

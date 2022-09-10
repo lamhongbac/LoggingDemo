@@ -9,6 +9,8 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using MSAMobApp.Models;
+using MSAMobApp.Data;
+using Acr.UserDialogs;
 
 namespace MSAMobApp.ViewModels
 {
@@ -16,6 +18,7 @@ namespace MSAMobApp.ViewModels
     {
         XAppContext appContext;
         public Command StockReceiveCommand { get; }
+        public Command SyncStockCommand { get; }
         
         public Command LoadItemsCommand { get; }
         public ListOfStockTransViewModel()
@@ -23,6 +26,7 @@ namespace MSAMobApp.ViewModels
             appContext = XAppContext.GetInstance();
                LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
             StockReceiveCommand = new Command(async () => await GoToReceiveStockPage());
+            SyncStockCommand = new Command(async () => await ExecuteSyncItemsCommand());
             DataList = new ObservableCollection<StockTrans>();
         }
         //await Shell.Current.GoToAsync(nameof(NewStockItem));
@@ -30,6 +34,25 @@ namespace MSAMobApp.ViewModels
         async Task GoToReceiveStockPage()
         {
           await  Shell.Current.GoToAsync(nameof(StockReceivePage));
+        }
+        /// <summary>
+        /// Sync Local Data to remote Server
+        /// </summary>
+        /// <returns></returns>
+        async Task ExecuteSyncItemsCommand()
+        {
+            List<StockTrans> stockTrans =await MSADataBase.GetLocalStockTrans(EDataState.New);
+            if (stockTrans==null || stockTrans.Count==0)
+            {
+                await UserDialogs.Instance.AlertAsync("No item to sync");
+
+                return;
+            }
+            bool success = await MSADataBase.SyncLocalStockTrans(stockTrans);
+            if (!success)
+            {
+              await  UserDialogs.Instance.AlertAsync("Sync to DB fail");
+            }
         }
         async Task ExecuteLoadItemsCommand()
         {

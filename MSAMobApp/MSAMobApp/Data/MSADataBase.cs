@@ -119,7 +119,8 @@ namespace MSAMobApp.Data
         public async static Task<MobStockMasterItem> GetMasterStockItemAsync(string barcode)
         {
             await Init();
-            var stockSample = await database.Table<MobStockMasterItem>().Where(x => x.BarCode == barcode).FirstOrDefaultAsync();
+            var stockSample = await database.Table<MobStockMasterItem>().
+                Where(x => x.BarCode == barcode).FirstOrDefaultAsync();
             return stockSample;
         }
         /// <summary>
@@ -181,10 +182,7 @@ namespace MSAMobApp.Data
             return rows;
         }
 
-        private static async Task<int> CreateServerStockMaster(MobStockMasterItem item)
-        {
-            return await database.InsertAsync(item);
-        }
+        
 
         /// <summary>
         /// Update sync stock item from server
@@ -247,7 +245,7 @@ namespace MSAMobApp.Data
                 return -1;
             }
         }
-        public static async Task<IEnumerable<MobStockMasterItem>> GetStockMasterItems()
+        public static async Task<IEnumerable<MobStockMasterItem>> GetLocalStockMasterItems()
         {
             await Init();
             var stockSamples = await database.Table<MobStockMasterItem>().ToListAsync();
@@ -271,15 +269,56 @@ namespace MSAMobApp.Data
                 {
                     stockTrans.DataState = EDataState.Posted.ToString();
                     stockTrans.SyncDate = DateTime.Now;
-                    await stockTransLocalDBHandler.UpdateStockTrans(stockTrans);
+                    await stockTransLocalDBHandler.UpdateLocalStockTrans(stockTrans);
                 }
                 else
                 {
-
+                    return false;
                 }
             }
             return OK;
         }
+
+        /// <summary>
+        /// Sync Local Stock Trans data into Remote DB
+        /// update vao remote DB
+        /// update vao local data state
+        /// </summary>
+        /// <returns></returns>
+        public async static Task<bool> SyncLocalStockTrans(List<StockTrans> stockTrans)
+        {
+            bool OK = false;
+            OK = stockTrans != null && stockTrans.Count > 0;
+
+            if (OK)
+            {
+                bool server_updated = await StockTransDBService.SyncStockTrans(stockTrans);
+                if (server_updated)
+                {
+                    foreach (var item in stockTrans)
+                    {
+                        item.DataState = EDataState.Posted.ToString();
+                        item.SyncDate = DateTime.Now;
+                        await stockTransLocalDBHandler.UpdateLocalStockTrans(item);
+                    }
+                    
+                    
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return OK;
+        }
+
+        public async  static Task<List<StockTrans>> GetLocalStockTrans(EDataState dataState)
+        {
+            var stockTrans =  database.Table<StockTrans>().
+                Where(x => x.DataState == dataState.ToString());
+            return await stockTrans.ToListAsync();
+        }
+
         /// <summary>
         /// Ham trung gian
         /// </summary>
@@ -287,7 +326,7 @@ namespace MSAMobApp.Data
         public static async Task<List<StockTrans>> GetStockTrans()
         {
             stockTransLocalDBHandler = new StockTransDatabase(database);
-          List<StockTrans> data=await  stockTransLocalDBHandler.GetStockTrans();
+          List<StockTrans> data=await  stockTransLocalDBHandler.GetLocalStockTrans();
             return data;
                 //await database.Table<StockTrans>().ToListAsync();
 

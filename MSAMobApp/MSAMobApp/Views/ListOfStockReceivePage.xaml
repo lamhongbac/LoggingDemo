@@ -5,7 +5,7 @@
     <!--Command="{Binding LoadItemsCommand}"-->
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Nhap" Command="{Binding StockReceiveCommand}" />
-
+        <ToolbarItem Text="Sync" Command="{Binding SyncStockCommand}" />
     </ContentPage.ToolbarItems>
     
     <RefreshView x:DataType="local:ListOfStockTransViewModel" 

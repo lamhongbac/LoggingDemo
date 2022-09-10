@@ -44,12 +44,12 @@ namespace MSAMobApp.Data
 
             return rec > 0;
         }
-        public async  Task<List<StockTrans>> GetStockTrans()
+        public async  Task<List<StockTrans>> GetLocalStockTrans()
         {
            return await _database.Table<StockTrans>().ToListAsync();
         }
 
-        public async Task<bool> UpdateStockTrans(StockTrans stockTrans)
+        public async Task<bool> UpdateLocalStockTrans(StockTrans stockTrans)
         {
             return await _database.UpdateAsync(stockTrans)>0;
         }

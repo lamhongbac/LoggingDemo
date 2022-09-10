@@ -16,7 +16,36 @@ namespace MSAMobApp.Services
     /// </summary>
     public static class StockTransDBService
     {
+        /// <summary>
+        /// Dua data tu local len Server
+        /// </summary>
+        /// <param name="stockTrans"></param>
+        /// <returns></returns>
+        public static async Task<bool> SyncStockTrans(List<StockTrans> stockTrans)
+        {
+            List<MobStockTrans> stock_trans = new List<MobStockTrans>();
+            foreach (var item in stockTrans)
+            {
+                MobStockTrans dbStockTrans = ConvertToDBStockTrans(item);
+                stock_trans.Add(dbStockTrans);
+            }
+            
+            bool OK = false;
 
+            HttpClientHelper<bool> stockTransService = new HttpClientHelper<bool>(ApiServices.BaseURL);
+            string apiURL = ApiServices.CreateStockTransUrl;
+            try
+            {
+                OK = await stockTransService.PostRequest(apiURL, stock_trans, new CancellationToken(false));
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                OK = false;
+                return OK;
+            }
+            return OK;
+        }
 
 
         /// <summary>
@@ -35,9 +64,9 @@ namespace MSAMobApp.Services
         /// </summary>
         /// <param name="paraModel">StockTrans</param>
         /// <returns></returns>
-        public static async Task<bool> CreateStockTrans(StockTrans paraModel)
+        public static async Task<bool> CreateStockTrans(StockTrans stockTrans)
         {
-            MobStockTrans dbStockTrans = ConvertToDBStockTrans(paraModel);
+            MobStockTrans dbStockTrans = ConvertToDBStockTrans(stockTrans);
             bool OK = false;
             List<MobStockTrans> stock_trans = new List<MobStockTrans>() { dbStockTrans };
 

@@ -67,7 +67,7 @@ namespace MSAMobApp.ViewModels
             try
             {
                 Items.Clear();
-                var items = await MSADataBase.GetStockMasterItems();
+                var items = await MSADataBase.GetLocalStockMasterItems();
                 foreach (var item in items)
                 {
                     Items.Add(item);

@@ -148,10 +148,4 @@
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\MSAMobApp\MSAMobApp.csproj">
-      <Project>{290D493E-9FE9-4D5A-B8B1-99B07E972E91}</Project>
-      <Name>MSAMobApp</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>

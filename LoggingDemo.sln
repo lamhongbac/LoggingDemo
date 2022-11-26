@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject", "TestProject\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WPFMaterialDesignStudy", "WPFMaterialDesignStudy\WPFMaterialDesignStudy.csproj", "{8CD24CF7-32A0-46A1-9F7D-A37BDA1971EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRChat", "SignalRChat\SignalRChat.csproj", "{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,6 +183,18 @@ Global
 		{8CD24CF7-32A0-46A1-9F7D-A37BDA1971EF}.Release|iPhone.Build.0 = Release|Any CPU
 		{8CD24CF7-32A0-46A1-9F7D-A37BDA1971EF}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{8CD24CF7-32A0-46A1-9F7D-A37BDA1971EF}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Release|iPhone.Build.0 = Release|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{8A44D7F5-730D-46D0-9CD4-3347C31FAE54}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

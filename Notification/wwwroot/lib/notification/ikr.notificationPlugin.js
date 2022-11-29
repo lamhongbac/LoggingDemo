@@ -71,7 +71,7 @@
             NotiFromPropName: "",
             ListTitlePropName: "",
             ListBodyPropName: "",
-            ControllerName: "Notifications",
+            ControllerName: "Notification",
             ActionName: "AllNotifications"
         }, options);
         var parentId = $(this).attr("id");

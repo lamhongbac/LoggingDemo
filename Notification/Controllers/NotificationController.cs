@@ -18,6 +18,7 @@ namespace Notification.Controllers
         List<Noti> notifications;
         INotiService _notificationService;
 
+        [HttpGet]
         public IActionResult AllNotifications()
         {
             //int userID = 2;

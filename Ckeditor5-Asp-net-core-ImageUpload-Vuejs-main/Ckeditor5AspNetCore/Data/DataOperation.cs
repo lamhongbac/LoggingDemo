@@ -67,6 +67,18 @@ namespace NewsCMS.Data
                 }
             }
         }
+        public async Task<NewsData> Read(string whereString, object parametter)
+        {
+            NewsData data = null;
+            using (IDbConnection connection = new SqlConnection(_connectionString))
+            {
+                //1.Build SQL
+                string Sql = "Select * from " + tableName + " WHERE " + whereString;
+                //3. Ket qua tra ve
+                data = await connection.QueryFirstOrDefaultAsync<NewsData>(Sql, parametter);
+            }
+            return data;
+        }
         #region CRUD
         /// <summary>
         /// 

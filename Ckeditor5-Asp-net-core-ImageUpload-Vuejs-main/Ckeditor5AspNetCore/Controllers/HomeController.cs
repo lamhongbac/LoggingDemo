@@ -84,7 +84,15 @@ namespace Ckeditor5AspNetCore.Controllers
         {
             string conn = _configuration.GetConnectionString("DevDB");
             DataOperation dataOP = new DataOperation(conn);
-            NewsData data = _mapper.Map<NewsData>(model);
+            //NewsData data = _mapper.Map<NewsData>(model);
+            NewsData data = new NewsData()
+            {
+                Description = model.Content,
+                MobileNo = "0913660575",
+                Email = "lamhong.bac@gmail.com",
+                Name = "demo"
+
+            };
 
           long result=  await dataOP.InsertData(data);
             if (result > -1)

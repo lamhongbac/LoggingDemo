@@ -12,8 +12,9 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <div class="panel-body">
-                        <form class="cmxform form-horizontal" method="post">
-
+                        <form class="cmxform form-horizontal" action="Save" method="post">
+                            @Html.HiddenFor(m => m.Content)
+                            @*<input asp-fo="Content" name="Content" hidden/>*@
                             @Html.Raw(Model.Content)
                             <div class="form-group">
                                 <div class="col-lg-offset-3 col-lg-6">

@@ -12,7 +12,7 @@ namespace NewsCMS.Data
     {
         public MapperDefinition() : base()
         {
-            CreateMap<NewsModel, NewsData>().ReverseMap();
+            CreateMap<NewsModel, NewsData>().ForMember(dest => dest.Description, act => act.MapFrom(src => src.Content)).ReverseMap();
         }
     }
 }

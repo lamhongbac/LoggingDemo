@@ -1,0 +1,31 @@
+﻿@model Ckeditor5AspNetCore.Models.NewsModel
+
+@{
+    ViewData["Title"] = "Review";
+}
+
+<h1 class="centered">Review News</h1>
+
+<section class="tab-content container-fluid">
+    <div class="form-check-w3layout">
+        <div class="row">
+            <div class="col-lg-12">
+                <section class="panel">
+                    <div class="panel-body">
+                        <form class="cmxform form-horizontal" method="post">
+
+                            @Html.Raw(Model.Content)
+                            <div class="form-group">
+                                <div class="col-lg-offset-3 col-lg-6">
+                                    <button asp-action="Save" asp-controller="Home" class="btn btn-primary" type="submit"> Save Me </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+

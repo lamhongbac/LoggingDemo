@@ -14,21 +14,18 @@ namespace Notification.Controllers
         {
             _notificationService = notificationService;
         }
-           //
-           List<Noti> notifications;
+        //
+        List<Noti> notifications;
         INotiService _notificationService;
 
-        public IActionResult AllNotifications ()
+        [HttpGet]
+        public IActionResult AllNotifications()
         {
-            int userID = 2;
-            notifications = _notificationService.GetNotifications(userID, false);
+            //int userID = 2;
+            //notifications = _notificationService.GetNotifications(userID, false);
             return View();
         }
-        public IActionResult OneSignalNotification()
-        {
-            return View();
-
-        }
+       
 
 
         public JsonResult GetNotifications(bool getUnread = false)

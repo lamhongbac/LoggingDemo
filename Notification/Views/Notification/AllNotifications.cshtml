@@ -12,32 +12,42 @@
             <th>Notification DateTime</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tblNotificationBody">
     </tbody>
 </table>
-
-@*<script type="text/javascript">
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
     $(document).ready(function () {
         $.ajax({
             type: "GET",
-            datatype="Json",
-            url: "/Notification/GetNotifications",
+            url: "@Url.Action("GetNotifications", "Notification")",
             traditional: true,
             contentType: "application/json;character=utf-8",
             success: function (data) {
                 var notifications = data;
                 $.map(notifications, function (notification) {
-                    $("tblNotification tbody").append("<tr>"
-                        + "<td>" + notification.fromUserName + "</td>"
-                        + "<td>" + notification.notiHeader + "</td>"
-                        + "<td>" + notification.notiBody + "</td>"
-                        + "<td>" + notification.isReadSt + "</td>"
-                        + "<td>" + notification.createDateSt + "</td>"
-                        + "</tr>");
+                    let tr = document.createElement('tr');
+                    var tdUserName = document.createElement('td');
+                    var tdHeader = document.createElement('td');
+                    var tdBody = document.createElement('td');
+                    var tdReadSt = document.createElement('td');
+                    var tdDateSt = document.createElement('td');
+
+                    tdUserName.innerHTML = notification.fromUserName;
+                    tdHeader.innerHTML = notification.notiHeader;
+                    tdBody.innerHTML = notification.notiBody;
+                    tdReadSt.innerHTML = notification.isReadSt;
+                    tdDateSt.innerHTML = notification.createDateSt;
+                    tr.appendChild(tdUserName);
+                    tr.appendChild(tdHeader);
+                    tr.appendChild(tdBody);
+                    tr.appendChild(tdReadSt);
+                    tr.appendChild(tdDateSt);
+                    document.getElementById('tblNotificationBody').appendChild(tr);
                 });
             },
             error: function (a, b, c) {
             }
         });
     });
-</script>*@
+</script>

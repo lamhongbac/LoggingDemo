@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace AsynchronousDemo
@@ -10,45 +12,71 @@ namespace AsynchronousDemo
         internal class Egg { }
         internal class Juice { }
         internal class Toast { }
-        static async Task Main(string[] args)
+        public static async Task Main()
         {
-            //Console.WriteLine("Hello World!");
-            //Coffee cup = PourCoffee();
-            //Console.WriteLine("coffee is ready");
+            string url = "https://github.com/TechMarDay/Cache/blob/master/Cache/MemoryCache/Startup.cs";
+            var fileTask = DownloadFileASynchronous(url);
+            Console.WriteLine("Làm gì đó khi file đang tải");
+            //var file = await fileTask;
 
-            //Egg eggs = FryEggs(2);
-            //Console.WriteLine("eggs are ready");
+            //Console.WriteLine($"File có độ dài {file?.Length}");
+            Console.WriteLine("Làm gì đó khi file tải xong");
 
-            //Bacon bacon = FryBacon(3);
-            //Console.WriteLine("bacon is ready");
-
-            //Toast toast = ToastBread(2);
-            //ApplyButter(toast);
-            //ApplyJam(toast);
-            //Console.WriteLine("toast is ready");
-
-            //Juice oj = PourOJ();
-            //Console.WriteLine("oj is ready");
-            //Console.WriteLine("Breakfast is ready!");
-
-            Coffee cup = PourCoffee();
-            Console.WriteLine("coffee is ready");
-
-            await FryEggsAsync(2);
-            Console.WriteLine("eggs are ready");
-
-            await FryBaconAsync(3);
-            Console.WriteLine("bacon is ready");
-
-            Toast toast =await ToastBreadAsync(2);
-            ApplyButter(toast);
-            ApplyJam(toast);
-            Console.WriteLine("toast is ready");
-
-            Juice oj = PourOJ();
-            Console.WriteLine("oj is ready");
-            Console.WriteLine("Breakfast is ready!");
+            Console.WriteLine($"Banh mì dang nướng");
+            //Toast toast = await ToastBreadAsync(2);
+            
+            Console.WriteLine("Bánh mì nướng xong rùi ăn thui");
+            Console.ReadLine();
+            Task.WaitAll(fileTask, ToastBreadAsync(2));
         }
+
+        public static async Task<string> DownloadFileASynchronous(string url)
+        {
+            HttpClient client = new HttpClient();
+            var fileTask = await client.GetStringAsync(url); //Phương thức này là Synchronous được cung cấp bởi WebClient của .net
+            Thread.Sleep(9000); //Giả sử việc download file sẽ mất 9000 miliseconds 
+            Console.WriteLine("Đã hoàn thành tải file");
+            return fileTask;
+        }
+        //static async Task Main(string[] args)
+        //{
+        //    //Console.WriteLine("Hello World!");
+        //    //Coffee cup = PourCoffee();
+        //    //Console.WriteLine("coffee is ready");
+
+        //    //Egg eggs = FryEggs(2);
+        //    //Console.WriteLine("eggs are ready");
+
+        //    //Bacon bacon = FryBacon(3);
+        //    //Console.WriteLine("bacon is ready");
+
+        //    //Toast toast = ToastBread(2);
+        //    //ApplyButter(toast);
+        //    //ApplyJam(toast);
+        //    //Console.WriteLine("toast is ready");
+
+        //    //Juice oj = PourOJ();
+        //    //Console.WriteLine("oj is ready");
+        //    //Console.WriteLine("Breakfast is ready!");
+
+        //    Coffee cup = PourCoffee();
+        //    Console.WriteLine("coffee is ready");
+
+        //    await FryEggsAsync(2);
+        //    Console.WriteLine("eggs are ready");
+
+        //    await FryBaconAsync(3);
+        //    Console.WriteLine("bacon is ready");
+
+        //    Toast toast =await ToastBreadAsync(2);
+        //    ApplyButter(toast);
+        //    ApplyJam(toast);
+        //    Console.WriteLine("toast is ready");
+
+        //    Juice oj = PourOJ();
+        //    Console.WriteLine("oj is ready");
+        //    Console.WriteLine("Breakfast is ready!");
+        //}
 
         private static Juice PourOJ()
         {
@@ -62,29 +90,29 @@ namespace AsynchronousDemo
         private static void ApplyButter(Toast toast) =>
             Console.WriteLine("Putting butter on the toast");
 
-        private static Toast ToastBread(int slices)
+        private static async Task<Toast> ToastBread(int slices)
         {
             for (int slice = 0; slice < slices; slice++)
             {
                 Console.WriteLine("Putting a slice of bread in the toaster");
             }
             Console.WriteLine("Start toasting...");
-            Task.Delay(3000).Wait();
+            await Task.Delay(3000);
             Console.WriteLine("Remove toast from toaster");
 
             return new Toast();
         }
-        private static Task<Toast> ToastBreadAsync(int slices)
+        private static async Task<Toast> ToastBreadAsync(int slices)
         {
             for (int slice = 0; slice < slices; slice++)
             {
                 Console.WriteLine("Putting a slice of bread in the toaster");
             }
             Console.WriteLine("Start toasting...");
-            Task.Delay(3000).Wait();
+            await Task.Delay(3000);
             Console.WriteLine("Remove toast from toaster");
 
-            return Task.FromResult(new Toast());
+            return new Toast();
         }
         private static Bacon FryBacon(int slices)
         {
@@ -98,22 +126,21 @@ namespace AsynchronousDemo
             Console.WriteLine("cooking the second side of bacon...");
             Task.Delay(3000).Wait();
             Console.WriteLine("Put bacon on plate");
-
             return new Bacon();
         }
         private static async Task<Bacon> FryBaconAsync(int slices)
         {
             Console.WriteLine($"putting {slices} slices of bacon in the pan");
             Console.WriteLine("cooking first side of bacon...");
-            Task.Delay(3000).Wait();
+           await Task.Delay(3000);
             for (int slice = 0; slice < slices; slice++)
             {
                 Console.WriteLine("flipping a slice of bacon");
             }
             Console.WriteLine("cooking the second side of bacon...");
-            Task.Delay(3000).Wait();
+          await  Task.Delay(3000);
             Console.WriteLine("Put bacon on plate");
-            return await Task.FromResult(new Bacon());
+            return  new Bacon();
             //return new Bacon();
         }
         private static Egg FryEggs(int howMany)
@@ -127,16 +154,16 @@ namespace AsynchronousDemo
 
             return new Egg();
         }
-        private static  async Task<Egg> FryEggsAsync(int howMany)
+        private static async Task<Egg> FryEggsAsync(int howMany)
         {
             Console.WriteLine("Warming the egg pan...");
-            Task.Delay(3000).Wait();
+            await Task.Delay(3000);
             Console.WriteLine($"cracking {howMany} eggs");
             Console.WriteLine("cooking the eggs ...");
-            Task.Delay(3000).Wait();
+            await Task.Delay(3000);
             Console.WriteLine("Put eggs on plate");
-
-            return await Task.FromResult(new Egg()) ;
+            return new Egg();
+            //return await Task.FromResult(new Egg()) ;
         }
         private static Coffee PourCoffee()
         {

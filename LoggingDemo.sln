@@ -47,7 +47,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsCMS", "NewsCMS\NewsCMS.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ckeditor5AspNetCore", "Ckeditor5-Asp-net-core-ImageUpload-Vuejs-main\Ckeditor5AspNetCore\Ckeditor5AspNetCore.csproj", "{6F47BEAC-9148-4730-B8E6-D0B46B1CAEB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneSignalAPI", "OneSignalAPI\OneSignalAPI.csproj", "{4A8B6904-4310-47A7-BD6E-0F905002833A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneSignalAPI", "OneSignalAPI\OneSignalAPI.csproj", "{4A8B6904-4310-47A7-BD6E-0F905002833A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

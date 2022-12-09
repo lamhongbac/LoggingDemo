@@ -1,0 +1,193 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model TelerikAspNetCoreApp.Models.CMSNewsModel
+
+<div>
+    @(Html.Kendo().PanelBar()
+        .Name("IntroPanelBar")
+        .Items(items =>
+        {
+        items.Add()
+        .Text("ASP.NET Core")
+        .Selected(true)
+        .Expanded(true)
+        .Content(@<text>
+        <p style="padding:1em 2em">
+        Learn how to build ASP.NET apps that can run anywhere.
+        <a target="_blank" href="http://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409">Learn More</a>
+        </p>
+        </text>);
+        items.Add()
+        .Text("Visual Studio")
+        .Content(@<text>
+        <p style="padding:1em 2em">
+        There are powerful new features in Visual Studio for building modern web apps.
+        <a target="_blank" href="http://go.microsoft.com/fwlink/?LinkID=525030&clcid=0x409">Learn More</a>
+        </p>
+        </text>);
+        items.Add()
+        .Text("Package Management")
+        .Content(@<text>
+        <p style="padding:1em 2em">
+        Bring in libraries from NuGet, Bower, and npm, and automate tasks using Grunt or Gulp.
+        <a target="_blank" href="http://go.microsoft.com/fwlink/?LinkID=525029&clcid=0x409">Learn More</a>
+        </p>
+        </text>);
+        })
+    )
+
+    <button id="get" class="btn btn-primary">Get value</button>
+    <form asp-controller="Home" asp-action="SaveHtmlToDatabase" method="post">
+        @(Html.Kendo().Editor()
+        .Name("editor")
+        .Tools(tools => tools
+            .Clear()
+            .Bold()
+            .Italic()
+            .Underline()
+            .Strikethrough()
+            .JustifyLeft()
+            .JustifyCenter()
+            .JustifyRight()
+            .JustifyFull()
+            .InsertUnorderedList()
+            .InsertOrderedList()
+            .Outdent()
+            .Indent()
+            .CreateLink()
+            .Unlink()
+            .InsertImage()
+            .InsertFile()
+            .SubScript()
+            .SuperScript()
+            .TableEditing()
+            .ViewHtml()
+            .Formatting()
+            .CleanFormatting()
+            .FontName()
+            .FontSize()
+            .ForeColor()
+            .BackColor()
+            .Pdf()
+            .Print()
+            .Snippets(snippets => snippets
+                .Add("Signature", "<p>Regards,<br /> John Doe,<br /><a href='mailto:john.doe@example.com'>john.doe@example.com</a></p>")
+                .Add("Kendo online demos", " <a href='https://demos.telerik.com/kendo-ui'>Kendo online demos</a> ")
+            )
+        )
+        .ImageBrowser(imageBrowser => imageBrowser
+        //input web address == virtualPath
+            .Image("~/UserFiles/Shared/Images/{0}")
+            .Read("Read", "ImageBrowser")
+            .Create("Create", "ImageBrowser")
+            .Destroy("Destroy", "ImageBrowser")
+            .Upload("Upload", "ImageBrowser")
+            .Thumbnail("Thumbnail", "ImageBrowser")
+        )
+        .Value(Model.NewsContent)
+
+    )
+    </form>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var editor = $("#editor").data("kendoEditor");
+
+        var setValue = function () {
+            editor.value($("#value").val());
+        };
+
+        $("#get").click(function () {
+
+            alert(editor.value());
+
+            var content = editor.value();
+            var editorContent = new Object();
+            editorContent.NewsContent = content;
+            editorContent.ID = -1;
+
+
+            $.ajax({
+                type: "POST",
+                url: "/Home/SaveHtmlToDatabase",
+                data: editorContent,
+                dataType: "json",
+                success: function (response) {
+                    Alert('Success');
+                },
+            });
+        });
+
+        $("#set").click(setValue);
+
+        //change web address url in image browser
+        var insertImage = kendo.ui.editor.ImageCommand.fn.insertImage;
+        kendo.ui.editor.ImageCommand.fn.insertImage = function (img, range) {
+            this.attributes.src = this.attributes.src.replace(/%2F/g, "/");
+            insertImage.call(this, img, range);
+        }
+
+    })
+
+
+</script>
+
+<style>
+    table {
+        height: 800px;
+    }
+</style>
+
+@*preview FILE when uploaded*@
+
+@*<div id="example">
+        <h3>Add image preview before uploading file</h3>
+        <input type="file" id="files">
+
+        <script>
+            $(document).ready(function () {
+                $("#files").kendoUpload({
+                    async: {
+                        saveUrl: "save",
+                        removeUrl: "remove",
+                        autoUpload: false
+                    },
+                    multiple: false,
+                    select: function (e) {
+                        var fileInfo = e.files[0];
+                        var wrapper = this.wrapper;
+
+                        setTimeout(function () {
+                            addPreview(fileInfo, wrapper);
+                        });
+                    }
+                });
+            });
+
+            function addPreview(file, wrapper) {
+                var raw = file.rawFile;
+                var reader = new FileReader();
+
+                if (raw) {
+                    reader.onloadend = function () {
+                        var preview = $("<img class='image-preview'>").attr("src", this.result);
+
+                        wrapper.find(".k-file[data-uid='" + file.uid + "'] .k-file-group-wrapper")
+                            .replaceWith(preview);
+                    };
+
+                    reader.readAsDataURL(raw);
+                }
+            }
+        </script>
+        <style>
+            .image-preview {
+                position: relative;
+                vertical-align: top;
+                height: 45p
+            }
+        </style>
+    </div>*@

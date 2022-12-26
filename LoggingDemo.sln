@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ckeditor5AspNetCore", "Cked
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneSignalAPI", "OneSignalAPI\OneSignalAPI.csproj", "{4A8B6904-4310-47A7-BD6E-0F905002833A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpressionStudy", "ExpressionStudy\ExpressionStudy.csproj", "{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -335,6 +337,18 @@ Global
 		{4A8B6904-4310-47A7-BD6E-0F905002833A}.Release|iPhone.Build.0 = Release|Any CPU
 		{4A8B6904-4310-47A7-BD6E-0F905002833A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{4A8B6904-4310-47A7-BD6E-0F905002833A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Release|iPhone.Build.0 = Release|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

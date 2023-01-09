@@ -1,5 +1,5 @@
 (function ($) {
-    // ****** Add ikr.notification.css ******
+    // ****** Add ikr.NotificationDEMO.css ******
     $.fn.ikrNotificationSetup = function (options) {
         /*
           Declaration : $("#noti_Container").ikrNotificationSetup({

@@ -1,10 +1,10 @@
-﻿using Notification.Models;
+﻿using NotificationDEMO.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Notification.Interfaces
+namespace NotificationDEMO.Interfaces
 {
     public interface INotiService
     {

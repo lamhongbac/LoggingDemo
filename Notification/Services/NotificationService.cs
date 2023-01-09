@@ -1,7 +1,7 @@
 ﻿using Dapper;
-using Notification.Common;
-using Notification.Interfaces;
-using Notification.Models;
+using NotificationDEMO.Common;
+using NotificationDEMO.Interfaces;
+using NotificationDEMO.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Notification.Services
+namespace NotificationDEMO.Services
 {
     public class NotificationService : INotiService
     {

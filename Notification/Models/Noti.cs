@@ -1,6 +1,6 @@
 using System;
 
-namespace Notification.Models
+namespace NotificationDEMO.Models
 {
     public class Noti
     {

@@ -4,15 +4,15 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Notification.Common;
-using Notification.Interfaces;
-using Notification.Services;
+using NotificationDEMO.Common;
+using NotificationDEMO.Interfaces;
+using NotificationDEMO.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Notification
+namespace NotificationService
 {
     public class Startup
     {
@@ -27,7 +27,7 @@ namespace Notification
         public void ConfigureServices(IServiceCollection services)
         {
             Global.ConnectionString = Configuration.GetConnectionString("AuthenticationDB");
-            services.AddScoped<INotiService, NotificationService>();
+            services.AddScoped<INotiService, NotificationDEMO.Services.NotificationService>();
             services.AddControllersWithViews();
         }
 

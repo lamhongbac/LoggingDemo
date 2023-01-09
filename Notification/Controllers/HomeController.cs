@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Notification.Models;
+using NotificationDEMO.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Notification.Controllers
+namespace NotificationDEMO.Controllers
 {
     public class HomeController : Controller
     {

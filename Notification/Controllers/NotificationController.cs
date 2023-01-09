@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Notification.Interfaces;
-using Notification.Models;
+using NotificationDEMO.Interfaces;
+using NotificationDEMO.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Notification.Controllers
+namespace NotificationDEMO.Controllers
 {
     public class NotificationController : Controller
     {

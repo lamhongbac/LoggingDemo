@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Notification.Helper.Common
+namespace NotificationService.Helper.Common
 {
     public class AppConfiguration
     {

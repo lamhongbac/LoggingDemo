@@ -56,6 +56,10 @@ namespace SignalOnePushNotification.Controllers
             return response.Content.ToString();
         }
     }
+    /// <summary>
+    /// https://onesignal.com/blog/how-to-send-push-notifications-with-the-onesignal-rest-api/
+    /// </summary>
+    /// <param name="notificationId"></param>
     [HttpGet]
     public void ViewNoti(int notificationId)
     {

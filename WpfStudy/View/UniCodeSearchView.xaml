@@ -1,0 +1,37 @@
+﻿<Window x:Class="WpfStudy.View.UniCodeSearchView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfStudy.View"
+        mc:Ignorable="d"
+        Title="UniCodeSearchView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+
+        </Grid.ColumnDefinitions>
+        <TextBox
+          Name="tbMultiLine"
+          TextWrapping="Wrap"
+          AcceptsReturn="True"
+          VerticalScrollBarVisibility="Visible">
+            Mở đầu cuộc họp báo, HLV Park Hang-seo ám chỉ rằng đội tuyển đã hoàn thành mục tiêu đề ra trước giải. "Trước khi giải bắt đầu, tôi thảo luận nhóm cùng các cầu thủ", chiến lược gia Hàn Quốc chia sẻ. "Chúng tôi đưa ra chủ đề, 
+            với kết quả bốc thăm như vậy thì mục tiêu vòng bảng ra sao và làm thế nào để đạt mục tiêu đó. Các cầu thủ tránh nói về vô địch, họ chỉ nói vào chung kết. Chúng tôi thảo luận, 
+            xác định rõ phải làm thế nào để đạt mục tiêu và tới nay may mắn chúng tôi đã vào chung kết".
+        </TextBox>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" >
+            <Label Content="Searhing"/>
+            <TextBox Text="" Name="txtKeyword" MinWidth="100"/>
+            <Button Name="btnSearch" Click="btnSearch_Click" Content="Search please..."/>
+        </StackPanel>
+        
+        
+    </Grid>
+    
+</Window>

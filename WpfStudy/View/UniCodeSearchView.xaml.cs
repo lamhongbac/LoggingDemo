@@ -10,26 +10,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WpfStudy.View;
 
-namespace WpfStudy
+namespace WpfStudy.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for UniCodeSearchView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class UniCodeSearchView : Window
     {
-        public MainWindow()
+        public UniCodeSearchView()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-            UniCodeSearchView view = new UniCodeSearchView();
-            view.Show();
+            string content = tbMultiLine.Text.ToLower();
+            string keyword = txtKeyword.Text.ToLower();
+            if (content.IndexOf(keyword)>-1)
+            {
+                MessageBox.Show("Found keyword");
+            }
         }
     }
 }

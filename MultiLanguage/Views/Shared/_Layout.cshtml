@@ -1,9 +1,6 @@
 ﻿@using MultiLanguage.Models
 @inject LanguageService language
-@using Microsoft.AspNetCore.Mvc.Localization
-@using Microsoft.Extensions.Localization
-@inject IViewLocalizer Localizer
-@inject IStringLocalizer<ShareResource> SharedLocalizer
+
 
 
 <!DOCTYPE html>
@@ -40,14 +37,15 @@
                         Language:
                         <ul>
                             <li>
-                                <b>English</b> <i class="fa fa-angle-down" aria-hidden="true"></i>
+                                <b>Eng</b> <i class="fa fa-angle-down" aria-hidden="true"></i>
                                 <div class="triangle"></div>
                                 <ul class="language">
 
-                                    <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="vi-VN" class="nav-link"><i class="flag-icon flag-icon-gb"></i> Viet Namese</a></li>
+                                    <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US" class="nav-link"><i class="flag-icon flag-icon-gb"></i> English</a></li>
 
-                                    <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="en-US" class="nav-link"><i class="flag-icon flag-icon-de"></i> English</a></li>
+                                    <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="vi-VN" class="nav-link"><i class="flag-icon flag-icon-de"></i> Viet</a></li>
 
+                                  @*  <li><a asp-controller="Home" asp-action="ChangeLanguage" asp-route-culture="nl-NL" class="nav-link"><i class="flag-icon flag-icon-nl"></i> Netherland</a></li>*@
 
                                 </ul>
 

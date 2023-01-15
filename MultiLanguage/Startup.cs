@@ -32,8 +32,11 @@ namespace MultiLanguage
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            #region code language
             services.AddSingleton<LanguageService>();
+
             services.AddLocalization(options => options.ResourcesPath = "Resources");
+
             services.AddMvc()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization(options =>
@@ -57,9 +60,8 @@ namespace MultiLanguage
                     var supportedCultures = new List<CultureInfo>
                         {
                             new CultureInfo("en-US"),
-                            new CultureInfo("vi-VN")                            
+                            new CultureInfo("vi-VN"),                            
                         };
-
 
 
                     options.DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US");
@@ -69,14 +71,13 @@ namespace MultiLanguage
                     options.RequestCultureProviders.Insert(0, new QueryStringRequestCultureProvider());
 
                 });
+            #endregion
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(10);
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

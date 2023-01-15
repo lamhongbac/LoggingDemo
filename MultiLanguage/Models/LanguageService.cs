@@ -21,8 +21,7 @@ namespace MultiLanguage.Models
 
         public LocalizedString Getkey(string key)
         {
-            var local= _localizer[key];
-            return local;
+            return _localizer[key];
         }
     }
 }

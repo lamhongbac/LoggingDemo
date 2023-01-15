@@ -9,11 +9,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Resource.en-US.resx">
+    <EmbeddedResource Update="Resources\ShareResource.en-US.resx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator></Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Resource.vi-VN.resx">
+    <EmbeddedResource Update="Resources\ShareResource.vi-VN.resx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Generator></Generator>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -51,9 +51,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneSignalAPI", "OneSignalAP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressionStudy", "ExpressionStudy\ExpressionStudy.csproj", "{AF17E1FB-053B-4ECB-8D3F-08E3FD274A4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiLanguage", "MultiLanguage\MultiLanguage.csproj", "{EE21F9E4-4D83-4C30-9BA5-820F1514BE4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MultiLanguage", "MultiLanguage\MultiLanguage.csproj", "{EE21F9E4-4D83-4C30-9BA5-820F1514BE4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticResources", "StaticResources\StaticResources.csproj", "{590E3E97-F454-4249-9C13-F16B24FA04C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticResources", "StaticResources\StaticResources.csproj", "{590E3E97-F454-4249-9C13-F16B24FA04C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Localization", "Localization\Localization.csproj", "{24E7B24D-EB08-4F97-BF76-34E4BCD26768}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -377,6 +379,18 @@ Global
 		{590E3E97-F454-4249-9C13-F16B24FA04C4}.Release|iPhone.Build.0 = Release|Any CPU
 		{590E3E97-F454-4249-9C13-F16B24FA04C4}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{590E3E97-F454-4249-9C13-F16B24FA04C4}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Release|iPhone.Build.0 = Release|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{24E7B24D-EB08-4F97-BF76-34E4BCD26768}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MultiLanguage.Models
 {
-    public class SharedResources
+    public class ShareResource
     {
     }
 }

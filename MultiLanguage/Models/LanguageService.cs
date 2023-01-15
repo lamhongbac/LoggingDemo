@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace MultiLanguage.Helper
+namespace MultiLanguage.Models
 {
     public class LanguageService
     {
@@ -14,14 +14,15 @@ namespace MultiLanguage.Helper
 
         public LanguageService(IStringLocalizerFactory factory)
         {
-            var type = typeof(SharedResources);
+            var type = typeof(ShareResource);
             var assemblyName = new AssemblyName(type.GetTypeInfo().Assembly.FullName);
-            _localizer = factory.Create("SharedResources", assemblyName.Name);
+            _localizer = factory.Create("ShareResource", assemblyName.Name);
         }
 
-      public LocalizedString Getkey(string key)
+        public LocalizedString Getkey(string key)
         {
-            return _localizer[key];
+            var local= _localizer[key];
+            return local;
         }
     }
 }

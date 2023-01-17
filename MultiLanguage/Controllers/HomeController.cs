@@ -22,7 +22,8 @@ namespace MultiLanguage.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            HomeModel homeModel = new HomeModel();
+            return View(homeModel);
         }
 
         public IActionResult Privacy()

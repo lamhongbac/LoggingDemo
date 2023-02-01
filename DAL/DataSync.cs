@@ -57,6 +57,16 @@ namespace DAL
             }
 
         }
+        public DateTime GetLastUpdateDate(EReload tableName)
+        {
+            var existItem = clientReloads.Where(x => x.ClientReloadItem.TableName == tableName.ToString()).FirstOrDefault();
+            if (existItem != null)
+            {
+                return existItem.ClientReloadItem.LastUpdated;
+            }
+            else return DateTime.Now;
+
+        }
     }
     /// <summary>
     /// Init_cycle_days so ngay phai init lai

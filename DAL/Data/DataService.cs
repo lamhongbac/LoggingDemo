@@ -14,7 +14,7 @@ namespace DAL.Data
 
         public List<StoreData> GetStoreData()
         {
-            List<StoreData> storeDatas=new List<StoreData>
+            List<StoreData> storeDatas = new List<StoreData>();
             if (!DataPool.SyncManagement.IsInit(EReload.Outlet))
             {
                 storeDatas = storeDataService.InitData();

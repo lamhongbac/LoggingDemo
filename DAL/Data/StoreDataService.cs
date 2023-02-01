@@ -13,9 +13,9 @@ namespace DAL.Data
         public List<StoreData> GetLastData(DateTime lastUpdate)
         {
             string strSQL = "Select * from G_Outlet Where ModifiedOn>@ModifiedOn";
-            //return new List<StoreData>();
+            object para = new { ModifiedOn = lastUpdate };
             GenericDataPortal<StoreData > storeDal = new GenericDataPortal<StoreData>(conectionString,"G_Outlet");
-            return storeDal.ReadList(strSQL, null, "ID").Result;
+            return storeDal.ReadList(strSQL, para, "ID").Result;
         }
         /// <summary>
         /// lay danh sach tin tuc chu y: kg can lay G_ClientReload , vi no = Max modifiedOn
@@ -23,8 +23,10 @@ namespace DAL.Data
         /// <returns></returns>
         public List<StoreData> InitData()
         {
-            string strSQL = "Select * from G_Outlet";
-            return new List<StoreData>();
+            string strSQL = "Select * from G_Outlet ";
+            //return new List<StoreData>();
+            GenericDataPortal<StoreData> storeDal = new GenericDataPortal<StoreData>(conectionString, "G_Outlet");
+            return storeDal.ReadList(strSQL, null, "ID").Result;
         }
     }
 }

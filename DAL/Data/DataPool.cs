@@ -13,6 +13,9 @@ namespace DAL.Data
         public static List<BrandData> BrandDatas { get; }
         public DataPool() { }
 
-
+        public static bool IsInit(EReload item)
+        {
+          return  SyncManagement.IsInit(item);
+        }
     }
 }

@@ -15,9 +15,15 @@ namespace DAL.Data
         public List<StoreData> GetStoreData()
         {
             List<StoreData> storeDatas = new List<StoreData>();
+            ClientReloadData storeRelodaInfo = new ClientReloadData();
             if (!DataPool.SyncManagement.IsInit(EReload.Outlet))
             {
                 storeDatas = storeDataService.InitData();
+                storeRelodaInfo=
+                DataPool.AddNewStoreData(storeDatas);
+                
+                DataPool.SyncManagement.UpdateInitDate(EReload.Outlet)
+
             }
             else
             {

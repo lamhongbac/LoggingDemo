@@ -14,7 +14,7 @@ namespace DAL.Data
         {
             string strSQL = "Select * from G_Outlet Where ModifiedOn>@ModifiedOn";
             object para = new { ModifiedOn = lastUpdate };
-            GenericDataPortal<StoreData > storeDal = new GenericDataPortal<StoreData>(conectionString,"G_Outlet");
+            GenericDataPortal<StoreData> storeDal = new GenericDataPortal<StoreData>(conectionString, "G_Outlet");
             return storeDal.ReadList(strSQL, para, "ID").Result;
         }
         /// <summary>
@@ -24,9 +24,24 @@ namespace DAL.Data
         public List<StoreData> InitData()
         {
             string strSQL = "Select * from G_Outlet ";
+            string strSQL1 = "Select * from ClientReload where TableName=@TableName";
+
             //return new List<StoreData>();
             GenericDataPortal<StoreData> storeDal = new GenericDataPortal<StoreData>(conectionString, "G_Outlet");
-            return storeDal.ReadList(strSQL, null, "ID").Result;
+            List<StoreData>  storeDatas=storeDal.ReadList(strSQL, null, "ID").Result;
+
+            StoreInitData initData = new StoreInitData();
+        }
+        public ClientReloadData GetReloadData()
+        {
         }
     }
+
+
+    public class StoreInitData
+    {
+        public List<StoreData> InitData { get; set; }
+        public ClientReloadData ReloadData { get; set; }
+    }
+    
 }

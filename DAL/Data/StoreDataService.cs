@@ -15,33 +15,47 @@ namespace DAL.Data
             string strSQL = "Select * from G_Outlet Where ModifiedOn>@ModifiedOn";
             object para = new { ModifiedOn = lastUpdate };
             GenericDataPortal<StoreData> storeDal = new GenericDataPortal<StoreData>(conectionString, "G_Outlet");
-            return storeDal.ReadList(strSQL, para, "ID").Result;
+            List<StoreData> storeDatas= storeDal.ReadList(strSQL, para, "ID").Result;
+            List<StoreData> exsit_storeDatas = new List<StoreData>();
+            List<StoreData> new_storeDatas = new List<StoreData>();
+            foreach (StoreData storeData in storeDatas) 
+            {
+                if (DataPool.StoreDatas.Where(x=>x.Id==storeData.Id).FirstOrDefault()!=null)
+                {
+                    exsit_storeDatas.Add(storeData);
+                }
+                else
+                {
+                    new_storeDatas.Add(storeData);
+                }
+            }
+            return DataPool.StoreDatas;
         }
         /// <summary>
         /// lay danh sach tin tuc chu y: kg can lay G_ClientReload , vi no = Max modifiedOn
         /// </summary>
         /// <returns></returns>
-        public List<StoreData> InitData()
+        public bool InitData()
         {
             string strSQL = "Select * from G_Outlet ";
-            string strSQL1 = "Select * from ClientReload where TableName=@TableName";
+            //string strSQL1 = "Select * from ClientReload where TableName=@TableName";
 
             //return new List<StoreData>();
             GenericDataPortal<StoreData> storeDal = new GenericDataPortal<StoreData>(conectionString, "G_Outlet");
             List<StoreData>  storeDatas=storeDal.ReadList(strSQL, null, "ID").Result;
-
-            StoreInitData initData = new StoreInitData();
+            if (storeDatas != null && storeDatas.Count > 0)
+            {
+                DateTime lastUpdate = storeDatas.Max(x => x.ModifiedOn).Value;
+                DataPool.StoreDatas.AddRange(storeDatas);
+                DataPool.SyncManagement.UpdateInitDate(EReload.Outlet, lastUpdate);
+                return true;
+            }
+            return false;
         }
-        public ClientReloadData GetReloadData()
-        {
-        }
+        
     }
 
 
-    public class StoreInitData
-    {
-        public List<StoreData> InitData { get; set; }
-        public ClientReloadData ReloadData { get; set; }
-    }
+    
     
 }

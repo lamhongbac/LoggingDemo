@@ -33,7 +33,7 @@ namespace DAL
         List< ClientReload> clientReloads;
 
         /// <summary>
-        /// thuc hien khi init 1 bang
+        /// thuc hien sau khi init 1 bang
         /// 
         /// </summary>
         /// <param name="tableName"></param>
@@ -44,7 +44,25 @@ namespace DAL
             if (existItem != null)
             {
                 existItem.LastInitDate = initDate;
-                existItem.IsInit= true;
+                existItem.IsInit = true;
+            }
+            else
+            {
+                ClientReloadData item = new ClientReloadData()
+                {
+                    LastUpdated = initDate,
+                    TableName = tableName.ToString(),
+                };
+
+                clientReloads.Add(new ClientReload()
+                {
+                    ClientReloadItem = item,
+                    InitCycleDays = 7,
+                    IsInit = true,
+                    LastInitDate = initDate
+
+                });
+
             }
             
         }

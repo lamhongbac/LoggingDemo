@@ -14,22 +14,21 @@ namespace DAL.Data
 
         public List<StoreData> GetStoreData()
         {
-            List<StoreData> storeDatas = new List<StoreData>();
+            
             ClientReloadData storeRelodaInfo = new ClientReloadData();
             if (!DataPool.SyncManagement.IsInit(EReload.Outlet))
             {
-                storeDatas = storeDataService.InitData();
-                storeRelodaInfo=
-                DataPool.AddNewStoreData(storeDatas);
+                 storeDataService.InitData();
                 
-                DataPool.SyncManagement.UpdateInitDate(EReload.Outlet)
+                
+                
 
             }
             else
             {
-                storeDatas = storeDataService.GetLastData(DataPool.SyncManagement.GetLastUpdateDate(EReload.Outlet));
+                storeDataService.GetLastData(DataPool.SyncManagement.GetLastUpdateDate(EReload.Outlet));
             }
-            return storeDatas;
+            return DataPool.StoreDatas;
         }
 
         private List<StoreData> InitStoreData()

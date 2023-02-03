@@ -82,7 +82,7 @@ namespace DAL
             {
                 return existItem.ClientReloadItem.LastUpdated;
             }
-            else return DateTime.Now;
+            else throw new Exception("Miss tracking, check init module");
 
         }
     }

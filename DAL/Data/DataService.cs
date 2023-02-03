@@ -6,34 +6,37 @@ using System.Threading.Tasks;
 
 namespace DAL.Data
 {
-    internal class DataService
+    public class DataService
     {
-      static  DataPool _dataPool;
-        StoreDataService storeDataService;
-        public DataService() { storeDataService = new StoreDataService(); }
+        
+        
+     
+        StoreDataService _storeDataService;
+        public DataService(StoreDataService storeDataService) 
+        { 
+                _storeDataService = new StoreDataService(); 
+        }   
 
         public List<StoreData> GetStoreData()
         {
             
             ClientReloadData storeRelodaInfo = new ClientReloadData();
+            if (DataPool.SyncManagement == null)
+            {
+                DataPool.CreateTracking();
+            }
+                
             if (!DataPool.SyncManagement.IsInit(EReload.Outlet))
             {
-                 storeDataService.InitData();
-                
-                
-                
-
+                _storeDataService.InitData();
             }
             else
             {
-                storeDataService.GetLastData(DataPool.SyncManagement.GetLastUpdateDate(EReload.Outlet));
+                _storeDataService.GetLastData(DataPool.SyncManagement.GetLastUpdateDate(EReload.Outlet));
             }
             return DataPool.StoreDatas;
         }
 
-        private List<StoreData> InitStoreData()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

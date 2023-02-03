@@ -8,23 +8,26 @@ namespace DAL.Data
 {
     public class DataPool
     {
-        public static DataSync SyncManagement { get; }
-        public static List<StoreData> StoreDatas { get; }
-        public static List<BrandData> BrandDatas { get; }
-        public DataPool() { }
+        public static DataSync SyncManagement { get; private set; }
+        public static List<StoreData> StoreDatas { get; private set; }
+        public static List<BrandData> BrandDatas { get; set; }
+        public DataPool() 
+        { 
+           
+        }
 
         public static bool IsInit(EReload item)
         {
           return  SyncManagement.IsInit(item);
         }
 
-        public void AddStoreData(List<StoreData> newData)
+        public static void AddStoreData(List<StoreData> newData)
         {
             
                 DataPool.StoreDatas.AddRange(newData);
             
         }
-        public void UpdateStoreData(List<StoreData> existData)
+        public static void UpdateStoreData(List<StoreData> existData)
         {
             foreach (var updateItem in existData)
             {
@@ -39,6 +42,13 @@ namespace DAL.Data
 
            
 
+        }
+
+        internal static void CreateTracking()
+        {
+            SyncManagement = new DataSync();
+            StoreDatas = new List<StoreData>();
+            BrandDatas = new List<BrandData>();
         }
     }
     

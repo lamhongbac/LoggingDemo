@@ -9,25 +9,43 @@ namespace DAL.Data
 {
     public class StoreDataService
     {
+        public StoreDataService()
+        {
+
+        }
         private string conectionString = "Data Source=171.244.201.102,8089;Initial Catalog=CLMHQ;User ID=dev;Password=1q2w3e4r;TrustServerCertificate=true";
         public List<StoreData> GetLastData(DateTime lastUpdate)
         {
-            string strSQL = "Select * from G_Outlet Where ModifiedOn>@ModifiedOn";
+            string strSQL = "ModifiedOn>@ModifiedOn";
             object para = new { ModifiedOn = lastUpdate };
             GenericDataPortal<StoreData> storeDal = new GenericDataPortal<StoreData>(conectionString, "G_Outlet");
             List<StoreData> storeDatas= storeDal.ReadList(strSQL, para, "ID").Result;
-            List<StoreData> exsit_storeDatas = new List<StoreData>();
-            List<StoreData> new_storeDatas = new List<StoreData>();
-            foreach (StoreData storeData in storeDatas) 
+            if (storeDatas != null && storeDatas.Count > 0)
             {
-                if (DataPool.StoreDatas.Where(x=>x.Id==storeData.Id).FirstOrDefault()!=null)
+
+                List<StoreData> exsit_storeDatas = new List<StoreData>();
+                List<StoreData> new_storeDatas = new List<StoreData>();
+                foreach (StoreData storeData in storeDatas)
                 {
-                    exsit_storeDatas.Add(storeData);
+                    if (DataPool.StoreDatas.Where(x => x.Id == storeData.Id).FirstOrDefault() != null)
+                    {
+                        exsit_storeDatas.Add(storeData);
+                    }
+                    else
+                    {
+                        new_storeDatas.Add(storeData);
+                    }
                 }
-                else
+                if (exsit_storeDatas.Count>0)
                 {
-                    new_storeDatas.Add(storeData);
+                    DataPool.UpdateStoreData(exsit_storeDatas);
                 }
+                if (new_storeDatas.Count>0)
+                {
+                    DataPool.AddStoreData(new_storeDatas);
+                }
+                DateTime maxUpdate = storeDatas.Max(x => x.ModifiedOn).Value;
+                DataPool.SyncManagement.UpdateLastUpdateDate(EReload.Outlet, maxUpdate);
             }
             return DataPool.StoreDatas;
         }
@@ -37,12 +55,12 @@ namespace DAL.Data
         /// <returns></returns>
         public bool InitData()
         {
-            string strSQL = "Select * from G_Outlet ";
+            string strWhere = string.Empty;
             //string strSQL1 = "Select * from ClientReload where TableName=@TableName";
 
             //return new List<StoreData>();
             GenericDataPortal<StoreData> storeDal = new GenericDataPortal<StoreData>(conectionString, "G_Outlet");
-            List<StoreData>  storeDatas=storeDal.ReadList(strSQL, null, "ID").Result;
+            List<StoreData>  storeDatas=storeDal.ReadList(strWhere, null, "ID").Result;
             if (storeDatas != null && storeDatas.Count > 0)
             {
                 DateTime lastUpdate = storeDatas.Max(x => x.ModifiedOn).Value;

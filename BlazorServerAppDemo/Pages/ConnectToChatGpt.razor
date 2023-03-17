@@ -1,0 +1,27 @@
+﻿
+@page "/ConnectToChatGpt"
+@using BlazorServerAppDemo.Data;
+@inject ChatGptService chatGptService;
+
+<h3>Connect To ChatGpt</h3>
+
+<p>This component demonstrates how to call Gpt API.</p>
+
+<input placeholder="Something to ask" @bind="question" />
+<button @onclick="AskGpt" > ask God</button>
+<p>@answer</p>
+
+
+@code {
+
+    string? question;
+    int count = 0;
+    string? answer;
+   async Task AskGpt()
+    {
+        count++;       
+        //answer = "demo answer "+ count.ToString();
+        answer = await chatGptService.ChatWithGpt(question);
+
+    }
+}

@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WpfStudy.BetalgoOpenAI;
 using WpfStudy.View;
 
 namespace WpfStudy
@@ -29,6 +30,13 @@ namespace WpfStudy
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             UniCodeSearchView view = new UniCodeSearchView();
+            view.Show();
+        }
+        //ButtonChatGpt_Click
+
+        private void ButtonChatGpt_Click(object sender, RoutedEventArgs e)
+        {
+            ChatGpt view = new ChatGpt();
             view.Show();
         }
     }

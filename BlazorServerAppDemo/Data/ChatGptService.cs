@@ -18,7 +18,7 @@ namespace BlazorServerAppDemo.Data
             _httpClient.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", apiKey);
         }
-        string apiKey = "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";
+        string apiKey = "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";
         /// <summary>
         /// Hello, ChatGPT!
         /// </summary>
@@ -26,22 +26,25 @@ namespace BlazorServerAppDemo.Data
         /// <returns></returns>
         public async Task<string> ChatWithGpt(string question)
         {
-            
-            
+
+
             string endpoint = "https://api.openai.com/v1/engines/davinci-codex/completions";
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, endpoint);
             var requestData = new
             {
                 prompt = question,
-                max_tokens = 5
+                max_tokens = 15
             };
             string json = JsonConvert.SerializeObject(requestData);
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await _httpClient.SendAsync(request);
-            string responseContent = await response.Content.ReadAsStringAsync();
-            ChatGtpObject responseObject = JsonConvert.DeserializeObject<ChatGtpObject>(responseContent);
-
-            string ret = responseObject.Choices.FirstOrDefault().Text;
+            string ret = "no answer";
+            if (response.IsSuccessStatusCode)
+            {
+                string responseContent = await response.Content.ReadAsStringAsync();
+                ChatGtpObject responseObject = JsonConvert.DeserializeObject<ChatGtpObject>(responseContent);
+                ret = responseObject.Choices.FirstOrDefault().Text;
+            }
             return ret;
         }
     }

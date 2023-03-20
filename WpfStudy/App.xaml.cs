@@ -30,7 +30,7 @@ namespace WpfStudy
             var view = new MainWindow() { DataContext = viewModel };
             //var viewModel = new AutoMapVM(dialogService);
             //var view = new AutoMapDemo() { DataContext = viewModel };
-            view.ShowDialog();
+            //view.ShowDialog();
         }
 
 

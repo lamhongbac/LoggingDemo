@@ -1,0 +1,27 @@
+﻿<Window x:Class="WpfStudy.BetalgoOpenAI.ChatGpt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfStudy.BetalgoOpenAI"
+        mc:Ignorable="d"
+        Title="ChatGpt" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        
+        <Label Content="question please" Grid.Row="0" Grid.Column="0" />
+        <TextBox  Grid.Row="0" Grid.Column="1" Name="txtQuestion" />
+        <Button Content="Ask God" Name="btnAskGpt" Click="btnAskGpt_Click"
+        Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"/>
+        <Label Content="Gpt Answer" Grid.Row="2" Grid.Column="0" />
+        <TextBox  Grid.Row="2" Grid.Column="1" Name="txtAnswer" />
+    </Grid>
+</Window>

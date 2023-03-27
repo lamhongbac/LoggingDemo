@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <Folder Include="Documents\" />
-    <Folder Include="Logic\" />
     <Folder Include="Resources\" />
   </ItemGroup>
 

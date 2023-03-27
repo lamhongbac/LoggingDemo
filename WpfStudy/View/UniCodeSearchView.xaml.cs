@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfStudy.Logic;
 
 namespace WpfStudy.View
 {
@@ -22,6 +23,7 @@ namespace WpfStudy.View
         public UniCodeSearchView()
         {
             InitializeComponent();
+            txtKeyword.Focus();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
@@ -32,6 +34,11 @@ namespace WpfStudy.View
             {
                 MessageBox.Show("Found keyword");
             }
+        }
+
+        private void btnSearchRelative_Click(object sender, RoutedEventArgs e)
+        {
+            tbnoUnicode.Text = StringUtil.RemoveDiacritics(tbMultiLine.Text);
         }
     }
 }

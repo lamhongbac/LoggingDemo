@@ -10,6 +10,8 @@
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -25,13 +27,23 @@
             với kết quả bốc thăm như vậy thì mục tiêu vòng bảng ra sao và làm thế nào để đạt mục tiêu đó. Các cầu thủ tránh nói về vô địch, họ chỉ nói vào chung kết. Chúng tôi thảo luận, 
             xác định rõ phải làm thế nào để đạt mục tiêu và tới nay may mắn chúng tôi đã vào chung kết".
         </TextBox>
-        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1" >
-            <Label Content="Searhing"/>
-            <TextBox Text="" Name="txtKeyword" MinWidth="100"/>
-            <Button Name="btnSearch" Click="btnSearch_Click" Content="Search please..."/>
+        <StackPanel Orientation="Vertical" Grid.Row="0" Grid.Column="1">
+            <Label Content="Searhing" Padding="0,0,0,10"/>
+            <TextBox Text="" Name="txtKeyword" MinWidth="100" Padding="10"/>
+            
+            <Button Name="btnSearch" Click="btnSearch_Click" Content="Search unicode..." Margin="10"/>
+
+            <Button Name="btnSearchRelative" Click="btnSearchRelative_Click" Content="Search relative"/>
         </StackPanel>
-        
-        
+
+        <TextBox Grid.Row="1"
+          Name="tbnoUnicode"
+          TextWrapping="Wrap"
+          AcceptsReturn="True"
+          VerticalScrollBarVisibility="Visible"
+                 Grid.Column="1" Grid.ColumnSpan="2">
+            
+        </TextBox>
     </Grid>
     
 </Window>

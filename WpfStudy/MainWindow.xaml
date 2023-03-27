@@ -51,7 +51,7 @@
                 Command="{Binding SecondDisplayMessageCommand}" 
                 Height="30" Width="150" Padding="12,6" Margin="12,0"/>
         <Button HorizontalAlignment="Center" Content="Searching"
-                Click="Button_Click"
+                Click="ButtonSearch_Click"
                 Height="30" Width="150" Padding="12,6" Margin="12,0"/>
         <Button Content="Chat Gtp"
             Click="ButtonChatGpt_Click"

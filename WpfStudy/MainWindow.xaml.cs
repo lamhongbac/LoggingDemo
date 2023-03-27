@@ -27,7 +27,7 @@ namespace WpfStudy
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonSearch_Click(object sender, RoutedEventArgs e)
         {
             UniCodeSearchView view = new UniCodeSearchView();
             view.Show();

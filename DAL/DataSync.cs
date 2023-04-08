@@ -6,16 +6,33 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
+
+/// clientReloads: List{ClientReload} la DS doi tuong chua thong tin ve viec kiem soat synchronize data tu memory va CSDL
+/// 
+/// ClientReload co cac thuoc tinh:
+/// Reload Item: Ten Bang
+/// IaInit: Da Init hay chua
+/// LastUpdate: Ngay cap nhat data cuoi cung
+/// InitCycleDays: la cycle de thuc hien re-init lai
+///
+///
 namespace DAL
 {
     /// <summary>
+    /// SyncManagement class
+    /// 
     /// lop theo doi synchronize
-    /// lan update cuoi cung
-    /// lan isnit cuoi cung
-    /// da init chua
+    /// +lan update cuoi cung
+    /// +lan isnit cuoi cung
+    /// +da init chua
     /// </summary>
     public class DataSync
     {
+        /// <summary>
+        /// thuc hien kiem tra 1 item da init hay chua
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
         public bool IsInit(EReload tableName)
         {
             var existItem = clientReloads.Where(x => x.ClientReloadItem.TableName == tableName.ToString()).FirstOrDefault();

@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace DAL.Data
 {
+    /// <summary>
+    /// Data pool: la 1 pool chua data
+    /// vai tro cua class chi goi gon trong vai tro la 1 noi chua data
+    /// 
+    /// </summary>
     public class DataPool
     {
         public static DataSync SyncManagement { get; private set; }
@@ -15,7 +20,13 @@ namespace DAL.Data
         { 
            
         }
-
+        /// <summary>
+        /// ham init dung de goi boi client khi can 
+        /// Data pool chi duoc init 1 lan
+        /// 
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         public static bool IsInit(EReload item)
         {
           return  SyncManagement.IsInit(item);

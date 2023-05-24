@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
+using System.Timers;
 
 namespace MVCWeb.Models
 {
@@ -61,9 +62,60 @@ namespace MVCWeb.Models
 
                 return startNow;
         }
+
+        /// <summary>
+        /// Task nay dc goi tung phut 1 de kiem tra
+        /// neu thoa man tham so thi tra ve true
+        /// 
+        /// hour la gio start/11
+        /// min: phut start/10
+        /// intervalInHour: la so gio se lap lai/1
+        /// 11h10 se chay va se lap lai sau 1 gio
+        /// gia su dang o thoi diem 12g
+        /// 
+        /// thi co nghia can them 11g10' de bat dau task
+        /// neu o thoi diem 10g00 thi can 1g10 de bat dau task
+        /// do la bien timeToGo
+        /// 
+        /// </summary>
+        /// <param name="hour">11g</param>
+        /// <param name="min">10p</param>
+        /// <param name="intervalInHour">repeated </param>
+        /// <returns></returns>
+        public bool IsScheduledTime
+            (int hour, int min, double intervalInHour)
+        {
+            DateTime now = DateTime.Now;
+            DateTime firstRun = 
+                new DateTime(now.Year, now.Month, now.Day, hour, min, 0, 0);
+            if (now > firstRun)
+            {
+                firstRun = firstRun.AddDays(1);
+            }
+            
+            //firstrun la thoi diem chay
+            //neu bh nho hon thi can them TG de chay
+            //neu bh lon hon thi firstRun+1 la qua ngay hom sau
+            //==>
+            TimeSpan timeToGo = firstRun - now;
+            if (timeToGo <= TimeSpan.Zero)
+            {
+                timeToGo = TimeSpan.Zero;
+                return true;
+            }
+            return false;
+            //var timer = new Timer(x =>
+            //{
+            //    task.Invoke();
+            //}, null, timeToGo, TimeSpan.FromHours(intervalInHour));
+
+            //timers.Add(timer);
+        }
         private static int SecondsUntilMidnight()
         {
-            return (int)(DateTime.Today.AddDays(1.0) - DateTime.Now).TotalSeconds;
+            return (int)
+                (DateTime.Today.AddDays(1.0) - DateTime.Now).
+                TotalSeconds;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

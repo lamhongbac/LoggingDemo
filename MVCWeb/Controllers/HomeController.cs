@@ -16,6 +16,9 @@ using System.Threading.Tasks;
 
 namespace MVCWeb.Controllers
 {
+    /// <summary>
+    /// https://www.c-sharpcorner.com/article/using-api-key-authentication-to-secure-asp-net-core-web-api/
+    /// </summary>
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

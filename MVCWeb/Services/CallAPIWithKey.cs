@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MVCWeb.Services
 {
+    /// <summary>
+    /// https://www.c-sharpcorner.com/article/using-api-key-authentication-to-secure-asp-net-core-web-api/
+    /// </summary>
     public class APIServices
     {
         string baseURL = "https://localhost:7008/";

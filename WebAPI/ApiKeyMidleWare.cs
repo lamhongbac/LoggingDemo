@@ -1,5 +1,8 @@
 ﻿namespace WebAPI
 {
+    /// <summary>
+    /// https://www.c-sharpcorner.com/article/using-api-key-authentication-to-secure-asp-net-core-web-api/
+    /// </summary>
     public class ApiKeyMiddleware
     {
         private readonly RequestDelegate _next;

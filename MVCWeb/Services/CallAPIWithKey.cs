@@ -23,7 +23,7 @@ namespace MVCWeb.Services
                 HttpClient httpClient = new HttpClient();
                 httpClient.BaseAddress = new System.Uri(baseURL);
 
-                //httpClient.DefaultRequestHeaders.Add("XApiKey", apiKey);
+                httpClient.DefaultRequestHeaders.Add("XApiKey", apiKey);
                 HttpResponseMessage response = await httpClient.GetAsync(url);
                 if (response.StatusCode== System.Net.HttpStatusCode.Unauthorized)
                 {

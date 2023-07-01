@@ -30,7 +30,7 @@ namespace MVCWeb.Controllers
         {
             appSettingHelper.Update(model);
 
-            return View(model);
+            return RedirectToAction("Index");
         }
     }
 }

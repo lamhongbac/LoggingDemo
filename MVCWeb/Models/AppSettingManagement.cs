@@ -10,6 +10,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using DEMOService.Configuration;
 
 namespace MVCWeb.Models
 {
@@ -18,10 +19,10 @@ namespace MVCWeb.Models
         public static string parentGroup = "AppConfig";
         IConfiguration configuration;
      
-        IWritableOptions<AppConfiguraiton> _writableAppConfig;
+        IWritableOptions<AppConfiguration> _writableAppConfig;
         
         public AppSettingHelper(IConfiguration config,          
-            IWritableOptions<AppConfiguraiton> writableAppConfig)
+            IWritableOptions<AppConfiguration> writableAppConfig)
         {
             this.configuration = config;       
             _writableAppConfig = writableAppConfig;

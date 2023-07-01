@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DEMOService;
+using DEMOService.Configuration;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using MVCWeb.Models;
 using System;
@@ -10,10 +12,11 @@ namespace MVCWeb.Helper
     {
         IConfiguration configuration;
         AppSettingHelper appSettingHelper;
+        DemoServiceSecond theSecond;
         public AppSettingViewModelHelper(AppSettingHelper appSettingHelper,
-            IConfiguration configuration)
+            IConfiguration configuration,DemoServiceSecond theSecond)
         {
-
+            this.theSecond = theSecond;
             this.appSettingHelper = appSettingHelper;
             this.configuration = configuration;
 
@@ -24,7 +27,7 @@ namespace MVCWeb.Helper
             IDictionary<string, object> result = new Dictionary<string, object>();
             var sectionConfig = configuration.GetSection("AppConfig");
 
-            AppConfiguraiton appConfiguration = sectionConfig.Get<AppConfiguraiton>();
+            AppConfiguration appConfiguration = sectionConfig.Get<AppConfiguration>();
             result  = appConfiguration.ToDictionary();
             foreach (var item in result)
             {
@@ -42,6 +45,14 @@ namespace MVCWeb.Helper
         public bool Update(AppSettingViewModel viewModel)
         {
           bool OK=  appSettingHelper.WriteSetting(viewModel.Key, viewModel.Value);
+            if (OK)
+            {
+                var sectionConfig = configuration.GetSection("AppConfig");
+
+                AppConfiguration appConfiguration = sectionConfig.Get<AppConfiguration>();
+                DemoService.Configure(appConfiguration);
+                theSecond.SetConfiguration(appConfiguration);
+            }
             return OK;
         }
 
@@ -51,7 +62,7 @@ namespace MVCWeb.Helper
             IDictionary<string, object> result = new Dictionary<string, object>();
             var sectionConfig = configuration.GetSection("AppConfig");
 
-            AppConfiguraiton appConfiguration = sectionConfig.Get<AppConfiguraiton>();
+            AppConfiguration appConfiguration = sectionConfig.Get<AppConfiguration>();
             result = appConfiguration.ToDictionary();
             foreach (var item in result)
             {

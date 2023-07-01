@@ -17,21 +17,38 @@ namespace DEMOService
 
             set { comapnyCode = value; }
         }
-        AppConfiguration appConfiguration;
+       private  AppConfiguration appConfiguration;
       private static  DemoService instance = null;
 
-        public static DemoService GetInstance(AppConfiguration appConfiguration, bool isReload=false)
+        public static void Configure(AppConfiguration appConfiguration)
         { 
-            if (isReload || instance==null)
+            if (instance==null)
             {
-                instance = new DemoService(appConfiguration);
+                instance = new DemoService();
+                
             }
-            return instance;
+            instance.SetConfiguration(appConfiguration);
+            //return instance;
         }
-        DemoService(AppConfiguration appConfiguration)
+
+        private void SetConfiguration(AppConfiguration appConfiguration)
         {
             this.appConfiguration = appConfiguration;
             comapnyCode = appConfiguration.CompanyCode;
+        }
+
+        public static DemoService GetInstance()
+        {
+            if ( instance == null)
+            {
+                instance = new DemoService();
+            }
+            return instance;
+        }
+        DemoService()
+        {
+           
+            //comapnyCode = appConfiguration.CompanyCode;
         }
 
     }

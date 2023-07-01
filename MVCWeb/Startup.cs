@@ -1,4 +1,6 @@
 using DAL.Data;
+using DEMOService;
+using DEMOService.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,9 +30,9 @@ namespace MVCWeb
         public void ConfigureServices(IServiceCollection services)
         {
             var appConfigSection = Configuration.GetSection("AppConfig");
-            AppConfiguraiton appConfiguration = appConfigSection.Get<AppConfiguraiton>();
+            AppConfiguration appConfiguration = appConfigSection.Get<AppConfiguration>();
             //IWritableOptions<AppConfiguraiton> writableAppConfig
-            services.ConfigureWritable<AppConfiguraiton>(appConfigSection);
+            services.ConfigureWritable<AppConfiguration>(appConfigSection);
 
             services.AddControllersWithViews();
             services.AddMvc();
@@ -39,8 +41,14 @@ namespace MVCWeb
             services.AddSingleton<DataService>();
             services.AddSingleton<AppSettingHelper>();
             services.AddSingleton<AppSettingViewModelHelper>();
-            services.AddSingleton<AppConfiguraiton>(appConfiguration);
-            
+            //services.AddSingleton<AppConfiguraiton>(appConfiguration);
+            //AppConfiguration appConfiguration = sectionConfig.Get<AppConfiguration>();
+            DemoService.Configure(appConfiguration);
+            DemoService demoService = DemoService.GetInstance();
+            services.AddSingleton(appConfiguration);
+            //demoService
+            services.AddSingleton(demoService);
+            services.AddSingleton<DemoServiceSecond>();
             services.AddSingleton<StoreDataHandler>();
         }
 

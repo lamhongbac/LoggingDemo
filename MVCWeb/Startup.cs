@@ -6,6 +6,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVCWeb.DataServiceFW;
+using MVCWeb.Helper;
+using MVCWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +27,20 @@ namespace MVCWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var appConfigSection = Configuration.GetSection("AppConfig");
+            AppConfiguraiton appConfiguration = appConfigSection.Get<AppConfiguraiton>();
+            //IWritableOptions<AppConfiguraiton> writableAppConfig
+            services.ConfigureWritable<AppConfiguraiton>(appConfigSection);
+
             services.AddControllersWithViews();
             services.AddMvc();
             services.AddAutoMapper(typeof(DataMapper));
             services.AddSingleton<StoreDataService>();
             services.AddSingleton<DataService>();
-
+            services.AddSingleton<AppSettingHelper>();
+            services.AddSingleton<AppSettingViewModelHelper>();
+            services.AddSingleton<AppConfiguraiton>(appConfiguration);
+            
             services.AddSingleton<StoreDataHandler>();
         }
 

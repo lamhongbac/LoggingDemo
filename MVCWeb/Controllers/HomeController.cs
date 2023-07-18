@@ -19,6 +19,9 @@ using System.Threading.Tasks;
 
 namespace MVCWeb.Controllers
 {
+    [Route("")]
+    [Route("Home")]
+    [Route("Home/Index")]
     //AppConfiguration appConfiguraiton,
     //IOptionsMonitor<AppConfiguration> optionsMonitor
     public class HomeController : Controller
@@ -43,9 +46,9 @@ namespace MVCWeb.Controllers
         //DemoService demoService_old = null;
         public IActionResult Index()
         {
-           //string companycode1=appConfiguraiton.CompanyCode;
+           
             var sectionConfig = configuration.GetSection("AppConfig");
-            //var sectionConfig = configuration.GetSection("AppConfig");
+           
 
             
             string companycode2 = sectionConfig["CompanyCode"].ToLower();

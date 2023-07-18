@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVCWeb.DataServiceFW;
 using MVCWeb.Helper;
+using MVCWeb.Helper.Alias;
 using MVCWeb.Models;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace MVCWeb
         {
             var appConfigSection = Configuration.GetSection("AppConfig");
             AppConfiguration appConfiguration = appConfigSection.Get<AppConfiguration>();
-            //IWritableOptions<AppConfiguraiton> writableAppConfig
+           
             services.ConfigureWritable<AppConfiguration>(appConfigSection);
 
             services.AddControllersWithViews();
@@ -41,8 +42,7 @@ namespace MVCWeb
             services.AddSingleton<DataService>();
             services.AddSingleton<AppSettingHelper>();
             services.AddSingleton<AppSettingViewModelHelper>();
-            //services.AddSingleton<AppConfiguraiton>(appConfiguration);
-            //AppConfiguration appConfiguration = sectionConfig.Get<AppConfiguration>();
+           
             DemoService.Configure(appConfiguration);
             DemoService demoService = DemoService.GetInstance();
             services.AddSingleton(appConfiguration);
@@ -72,11 +72,16 @@ namespace MVCWeb
 
             app.UseAuthorization();
 
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{controller=Home}/{action=Index}/{id?}");
+            //});
+            //
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapDynamicControllerRoute<TranslationTransformer>("{language}/{controller}/{action}");
             });
         }
     }

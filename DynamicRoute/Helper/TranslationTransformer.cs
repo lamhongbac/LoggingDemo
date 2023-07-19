@@ -14,7 +14,9 @@ namespace DynamicRoute.Helper.Alias
             _translationDatabase = translationDatabase;
         }
 
-        public override async ValueTask<RouteValueDictionary> TransformAsync(HttpContext httpContext, RouteValueDictionary values)
+        public override async ValueTask<RouteValueDictionary> TransformAsync
+            (HttpContext httpContext, RouteValueDictionary values)
+
         { 
             int iCount=values.Count();
             bool isCover = (iCount == 2);
@@ -26,20 +28,20 @@ namespace DynamicRoute.Helper.Alias
            
             string controller = "";
             var language = (string)values["language"];
-           if (language != null && language!="vn" || language!="en" )
-            {
-                language = "vn";
+           //if (language != null && language!="vn" || language!="en" )
+           // {
+           //     language = "vn";
 
-            }
+           // }
             //cover action ="index"
             string dic = "cover";
             string action = "index";
-            string number = "";
+            string para = "";
             if (!isCover)
             {
                 dic = "detail";
                 action = "detail";
-                number = values["number"].ToString();
+                para = values["para"].ToString();
             }
             //xac dinh controller thong qua page alias
             controller = await _translationDatabase.ResolveCover(dic, language, (string)values["page_alias"]);
@@ -48,7 +50,15 @@ namespace DynamicRoute.Helper.Alias
 
             values["controller"] = controller;
 
-           
+            string[] paras = para.Split("-").ToArray();
+            string number = "";
+            string data_alias = "";
+            if (paras.Length ==2 ) 
+            { 
+                number = paras[1];
+                data_alias = paras[0];
+            }
+
             if (action == null) return values;
             values["action"] = action;
             if (!isCover && !string.IsNullOrWhiteSpace(number))

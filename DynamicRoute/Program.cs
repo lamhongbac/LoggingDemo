@@ -27,18 +27,21 @@ app.UseRouting();
 app.UseEndpoints(endpoints =>
 {
     //endpoints.MapDynamicControllerRoute<TranslationTransformer>("{language}/{page_alias}/{id?}");
-    endpoints.MapDynamicControllerRoute<TranslationTransformer>("{language}/{page_alias}/{data_alias}-{number}");
+    endpoints.MapDynamicControllerRoute<TranslationTransformer>
+    ("{language?}/{page_alias}/{para?}");
 });
 
 //endpoints.MapDynamicControllerRoute<PageTransformer>("pages/{**slug}");
+app.MapDefaultControllerRoute();
 
-//app.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Home}/{action=Index}/{id?}");
-//
+
 app.MapControllerRoute(
-    name: "second",
-    pattern: "{controller=Home}/{action=Index}/{number?}");
+    name: "listing",
+    pattern: "{controller}/{action=Index}");
+
+app.MapControllerRoute(
+    name: "detail",
+    pattern: "{controller=Home}/{action=detail}/{number?}");
 app.UseAuthorization();
 
 app.Run();

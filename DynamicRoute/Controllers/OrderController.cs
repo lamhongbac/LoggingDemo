@@ -5,6 +5,9 @@ namespace DynamicRoute.Controllers
 {
     public class OrderController : Controller
     {
+        [Route("")]
+        [Route("Order")]
+        [Route("Order/Index")]
         public IActionResult Index()
         {
             List<ProductViewModel> products = GetProductViewModel();

@@ -1,5 +1,6 @@
 ﻿using DynamicRoute.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 
 namespace DynamicRoute.Controllers
 {
@@ -45,23 +46,38 @@ namespace DynamicRoute.Controllers
 
             return model2;
         }
-        public ProductViewModel GetProduct(string code)
+        public ProductViewModel GetProduct(string lang,string code)
         {
-            ProductViewModel model2 = new ProductViewModel()
+            if (lang == "en")
             {
-                ID = 1,
-                Code = code,
-                Name = "Product " + 1,
-                Data_alias = "Mr Bac"
-            };
+                ProductViewModel model2 = new ProductViewModel()
+                {
+                    ID = 1,
+                    Code = code,
+                    Name = "Product " + 1,
+                    Data_alias = "Mr Bac"
+                };
 
-            return model2;
+                return model2;
+            }
+            else
+            {
+                ProductViewModel model2 = new ProductViewModel()
+                {
+                    ID = 1,
+                    Code = code,
+                    Name = "Sanpham " + code.ToString(),
+                    Data_alias = "Mr Bac"
+                };
+
+                return model2;
+            }
         }
-        
 
-        public IActionResult Detail(string lang,string number)
+
+            public IActionResult Detail(string lang,string number)
         {
-            ProductViewModel model = GetProduct(number);
+            ProductViewModel model = GetProduct(lang,number);
             return View(model);
         }
     }

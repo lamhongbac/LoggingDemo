@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Routing;
@@ -19,64 +20,107 @@ namespace DynamicRoute.Helper.Alias
             (HttpContext httpContext, RouteValueDictionary values)
 
         { 
-            int iCount=values.Count();
+            
+
+            //values.Clear();
+            //values["controller"] = "order";
+            //values["action"] = "detail";
+            //values["para"] = "?lang=vn&number=123";
+            //values["lang"] = "vn";
+            //values["number"] = "123";
+            //return values;
+
+            int iCount = values.Count();
             bool isCover = (iCount == 2);
+
            
-            bool isContainLan = values.ContainsKey("language");
-            bool isContainPage = values.ContainsKey("page_alias");
 
-
+            string language_alias = "";
             string language = "vn";
-            string controller_alias = "";
-            string controller = ""; 
+            string page_alias = "";
+            string controller = "";
             string action = "";
-            string action_alias = "";
            
+
             string para_alias = "";
             string para = "";
-            if (!values.ContainsKey("language"))
+
+             language_alias = (string)values["language_alias"];
+             page_alias = (string)values["page_alias"];
+             para_alias = (string)values["para_alias"];
+            values.Clear();
+
+            if (language_alias==null)
             {
-                values["language"] = "vn";
+               language = "vn";
             }
             else
             {
-                language = (string)values["language"];
+                language = language_alias;
+            }
+            values["lang"] = language;
+
+            if (page_alias != null)
+            {
+
+
+                string controller_action = await _translationDatabase.ResolveCover(language, page_alias);
+                if (controller_action != null)
+                {
+                    string[] arrs = controller_action.Split("-");
+                    controller = arrs[0];
+                    action = arrs[1];
+
+                    values["controller"] = controller;
+                    values["action"] = action;
+                }
+
             }
 
-            if (values.ContainsKey("control_alias"))
+
+
+            if (para_alias!=null)
             {
-                controller_alias = (string)values["control_alias"];
-                controller = await _translationDatabase.ResolveCover("controller",language, (string)values["control_alias"]);
-                values.Remove("control_alias");
-                values["controller"] = controller;
-            }
-           
-            if (values.ContainsKey("action_alias"))
-            {
-                action_alias = (string)values["action_alias"];
-                action = await _translationDatabase.ResolveCover("action", language, (string)values["action_alias"]);
-                values.Remove("action_alias");
-                values["action"] = action;
-            }
-           
-            if (values.ContainsKey("para_alias"))
-            {
-                para_alias = (string)values["para_alias"];
+               
+                
                 para = para_alias;
                 //chua tinh den -data_alias-number
-                values["para"] = para;
-                // if action=Index
-                //XAC DINH LAI cac route para [code, number,...vv]
-            }
-            
+               
 
-            //cover action ="index"
+                List<string> paras = para.Split("&").ToList();
+                //Index": string lang, int pageIndex = -1, string filter = ""
+                foreach (var item in paras)
+                {
+                    string[] Item_para = item.Split("=");
+                    if (Item_para.Length == 1)
+                    {
+                        if (Item_para[0] == "number")
+                        {
+                            //tach data-alias
+                            values[Item_para[0]] =      Item_para[1].Split("-")[1];
+                        }
+                        else
+                        {
+                            values[Item_para[0]] = Item_para[1];
+                        }
+                    }
+
+                }
+
+
+
+                
+            }
+
 
            
+
+            values["controller"] = controller;
+            values["action"] = action;
 
             if (controller == null) return values;
 
-            
+
 
             //string[] paras = para.Split("-").ToArray();
             //string number = "";

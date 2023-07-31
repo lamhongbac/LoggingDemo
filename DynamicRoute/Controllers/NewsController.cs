@@ -5,7 +5,7 @@ namespace DynamicRoute.Controllers
 {
     public class NewsController : Controller
     {
-        public IActionResult Index(string lang)
+        public IActionResult Index(string lang, int pageIndex=-1, string filter="")
         {
             List<NewsViewModel> newsModels = GetNewsViewModel();
             return View(newsModels);

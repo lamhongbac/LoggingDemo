@@ -9,7 +9,7 @@ namespace DynamicRoute.Controllers
         [Route("")]
         [Route("Order")]
         [Route("Order/Index")]
-        public IActionResult Index(string lang)
+        public IActionResult Index(string lang, string number="")
         {
             List<ProductViewModel> products = GetProductViewModel();
             return View(products);

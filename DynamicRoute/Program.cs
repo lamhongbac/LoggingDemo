@@ -34,13 +34,13 @@ app.UseEndpoints(endpoints =>
 app.MapDefaultControllerRoute();
 
 
-//app.MapControllerRoute(
-//    name: "listing",
-//    pattern: "{controller}/{action=Index}/{lang}");
-
 app.MapControllerRoute(
-    name: "detail",
-    pattern: "{controller=Home}/{action=detail}/{lang}/{number}");
+    name: "listing",
+    pattern: "{controller}/{action=Index}/{lang=vn}/{para?}");
+
+//app.MapControllerRoute(
+//    name: "detail",
+//    pattern: "{controller=Home}/{action=detail}/{lang}/{?number}");
 app.UseAuthorization();
 
 app.Run();

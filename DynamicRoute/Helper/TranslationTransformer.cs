@@ -19,16 +19,16 @@ namespace DynamicRoute.Helper.Alias
         public override async ValueTask<RouteValueDictionary> TransformAsync
             (HttpContext httpContext, RouteValueDictionary values)
 
-        { 
-            
+        {
 
-            //values.Clear();
-            //values["controller"] = "order";
-            //values["action"] = "detail";
+
+            values.Clear();
+            values["controller"] = "order";
+            values["action"] = "index";
             //values["para"] = "?lang=vn&number=123";
-            //values["lang"] = "vn";
-            //values["number"] = "123";
-            //return values;
+            values["lang"] = "vn";
+            values["number"] = "123";
+            return values;
 
             int iCount = values.Count();
             bool isCover = (iCount == 2);

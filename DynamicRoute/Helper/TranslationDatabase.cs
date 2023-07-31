@@ -6,15 +6,14 @@ namespace DynamicRoute.Helper.Alias
     public class TranslationDatabase
     {
         //cover dic
-        private static Dictionary<string, Dictionary<string, string>> CoverDictionary = new Dictionary<string, Dictionary<string, string>>
+        private static Dictionary<string, Dictionary<string, string>> ControllerDictionary = new Dictionary<string, Dictionary<string, string>>
     {
         {
             "en", new Dictionary<string, string>
             {
                 { "order", "order" },
                 { "promotion", "news" },
-                { "store", "outlet" },
-                { "event", "event" }
+               
             }
         },
         {
@@ -22,30 +21,27 @@ namespace DynamicRoute.Helper.Alias
             {
                 { "don-hang", "order" },
                 { "khuyen-mai", "news" },
-                { "cua-hang", "outlet" },
-                { "su-kien", "event" }
+              
             }
         },
         
     };
-        private static Dictionary<string, Dictionary<string, string>> DetailDictionary = new Dictionary<string, Dictionary<string, string>>
+        private static Dictionary<string, Dictionary<string, string>> ActionDictionary = new Dictionary<string, Dictionary<string, string>>
     {
         {
             "en", new Dictionary<string, string>
             {
-                { "order-detail", "order" },
-                { "promotion-detail", "news" },
-                { "store-detail", "outlet" },
-                { "event-detail", "event" }
+                { "detail", "detail" },
+                { "index", "index" },
+               
             }
         },
         {
             "vn", new Dictionary<string, string>
             {
-                { "don-hang-chi-tiet", "order" },
-                { "khuyen-mai-chi-tiet", "news" },
-                { "cua-hang-chi-tiet", "outlet" },
-                { "su-kien-chi-tiet", "event" }
+                { "chi-tiet", "detail" },
+                { "danh-sach", "index" },
+               
             }
         },
 
@@ -54,17 +50,17 @@ namespace DynamicRoute.Helper.Alias
         {
             Dictionary<string, Dictionary<string, string>> dictionary = new Dictionary<string, Dictionary<string, string>>();
 
-            var normalizeddic =dic.ToLowerInvariant();
-            var normalizedLang = lang.ToLowerInvariant();
+            var normalizeddic = dic.ToLowerInvariant();
+             var normalizedLang = lang.ToLowerInvariant();
             var normalizedValue = value.ToLowerInvariant();
-            if (normalizeddic=="cover" )
+            if (normalizeddic=="controller" )
             {
-                dictionary = CoverDictionary;
+                dictionary = ControllerDictionary;
 
             }
             else
             {
-                dictionary = DetailDictionary;
+                dictionary = ActionDictionary;
             }
             if (dictionary.ContainsKey(normalizedLang) && dictionary[normalizedLang].ContainsKey(normalizedValue))
             {

@@ -5,7 +5,7 @@ namespace DynamicRoute.Controllers
 {
     public class NewsController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string lang)
         {
             List<NewsViewModel> newsModels = GetNewsViewModel();
             return View(newsModels);
@@ -31,7 +31,7 @@ namespace DynamicRoute.Controllers
             return newsModels;
 
         }
-        public NewsViewModel GetNews(int id)
+        public NewsViewModel GetNews(string lang,int id)
         {
             NewsViewModel model2 = new NewsViewModel()
             {
@@ -42,9 +42,9 @@ namespace DynamicRoute.Controllers
 
             return model2;
         }
-        public IActionResult Detail(int Id)
+        public IActionResult Detail(string lang, int Id)
         {
-            NewsViewModel model = GetNews(Id);
+            NewsViewModel model = GetNews(lang,Id);
             return View(model);
         }
     }

@@ -8,7 +8,7 @@ namespace DynamicRoute.Controllers
         [Route("")]
         [Route("Order")]
         [Route("Order/Index")]
-        public IActionResult Index()
+        public IActionResult Index(string lang)
         {
             List<ProductViewModel> products = GetProductViewModel();
             return View(products);
@@ -34,7 +34,7 @@ namespace DynamicRoute.Controllers
             return productModels;
 
         }
-        public ProductViewModel GetNews(int id)
+        public ProductViewModel GetNews(string lang,int id)
         {
             ProductViewModel model2 = new ProductViewModel()
             {
@@ -59,7 +59,7 @@ namespace DynamicRoute.Controllers
         }
         
 
-        public IActionResult Detail(string number)
+        public IActionResult Detail(string lang,string number)
         {
             ProductViewModel model = GetProduct(number);
             return View(model);

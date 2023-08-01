@@ -22,17 +22,16 @@ namespace DynamicRoute.Helper.Alias
         {
 
 
-            values.Clear();
-            values["controller"] = "order";
-            values["action"] = "index";
-            //values["para"] = "?lang=vn&number=123";
-            values["lang"] = "vn";
-            values["number"] = "123";
-            return values;
+            //values.Clear();
+            //values["controller"] = "news";
+            //values["action"] = "index";
+            ////values["para"] = "?lang=vn&number=123";
+            //values["lang"] = "vn";
+            ////values["number"] = "123";
+            //return values;
 
             int iCount = values.Count();
-            bool isCover = (iCount == 2);
-
+           
            
 
             string language_alias = "";
@@ -41,13 +40,20 @@ namespace DynamicRoute.Helper.Alias
             string controller = "";
             string action = "";
            
-
             string para_alias = "";
             string para = "";
-
-             language_alias = (string)values["language_alias"];
-             page_alias = (string)values["page_alias"];
-             para_alias = (string)values["para_alias"];
+            if (values.ContainsKey("language_alias"))
+            {
+                language_alias = (string)values["language_alias"];
+            }
+            if (values.ContainsKey("page_alias"))
+            {
+                page_alias = (string)values["page_alias"];
+            }
+            if (values.ContainsKey("page_alias"))
+            {
+                para_alias = (string)values["para_alias"];
+            }
             values.Clear();
 
             if (language_alias==null)
@@ -85,25 +91,52 @@ namespace DynamicRoute.Helper.Alias
                 
                 para = para_alias;
                 //chua tinh den -data_alias-number
-               
 
-                List<string> paras = para.Split("&").ToList();
+
+                string[] paras = para.Split("&");
+
                 //Index": string lang, int pageIndex = -1, string filter = ""
-                foreach (var item in paras)
+                for(int i = 0; i < paras.Length; i++) 
                 {
-                    string[] Item_para = item.Split("=");
-                    if (Item_para.Length == 1)
+                   string item = paras[i];
+                    //xay dung para cho order detail
+                    if (controller=="order" && action=="detail")
                     {
-                        if (Item_para[0] == "number")
+                        if (i==0)
                         {
+                            string[] Item_para = item.Split("-");
+
                             //tach data-alias
-                            values[Item_para[0]] =      Item_para[1].Split("-")[1];
+                            if (Item_para.Count() == 2)
+                            {
+                                values["number"] = Item_para[1];
+                            }
+                            else
+                            {
+                                values["number"] = item;
+                            }
                         }
-                        else
+                        
+                    }
+                    //xay dung para cho news index
+                    if (controller == "news" && action == "index")
+                    {
+                        if (i == 0)
                         {
-                            values[Item_para[0]] = Item_para[1];
+
+
+                            values["pageIndex"] = item;
+                            
+                        }
+                        if (i == 1)
+                        {
+
+
+                            values["filter"] = item;
+
                         }
                     }
+                   
 
                 }
 
@@ -115,9 +148,7 @@ namespace DynamicRoute.Helper.Alias
 
            
 
-            values["controller"] = controller;
-            values["action"] = action;
-
+            
             if (controller == null) return values;
 
 

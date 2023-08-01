@@ -31,20 +31,21 @@ namespace DynamicRoute.Controllers
             return newsModels;
 
         }
-        public NewsViewModel GetNews(string lang,int id)
+        private NewsViewModel GetNews(string lang,string number)
         {
             NewsViewModel model2 = new NewsViewModel()
             {
-                ID = id,
-                Content = "Content " + id,
-                Subject = "Subject " + id
+                ID=1,
+                Number = number,
+                Content = "Content " + number,
+                Subject = "Subject " + number
             };
 
             return model2;
         }
-        public IActionResult Detail(string lang, int Id)
+        public IActionResult Detail(string lang, string number)
         {
-            NewsViewModel model = GetNews(lang,Id);
+            NewsViewModel model = GetNews(lang, number);
             return View(model);
         }
     }

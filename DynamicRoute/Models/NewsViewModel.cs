@@ -5,6 +5,7 @@
     /// </summary>
     public class NewsViewModel
     {
+        public string Number { get; set; }
         public int ID { get; set; }
         public string Subject { get; set; }
         public string Content { get; set; }

@@ -1,4 +1,5 @@
 ﻿using DynamicRoute.Models;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -27,6 +28,13 @@ namespace DynamicRoute.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Route("Error/{statusCode}")]
+        public IActionResult PageError(int statusCode)
+        {
+            var feature = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+            return View(new PageErrorViewModel { StatusCode = statusCode, OriginalPath = feature?.OriginalPath });
         }
     }
 }

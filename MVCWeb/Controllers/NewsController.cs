@@ -7,8 +7,7 @@ namespace MVCWeb.Controllers
 {
     public class NewsController : Controller
     {
-        [Route("News")]
-        [Route("News/Index")]
+        
         public IActionResult Index()
         {
             List<NewsViewModel> newsModels = GetNewsViewModel();

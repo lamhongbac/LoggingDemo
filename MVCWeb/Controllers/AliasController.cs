@@ -8,8 +8,7 @@ namespace MVCWeb.Controllers
     public class AliasController : Controller
     {
         
-        [Route("Alias")]
-        [Route("Alias/Index")]
+       
         public IActionResult Index(string lang, string coverAlias)
         { 
             if (!IsValidLang(lang))

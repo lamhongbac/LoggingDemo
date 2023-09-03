@@ -19,9 +19,7 @@ using System.Threading.Tasks;
 
 namespace MVCWeb.Controllers
 {
-    [Route("")]
-    [Route("Home")]
-    [Route("Home/Index")]
+ 
     //AppConfiguration appConfiguraiton,
     //IOptionsMonitor<AppConfiguration> optionsMonitor
     public class HomeController : Controller

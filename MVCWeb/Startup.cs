@@ -71,18 +71,18 @@ namespace MVCWeb
             app.UseRouting();
 
             app.UseAuthorization();
-
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapControllerRoute(
-            //        name: "default",
-            //        pattern: "{controller=Home}/{action=Index}/{id?}");
-            //});
-            //
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDynamicControllerRoute<TranslationTransformer>("{language}/{controller}/{action}");
             });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+            //
+
         }
     }
 }

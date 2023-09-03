@@ -33,4 +33,8 @@
     <None Include="Views\Shared\_StudyLayout.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Upload\Images\" />
+  </ItemGroup>
+
 </Project>

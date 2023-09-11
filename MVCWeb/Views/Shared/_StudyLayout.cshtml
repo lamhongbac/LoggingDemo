@@ -1,60 +1,62 @@
 ﻿<!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>@ViewData["Title"] - MVCWeb</title>
+    <style>
+        
+        section{
+            padding:60px 0;
+        }
+        
+    </style>
 </head>
 <body>
-    <link rel="stylesheet" href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css'
-          media="screen" />
-    <div class="navbar navbar-default">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-                        aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">ASPSnippets</a>
-            </div>
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <div id="Menu1">
-                    <ul class="nav navbar-nav">
-                        <li><a class="selected" href="#">Home</a></li>
-                        <li>
-                            <a class="popout" href="#">Services</a>
-                            <ul class="level2 dropdown-menu">
-                                <li><a class="" href="#">Consulting</a></li>
-                                <li><a class="" href="#">Outsourcing</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">About</a></li>
-                        <li><a href="#">Contact</a></li>
-                    </ul>
-                </div>
+    <!--Nav bar-->
+    <nav class="navbar">
+        <div class="container-xxl">
+            <a href="#" class="navbar-brand">
+                <span class="fw-bold text-secondary">
+                    Lam Hong Bac
+                </span>
+
+            </a>
+            <!--toggle for mobile-->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--nav item and link-->
+            <div class="collapse navbar-collapse justify-content-end align-center"
+            id="main-nav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#topic"> About the book</a>
+                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#topic"> Reviews</a>
+                    </li>
+                     <li class="nav-item">
+                    <a class="nav-link" href="#topic"> Get In touch</a>
+                </li>
+
+            </ul>
+
             </div>
         </div>
+        
+    </nav>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
     </div>
-    <script type="text/javascript" src='https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js'></script>
-    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js'></script>
-    <script type="text/javascript">
-        $(function () {
-            //Remove the style attributes.
-            $(".navbar-nav li, .navbar-nav a, .navbar-nav ul").removeAttr('style');
+    <footer>
 
-            //Apply the Bootstrap class to the Submenu.
-            $(".dropdown-menu").closest("li").removeClass().addClass("dropdown-toggle");
-
-            //Apply the Bootstrap properties to the Submenu.
-            $(".dropdown-toggle").find("a").eq(0).attr("data-toggle", "dropdown").attr("aria-haspopup", "true").attr("aria-expanded", "false").append("<span class='caret'></span>");
-
-            //Apply the Bootstrap "active" class to the selected Menu item.
-            $("a.selected").closest("li").addClass("active");
-            $("a.selected").closest(".dropdown-toggle").addClass("active");
-        });
-    </script>
-    <div>
-        @RenderBody()
-    </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>

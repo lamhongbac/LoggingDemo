@@ -13,14 +13,27 @@ namespace MVCWeb.Controllers
             List<TransactionViewModel> model = demoData.CreateListData();
             return View(model);
         }
-        public IActionResult Create()
+        public IActionResult AddOrEdit(int Id=0)
         {
-            return View();
+            TransactionViewModel viewModel;
+            if (Id == 0)
+            {
+                 viewModel = new TransactionViewModel();
+                return View(viewModel);
+            }
+            else
+            {
+                viewModel=new TransactionViewModel();
+                return View(viewModel);
+            }
+
+            
         }
         [HttpPost]
         public IActionResult Create(TransactionViewModel model)
         {
             return View(model);
         }
+       
     }
 }

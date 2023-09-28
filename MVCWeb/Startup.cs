@@ -1,4 +1,6 @@
 using DAL.Data;
+using DEMOService;
+using DEMOService.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MVCWeb.DataServiceFW;
+using MVCWeb.Helper;
+using MVCWeb.Helper.Alias;
+using MVCWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +30,25 @@ namespace MVCWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var appConfigSection = Configuration.GetSection("AppConfig");
+            AppConfiguration appConfiguration = appConfigSection.Get<AppConfiguration>();
+           
+            services.ConfigureWritable<AppConfiguration>(appConfigSection);
+
             services.AddControllersWithViews();
             services.AddMvc();
             services.AddAutoMapper(typeof(DataMapper));
             services.AddSingleton<StoreDataService>();
             services.AddSingleton<DataService>();
-
+            services.AddSingleton<AppSettingHelper>();
+            services.AddSingleton<AppSettingViewModelHelper>();
+           
+            DemoService.Configure(appConfiguration);
+            DemoService demoService = DemoService.GetInstance();
+            services.AddSingleton(appConfiguration);
+            //demoService
+            services.AddSingleton(demoService);
+            services.AddSingleton<DemoServiceSecond>();
             services.AddSingleton<StoreDataHandler>();
         }
 
@@ -53,13 +71,18 @@ namespace MVCWeb
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapDynamicControllerRoute<TranslationTransformer>("{language}/{controller}/{action}");
+            });
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            //
+
         }
     }
 }

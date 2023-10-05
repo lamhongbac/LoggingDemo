@@ -4,15 +4,20 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
-
+using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//1 add PATH of resource for localization
+builder.Services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
+//2
+builder.Services.AddMvc().AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 const string culture = "vi-VN";
-//1 add PATH
-builder.Services.AddLocalization(opt => { opt.ResourcesPath = "Resources";  });
 //2 Add CultureInfo
 builder.Services.Configure<RequestLocalizationOptions>(options => {
     List<CultureInfo> supportedCultures = new List<CultureInfo>

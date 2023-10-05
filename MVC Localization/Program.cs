@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

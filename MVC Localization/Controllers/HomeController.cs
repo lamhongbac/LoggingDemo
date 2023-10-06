@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using MVC_Localization.Models;
 using System.Diagnostics;
@@ -17,6 +18,17 @@ namespace MVC_Localization.Controllers
 
         public IActionResult Index()
         {
+            string culture = Request.Query["culture"];
+            if (culture != null)
+            {
+                Response.Cookies.Append(
+                    CookieRequestCultureProvider.DefaultCookieName,
+                    CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
+                    new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(1) }
+                      );
+            }
+            string requestURL = Request.Headers["Referer"].ToString()??"/";
+
             string message = _stringLocalizer["GreetingMessage"].Value;
             ViewData["Title"] = message;
             return View();

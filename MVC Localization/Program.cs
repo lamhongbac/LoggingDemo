@@ -5,14 +5,17 @@ using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Builder;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //1 add PATH of resource for localization
 builder.Services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
 //2
-builder.Services.AddMvc().AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix)
-    .AddDataAnnotationsLocalization();
+builder.Services.AddMvc()
+    .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix)
+    .AddDataAnnotationsLocalization().
+    AddViewLocalization();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -38,7 +41,11 @@ builder.Services.Configure<RequestLocalizationOptions>(options => {
     //}));
 });
 var app = builder.Build();
+//var options = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+var options = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
 
+
+app.UseRequestLocalization(options.Value);
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
@@ -54,8 +61,7 @@ app.UseRouting();
 
 app.UseAuthorization();
 
-var options = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
-app.UseRequestLocalization(options.Value);
+
 
 app.MapControllerRoute(
     name: "default",

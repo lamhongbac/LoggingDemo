@@ -13,10 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Resources\Controlles\HomeController.en.resx">
+    <EmbeddedResource Update="Resources\Controllers\HomeController.en-US.resx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Controlles\HomeController.vi.resx">
+    <EmbeddedResource Update="Resources\Controllers\HomeController.vi-VN.resx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

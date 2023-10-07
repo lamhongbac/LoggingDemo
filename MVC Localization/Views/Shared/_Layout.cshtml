@@ -1,5 +1,11 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer
+
+@{
+    var currentCultureInfo = System.Globalization.CultureInfo.CurrentCulture;
+}
+<!DOCTYPE html>
+<html lang="@currentCultureInfo.TwoLetterISOLanguageName" dir="@(currentCultureInfo.TextInfo.IsRightToLeft ? "rtl" : "ltr")">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,6 +29,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-link">
+                            <partial name="_Culture" />
                         </li>
                     </ul>
                 </div>

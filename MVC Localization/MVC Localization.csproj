@@ -8,15 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Cure.AspNetCore.Localization.Routing.Mvc" Version="1.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.11" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\Controllers\HomeController.en-US.resx">
+    <EmbeddedResource Update="Resources\Controllers\HomeController.en.resx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Controllers\HomeController.vi-VN.resx">
+    <EmbeddedResource Update="Resources\Controllers\HomeController.vi.resx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>

@@ -10,15 +10,20 @@ using Microsoft.AspNetCore.Builder;
 var builder = WebApplication.CreateBuilder(args);
 
 //1 add PATH of resource for localization
-builder.Services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
+//builder.Services.AddLocalization(opt => { opt.ResourcesPath = "Resources"; });
+// Add services to the container.
+builder.Services.AddControllersWithViews()
+    .AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix,
+        opt => { opt.ResourcesPath = "Resources"; })
+    .AddDataAnnotationsLocalization();
 //2
-builder.Services.AddMvc()
-    .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix)
-    .AddDataAnnotationsLocalization().
-    AddViewLocalization();
+//builder.Services.AddMvc()
+//    .AddMvcLocalization(LanguageViewLocationExpanderFormat.Suffix)
+//    .AddDataAnnotationsLocalization().
+//    AddViewLocalization();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+//builder.Services.AddControllersWithViews();
 
 const string culture = "vi-VN";
 //2 Add CultureInfo

@@ -19,16 +19,7 @@ namespace MVC_Localization.Controllers
 
         public IActionResult Index()
         {
-            string culture = Request.Query["culture"];
-            if (culture != null)
-            {
-                Response.Cookies.Append(
-                    CookieRequestCultureProvider.DefaultCookieName,
-                    CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),
-                    new CookieOptions { Expires = DateTimeOffset.UtcNow.AddDays(1) }
-                      );
-            }
-            string requestURL = Request.Headers["Referer"].ToString() ?? "/";
+            
 
             var message = _localizer["GreetingMessage"];
             ViewData["Title"] = message;

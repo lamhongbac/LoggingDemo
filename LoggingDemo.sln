@@ -73,9 +73,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DateTimeDemo", "DateTimeDem
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC Localization", "MVC Localization\MVC Localization.csproj", "{5C938175-FBC1-4F08-8ECE-90827BD341A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTAPI", "JWTAPI\JWTAPI.csproj", "{8BF44382-DF8A-4B2B-93CB-F6A9A68CD95C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JWTAPI", "JWTAPI\JWTAPI.csproj", "{8BF44382-DF8A-4B2B-93CB-F6A9A68CD95C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JWTClient", "JWTClient\JWTClient.csproj", "{49537B5A-C6B7-4D36-845F-3F1279668C17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JWTClient", "JWTClient\JWTClient.csproj", "{49537B5A-C6B7-4D36-845F-3F1279668C17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCAuthenticationTemplate", "MVCAuthenticationTemplate\MVCAuthenticationTemplate.csproj", "{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -531,6 +533,18 @@ Global
 		{49537B5A-C6B7-4D36-845F-3F1279668C17}.Release|iPhone.Build.0 = Release|Any CPU
 		{49537B5A-C6B7-4D36-845F-3F1279668C17}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{49537B5A-C6B7-4D36-845F-3F1279668C17}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Release|iPhone.Build.0 = Release|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

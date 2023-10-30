@@ -8,6 +8,7 @@ using System.Text;
 using JWTAPI.Models;
 using System.Security.Claims;
 using System.Text.Json;
+using System.Security.Cryptography;
 
 namespace JWTAPI.Controllers
 {
@@ -30,7 +31,7 @@ namespace JWTAPI.Controllers
         public IActionResult Login([FromBody] UserModel login)
         {
             IActionResult response = Unauthorized();
-            LoginInfo user = AuthenticateUser(login);
+            LoginInfo? user = AuthenticateUser(login);
 
             if (user != null)
             {
@@ -99,8 +100,81 @@ namespace JWTAPI.Controllers
 
             var jwtoken=  jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
             string jwt= jwtSecurityTokenHandler.WriteToken(jwtoken);
+            string refreshToken = GenerateRefreshToken();
+
+            //save data to DB
+            RefreshTokenModel refreshTokenModel = new RefreshTokenModel()
+            {
+                IssuedAt = DateTime.UtcNow,
+                ExpiredAt = DateTime.UtcNow.AddMinutes(10),
+
+                Id = Guid.NewGuid(),
+                IsRevoked = false,               
+                IsUsed = false,
+
+                JwtId = jwtoken.Id,
+
+                Token = refreshToken,
+                UserId = userInfo.UserID
+            };
+
             data.Jwt = jwt;
+            data.RefreshToken = refreshTokenModel.Token;
+
             return data;
+        }
+virtual
+        public bool IsValidToken(JwtData model)
+        {
+            JwtSecurityTokenHandler tokenSecurityTokenHandler = new JwtSecurityTokenHandler();
+            JwtConfig config= _config.GetSection("Jwt").Get<JwtConfig>();
+            Byte[] seckeyBytes = Encoding.UTF8.GetBytes(config.Key);
+
+            var tokenValidPara = new TokenValidationParameters()
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(seckeyBytes),
+                ClockSkew=TimeSpan.Zero,
+                 ValidateLifetime=false
+
+            };
+            try
+            {
+                var tokenValidation = tokenSecurityTokenHandler.ValidateToken(model.Jwt,tokenValidPara
+                    ,out var validatedToken);
+                if (validatedToken != null && validatedToken is JwtSecurityToken jwtSecurityToken)
+                {
+                    var result = jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
+                        StringComparison.InvariantCultureIgnoreCase);
+                    if (!result)
+                    {
+                        return new { success = false, message = "InvalidToken" };
+                    }
+                }
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+
+
+        }
+        private string GenerateRefreshToken()
+        {
+            var random = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(random);
+              
+            }
+            return Convert.ToBase64String(random);
         }
 
         /// <summary>

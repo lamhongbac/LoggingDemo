@@ -22,13 +22,16 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     {
         options.TokenValidationParameters = new TokenValidationParameters
         {
+            //tu cap token?
             ValidateIssuer = true,
             ValidateAudience = true,
+
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtconfiguration.Issuer,
             ValidAudience = jwtconfiguration.Issuer,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtconfiguration.Key))
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtconfiguration.Key)),
+            
         };
     });
 

@@ -11,6 +11,7 @@ using System.Text.Json;
 
 namespace JWTAPI.Controllers
 {
+    //https://jasonwatmore.com/net-6-jwt-authentication-with-refresh-tokens-tutorial-with-example-api?fbclid=IwAR2Kr20boun2Py70sg7qApMf5WmzwoIRP6_qV64Ic1XDcokHIlRuX37R3Ss_aem_ATZzWQpbOzlNTC0WiiWdxSP4w0Uxc2PTS-6BODOm8PO1GZ2pNwePogDX1s6KDxgIIf4
     //https://www.youtube.com/watch?v=AQwS4-5YV4o
     //https://www.youtube.com/watch?v=mgeuh8k3I4g
     //https://www.c-sharpcorner.com/article/jwt-json-web-token-authentication-in-asp-net-core/
@@ -103,11 +104,12 @@ namespace JWTAPI.Controllers
         }
 
         /// <summary>
+        /// kiem tra login info vs DB
         /// 
         /// </summary>
         /// <param name="login"></param>
-        /// <returns></returns>
-        private LoginInfo AuthenticateUser(UserModel login)
+        /// <returns>LoginInfo: ket qua login</returns>
+        private LoginInfo? AuthenticateUser(UserModel login)
         {
             LoginInfo user = null;
 

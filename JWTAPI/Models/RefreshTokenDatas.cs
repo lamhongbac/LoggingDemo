@@ -22,5 +22,14 @@
                 RefreshTokens.Remove(token);    
             }
         }
+
+        public void Update(RefreshTokenModel token)
+        {
+            if (RefreshTokens.Contains(token))
+            {
+              int index=  RefreshTokens.IndexOf(token);
+                RefreshTokens[index] = token;
+            }
+        }
     }
 }

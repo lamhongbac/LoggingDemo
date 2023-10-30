@@ -11,6 +11,8 @@ using System.Text.Json;
 
 namespace JWTAPI.Controllers
 {
+    //https://www.youtube.com/watch?v=AQwS4-5YV4o
+    //https://www.youtube.com/watch?v=mgeuh8k3I4g
     //https://www.c-sharpcorner.com/article/jwt-json-web-token-authentication-in-asp-net-core/
     [Route("api/[controller]")]
     [ApiController]
@@ -100,6 +102,11 @@ namespace JWTAPI.Controllers
             return data;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="login"></param>
+        /// <returns></returns>
         private LoginInfo AuthenticateUser(UserModel login)
         {
             LoginInfo user = null;
@@ -108,7 +115,7 @@ namespace JWTAPI.Controllers
             //Demo Purpose, I have Passed HardCoded User Information
             if (login.Username == "Bac")
             {
-                user = new LoginInfo { UserID=Guid.NewGuid(), Username = "Bac", EmailAddress = "lamhong.bac@gmail.com", Roles="admin" };
+                user = new LoginInfo { UserID=Guid.NewGuid(), FullName = "Bac", EmailAddress = "lamhong.bac@gmail.com", Roles="admin" };
             }
             return user;
         }

@@ -40,5 +40,8 @@ namespace JWTClient.Services
             //var jti = tokenS.Claims.First(claim => claim.Type == "jti").Value;
             return tokenS;
         }
+        //var token = "[encoded jwt]";
+        //var handler = new JwtSecurityTokenHandler();
+        //var jwtSecurityToken = handler.ReadJwtToken(token);
     }
 }

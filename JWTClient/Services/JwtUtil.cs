@@ -1,4 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.IO;
+using System.Runtime.CompilerServices;
+
 namespace JWTClient.Services
 {
     public class JwtUtil
@@ -8,7 +11,7 @@ namespace JWTClient.Services
         /// </summary>
         /// <param name="token"></param>
         /// <returns></returns>
-        private bool IsValid(string token)
+        public bool IsValid(string token)
         {
             JwtSecurityToken jwtSecurityToken;
             try
@@ -21,6 +24,21 @@ namespace JWTClient.Services
             }
 
             return jwtSecurityToken.ValidTo > DateTime.UtcNow;
+        }
+        /// <summary>
+        /// nhan vao 1 token va pars
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        public JwtSecurityToken? ParseToken(string token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            // using JwtSecurityToken
+            //var jti = tokenS.Claims.First(claim => claim.Type == "jti").Value;
+            return tokenS;
         }
     }
 }

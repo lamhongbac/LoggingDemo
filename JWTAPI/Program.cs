@@ -15,7 +15,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddTransient< IConfigureOptions < SwaggerGenOptions > ,SwaggerConfigOption >();
-
+//RefreshTokenDatas
+builder.Services.AddSingleton<RefreshTokenDatas>();
 JwtConfig jwtconfiguration = builder.Configuration.GetSection("Jwt").Get<JwtConfig>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

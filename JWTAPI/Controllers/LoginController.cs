@@ -21,10 +21,11 @@ namespace JWTAPI.Controllers
     public class LoginController : Controller
     {
         private IConfiguration _config;
-
-        public LoginController(IConfiguration config)
+        RefreshTokenDatas _tokenDatas;
+        public LoginController(IConfiguration config, RefreshTokenDatas tokenDatas)
         {
             _config = config;
+            _tokenDatas = tokenDatas;
         }
         [AllowAnonymous]
         [HttpPost]
@@ -117,14 +118,21 @@ namespace JWTAPI.Controllers
                 Token = refreshToken,
                 UserId = userInfo.UserID
             };
+            //save token
+            _tokenDatas.AddToken(refreshTokenModel);
 
             data.Jwt = jwt;
             data.RefreshToken = refreshTokenModel.Token;
 
             return data;
         }
-virtual
-        public bool IsValidToken(JwtData model)
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public IActionResult IsValidToken(JwtData model)
         {
             JwtSecurityTokenHandler tokenSecurityTokenHandler = new JwtSecurityTokenHandler();
             JwtConfig config= _config.GetSection("Jwt").Get<JwtConfig>();
@@ -140,8 +148,10 @@ virtual
                  ValidateLifetime=false
 
             };
+            ApiResponse apiRes = new ApiResponse();
             try
             {
+               
                 var tokenValidation = tokenSecurityTokenHandler.ValidateToken(model.Jwt,tokenValidPara
                     ,out var validatedToken);
                 if (validatedToken != null && validatedToken is JwtSecurityToken jwtSecurityToken)
@@ -150,10 +160,14 @@ virtual
                         StringComparison.InvariantCultureIgnoreCase);
                     if (!result)
                     {
-                        return new { success = false, message = "InvalidToken" };
+                       apiRes=  new ApiResponse()
+                        {
+                            Success = false,
+                            Message = "InvalidToken"
+                        };
                     }
                 }
-
+                
             }
             catch
             {
@@ -163,7 +177,7 @@ virtual
             {
 
             }
-
+            return Ok(apiRes);
 
         }
         private string GenerateRefreshToken()

@@ -18,20 +18,22 @@ namespace JWTAPI.Controllers
     //https://www.youtube.com/watch?v=AQwS4-5YV4o
     //https://www.youtube.com/watch?v=mgeuh8k3I4g
     //https://www.c-sharpcorner.com/article/jwt-json-web-token-authentication-in-asp-net-core/
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class LoginController : Controller
     {
         private IConfiguration _config;
         RefreshTokenDatas _tokenDatas;
-        public LoginController(IConfiguration config, RefreshTokenDatas tokenDatas)
+        public LoginController(IConfiguration config, 
+            RefreshTokenDatas tokenDatas)
         {
             _config = config;
             _tokenDatas = tokenDatas;
         }
+       
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login([FromBody] LoginModel login)
+        public IActionResult Authenticate([FromBody] LoginModel login)
         {
             IActionResult response = Unauthorized();
             UserInfo? user = AuthenticateUser(login);
@@ -40,11 +42,274 @@ namespace JWTAPI.Controllers
             {
                 JwtData jwtData = GenerateJSONWebToken(user);
                 loginInfo.JwtData = jwtData;
-                response = Ok(user);
+                response = Ok(loginInfo);
             }
 
             return response;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> ReNewToken([FromBody] JwtData model)
+        {
+
+            JwtSecurityTokenHandler tokenSecurityTokenHandler = new JwtSecurityTokenHandler();
+            JwtConfig config = _config.GetSection("Jwt").Get<JwtConfig>();
+            Byte[] seckeyBytes = Encoding.UTF8.GetBytes(config.Key);
+
+            //b1. build token validate para
+            var tokenValidPara = new TokenValidationParameters()
+            {
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(seckeyBytes),
+                ClockSkew = TimeSpan.Zero,
+                ValidateLifetime = false
+
+            };
+            ApiResponse apiRes = new ApiResponse();
+            try
+            {
+                //b2 check token is Valid
+                var tokenValidation = tokenSecurityTokenHandler.ValidateToken(model.Jwt, tokenValidPara
+                    , out var validatedToken);
+                if (validatedToken != null && validatedToken is JwtSecurityToken jwtSecurityToken)
+                {
+                    var result = jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
+                        StringComparison.InvariantCultureIgnoreCase);
+                    if (!result)
+                    {
+                        apiRes = new ApiResponse()
+                        {
+                            Success = false,
+                            Message = "InvalidToken"
+                        };
+                        return Ok(apiRes);
+                    }
+                }
+                //check expired
+                var utcExpired = long.Parse(tokenValidation.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Exp).Value);
+                var expireDate = ConvertUnixTimeToDate(utcExpired);
+                if (expireDate > DateTime.UtcNow)
+                {
+                    apiRes = new ApiResponse()
+                    {
+                        Success = false,
+                        Message = "TokenIsNotExpired"
+                    };
+                    return Ok(apiRes);
+
+                }
+                //check reftoken is existed
+                var storedToken = _tokenDatas.RefreshTokens.FirstOrDefault(x => x.Token == model.RefreshToken);
+                if (storedToken == null)
+                {
+                    apiRes = new ApiResponse()
+                    {
+                        Success = false,
+                        Message = "TokenIsNotExist"
+                    };
+                    return Ok(apiRes);
+                }
+                //check token is used/revoked
+                if (storedToken.IsUsed)
+                {
+                    apiRes = new ApiResponse()
+                    {
+                        Success = false,
+                        Message = "TokenIsUsed"
+                    };
+                    return Ok(apiRes);
+                }
+                if (storedToken.IsRevoked)
+                {
+                    apiRes = new ApiResponse()
+                    {
+                        Success = false,
+                        Message = "TokenIsRevoked"
+                    };
+                    return Ok(apiRes);
+                }
+                //Check access token ID is correct
+                var jti = tokenValidation.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Jti).Value;
+
+                if (storedToken.JwtId != jti)
+                {
+                    apiRes = new ApiResponse()
+                    {
+                        Success = false,
+                        Message = "AccessTokenIdIsNotMatch"
+                    };
+                    return Ok(apiRes);
+                }
+
+                //Update token
+                storedToken.IsRevoked = true;
+                storedToken.IsUsed = true;
+                _tokenDatas.Update(storedToken);
+                UserInfo userInfo = GetUserInfoFromToken(model.Jwt);
+
+                //su dung old token de lay lai cac thong tin cu
+                // username
+
+                JwtData token = GenerateJSONWebToken(userInfo);
+                apiRes = new ApiResponse()
+                {
+                    Success = true,
+                    Content = token,
+                    Message = "Success"
+                };
+                return Ok(apiRes);
+
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+
+            }
+            return Ok(apiRes);
+
+        }
+        ///// <summary>
+        ///// 
+        ///// </summary>
+        ///// <param name="model"></param>
+        ///// <returns></returns>
+        //public async Task<IActionResult> ReNewToken(JwtData model)
+        //{
+
+        //    JwtSecurityTokenHandler tokenSecurityTokenHandler = new JwtSecurityTokenHandler();
+        //    JwtConfig config = _config.GetSection("Jwt").Get<JwtConfig>();
+        //    Byte[] seckeyBytes = Encoding.UTF8.GetBytes(config.Key);
+
+        //    //b1. build token validate para
+        //    var tokenValidPara = new TokenValidationParameters()
+        //    {
+        //        ValidateIssuer = false,
+        //        ValidateAudience = false,
+        //        ValidateIssuerSigningKey = true,
+        //        IssuerSigningKey = new SymmetricSecurityKey(seckeyBytes),
+        //        ClockSkew = TimeSpan.Zero,
+        //        ValidateLifetime = false
+
+        //    };
+        //    ApiResponse apiRes = new ApiResponse();
+        //    try
+        //    {
+        //        //b2 check token is Valid
+        //        var tokenValidation = tokenSecurityTokenHandler.ValidateToken(model.Jwt, tokenValidPara
+        //            , out var validatedToken);
+        //        if (validatedToken != null && validatedToken is JwtSecurityToken jwtSecurityToken)
+        //        {
+        //            var result = jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
+        //                StringComparison.InvariantCultureIgnoreCase);
+        //            if (!result)
+        //            {
+        //                apiRes = new ApiResponse()
+        //                {
+        //                    Success = false,
+        //                    Message = "InvalidToken"
+        //                };
+        //                return Ok(apiRes);
+        //            }
+        //        }
+        //        //check expired
+        //        var utcExpired = long.Parse(tokenValidation.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Exp).Value);
+        //        var expireDate = ConvertUnixTimeToDate(utcExpired);
+        //        if (expireDate > DateTime.UtcNow)
+        //        {
+        //            apiRes = new ApiResponse()
+        //            {
+        //                Success = false,
+        //                Message = "TokenIsNotExpired"
+        //            };
+        //            return Ok(apiRes);
+
+        //        }
+        //        //check reftoken is existed
+        //        var storedToken = _tokenDatas.RefreshTokens.FirstOrDefault(x => x.Token == model.RefreshToken);
+        //        if (storedToken == null)
+        //        {
+        //            apiRes = new ApiResponse()
+        //            {
+        //                Success = false,
+        //                Message = "TokenIsNotExist"
+        //            };
+        //            return Ok(apiRes);
+        //        }
+        //        //check token is used/revoked
+        //        if (storedToken.IsUsed)
+        //        {
+        //            apiRes = new ApiResponse()
+        //            {
+        //                Success = false,
+        //                Message = "TokenIsUsed"
+        //            };
+        //            return Ok(apiRes);
+        //        }
+        //        if (storedToken.IsRevoked)
+        //        {
+        //            apiRes = new ApiResponse()
+        //            {
+        //                Success = false,
+        //                Message = "TokenIsRevoked"
+        //            };
+        //            return Ok(apiRes);
+        //        }
+        //        //Check access token ID is correct
+        //        var jti = tokenValidation.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Exp).Value;
+
+        //        if (storedToken.JwtId != jti)
+        //        {
+        //            apiRes = new ApiResponse()
+        //            {
+        //                Success = false,
+        //                Message = "AccessTokenIdIsNotMatch"
+        //            };
+        //            return Ok(apiRes);
+        //        }
+
+        //        //Update token
+        //        storedToken.IsRevoked = true;
+        //        storedToken.IsUsed = true;
+        //        _tokenDatas.Update(storedToken);
+        //        LoginInfo userInfo = new LoginInfo();
+
+        //        //su dung old token de lay lai cac thong tin cu
+        //        // username
+
+        //        JwtData token = ReNewJSONWebToken(model);
+        //        apiRes = new ApiResponse()
+        //        {
+        //            Success = true,
+        //            Content = token,
+        //            Message = "Success"
+        //        };
+        //        return Ok(apiRes);
+
+        //    }
+        //    catch
+        //    {
+
+        //    }
+        //    finally
+        //    {
+
+        //    }
+        //    return Ok(apiRes);
+
+        //}
+
         /// <summary>
         /// Su dung thong tin login de tao json token
         /// khi ve client can parse token thanh information huu ich
@@ -134,156 +399,23 @@ namespace JWTAPI.Controllers
 
             return data;
         }
-        private JwtData ReNewJSONWebToken(JwtData jwtData)
-        {
-            JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        //private JwtData ReNewJSONWebToken(JwtData jwtData)
+        //{
+        //    JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+        //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+        //    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
 
-            var jsonToken = jwtSecurityTokenHandler.ReadToken(jwtData.Jwt);
-            var tokenS = jsonToken as JwtSecurityToken;
+        //    var jsonToken = jwtSecurityTokenHandler.ReadToken(jwtData.Jwt);
+        //    var tokenS = jsonToken as JwtSecurityToken;
 
-            UserInfo userInfo = GetUserInfoFromToken(jwtData.Jwt);
-            JwtData data = GenerateJSONWebToken(userInfo);
-            return data;
+        //    UserInfo userInfo = GetUserInfoFromToken(jwtData.Jwt);
+        //    JwtData data = GenerateJSONWebToken(userInfo);
+        //    return data;
 
 
 
-        }
-
-        
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="model"></param>
-        /// <returns></returns>
-        public async Task<IActionResult> ReNewToken(JwtData model)
-        {
-
-            JwtSecurityTokenHandler tokenSecurityTokenHandler = new JwtSecurityTokenHandler();
-            JwtConfig config = _config.GetSection("Jwt").Get<JwtConfig>();
-            Byte[] seckeyBytes = Encoding.UTF8.GetBytes(config.Key);
-
-            //b1. build token validate para
-            var tokenValidPara = new TokenValidationParameters()
-            {
-                ValidateIssuer = false,
-                ValidateAudience = false,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(seckeyBytes),
-                ClockSkew = TimeSpan.Zero,
-                ValidateLifetime = false
-
-            };
-            ApiResponse apiRes = new ApiResponse();
-            try
-            {
-                //b2 check token is Valid
-                var tokenValidation = tokenSecurityTokenHandler.ValidateToken(model.Jwt, tokenValidPara
-                    , out var validatedToken);
-                if (validatedToken != null && validatedToken is JwtSecurityToken jwtSecurityToken)
-                {
-                    var result = jwtSecurityToken.Header.Alg.Equals(SecurityAlgorithms.HmacSha256,
-                        StringComparison.InvariantCultureIgnoreCase);
-                    if (!result)
-                    {
-                        apiRes = new ApiResponse()
-                        {
-                            Success = false,
-                            Message = "InvalidToken"
-                        };
-                        return Ok(apiRes);
-                    }
-                }
-                //check expired
-                var utcExpired = long.Parse(tokenValidation.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Exp).Value);
-                var expireDate = ConvertUnixTimeToDate(utcExpired);
-                if (expireDate > DateTime.UtcNow)
-                {
-                    apiRes = new ApiResponse()
-                    {
-                        Success = false,
-                        Message = "TokenIsNotExpired"
-                    };
-                    return Ok(apiRes);
-
-                }
-                //check reftoken is existed
-                var storedToken = _tokenDatas.RefreshTokens.FirstOrDefault(x => x.Token == model.RefreshToken);
-                if (storedToken == null)
-                {
-                    apiRes = new ApiResponse()
-                    {
-                        Success = false,
-                        Message = "TokenIsNotExist"
-                    };
-                    return Ok(apiRes);
-                }
-                //check token is used/revoked
-                if (storedToken.IsUsed)
-                {
-                    apiRes = new ApiResponse()
-                    {
-                        Success = false,
-                        Message = "TokenIsUsed"
-                    };
-                    return Ok(apiRes);
-                }
-                if (storedToken.IsRevoked)
-                {
-                    apiRes = new ApiResponse()
-                    {
-                        Success = false,
-                        Message = "TokenIsRevoked"
-                    };
-                    return Ok(apiRes);
-                }
-                //Check access token ID is correct
-                var jti = tokenValidation.Claims.FirstOrDefault(x => x.Type == JwtRegisteredClaimNames.Exp).Value;
-
-                if (storedToken.JwtId != jti)
-                {
-                    apiRes = new ApiResponse()
-                    {
-                        Success = false,
-                        Message = "AccessTokenIdIsNotMatch"
-                    };
-                    return Ok(apiRes);
-                }
-
-                //Update token
-                storedToken.IsRevoked = true;
-                storedToken.IsUsed = true;
-                _tokenDatas.Update(storedToken);
-                LoginInfo userInfo = new LoginInfo();
-
-                //su dung old token de lay lai cac thong tin cu
-                // username
-
-                JwtData token = ReNewJSONWebToken(model);
-                apiRes = new ApiResponse()
-                {
-                    Success = true,
-                    Content = token,
-                    Message = "Success"
-                };
-                return Ok(apiRes);
-
-            }
-            catch
-            {
-
-            }
-            finally
-            {
-
-            }
-            return Ok(apiRes);
-
-        }
-
+        //}     
         UserInfo GetUserInfoFromToken(string validToken)
         {
             UserInfo userInfo = new UserInfo();
@@ -301,18 +433,13 @@ namespace JWTAPI.Controllers
             userInfo.Roles = tokenS.Claims.First(claim => claim.Type == "Roles").Value;
             userInfo.EmailAddress = tokenS.Claims.First(claim => claim.Type == JwtRegisteredClaimNames.Email).Value;
             return userInfo;
-        }
-
-       
-
-       
+        }       
         private DateTime ConvertUnixTimeToDate(long utcExpired)
         {
             var dateTimeInterval=new DateTime(1970,1,1,0,0,0,0,DateTimeKind.Utc);
             dateTimeInterval.AddSeconds(utcExpired).ToUniversalTime();
             return dateTimeInterval;
         }
-
         private string GenerateRefreshToken()
         {
             var random = new byte[32];
@@ -338,7 +465,7 @@ namespace JWTAPI.Controllers
             //Demo Purpose, I have Passed HardCoded User Information
             if (login.Username.ToLower() == "bac")
             {
-                user = new UserInfo(Guid.NewGuid(), login.Username, "Lam Hong Bac", "lamhong.bac@gmail.com", "admin");
+                user = new UserInfo(Guid.NewGuid().ToString(), login.Username, "Lam Hong Bac", "lamhong.bac@gmail.com", "admin");
                     
             }
             return user;

@@ -4,17 +4,16 @@ namespace JWTAPI.Models
 {
     public class LoginInfo
     {
-        public DateTime LoginDate { get; set; }
         public LoginInfo()
         {
-            
-            JwtData=new JwtData();
+            LoginDate = DateTime.Now;
+            JwtData =new JwtData();
             
         }
-       
 
+        public DateTime LoginDate { get; set; }
         //example cho truong hop user data tong quat duoi dang string object
-        
+
         public JwtData JwtData { get; set; }
     }
 }

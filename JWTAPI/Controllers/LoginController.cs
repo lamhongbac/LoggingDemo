@@ -9,6 +9,7 @@ using JWTAPI.Models;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Security.Cryptography;
+using System.Net;
 
 namespace JWTAPI.Controllers
 {
@@ -65,23 +66,27 @@ namespace JWTAPI.Controllers
             claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
             claims.Add(new Claim("UserName", userInfo.UserName));
             claims.Add(new Claim("Roles", userInfo.Roles.ToString()));
+            
+            //====
+            // for custom keyvalue prop
+            //==>
 
-            foreach (var claimPair in userInfo.CustomsClaims) 
-            {
+            //foreach (var claimPair in userInfo.CustomsClaims) 
+            //{
 
-                JsonElement jsonElement =(JsonElement) claimPair.Value;
+            //    JsonElement jsonElement =(JsonElement) claimPair.Value;
 
-                var valueType = jsonElement.ValueKind switch
-                {
-                    JsonValueKind.True => ClaimValueTypes.Boolean,
-                    JsonValueKind.False => ClaimValueTypes.Boolean,
-                    JsonValueKind.Number => ClaimValueTypes.Double,
-                    _ => ClaimValueTypes.String
-                };
-                var claim = new Claim(claimPair.Key, claimPair.Value.ToString()!,valueType);
-                claims.Add(claim);
+            //    var valueType = jsonElement.ValueKind switch
+            //    {
+            //        JsonValueKind.True => ClaimValueTypes.Boolean,
+            //        JsonValueKind.False => ClaimValueTypes.Boolean,
+            //        JsonValueKind.Number => ClaimValueTypes.Double,
+            //        _ => ClaimValueTypes.String
+            //    };
+            //    var claim = new Claim(claimPair.Key, claimPair.Value.ToString()!,valueType);
+            //    claims.Add(claim);
 
-            }
+            //}
            
             SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor()
             {
@@ -235,8 +240,14 @@ namespace JWTAPI.Controllers
                 //su dung old token de lay lai cac thong tin cu
                 // username
 
-                var token = GenerateJSONWebToken(userInfo);
-
+                JwtData token = ReNewJSONWebToken(model);
+                apiRes = new ApiResponse()
+                {
+                    Success = true,
+                    Content= token,
+                    Message = "Success"
+                };
+                return Ok(apiRes);
 
             }
             catch
@@ -249,6 +260,69 @@ namespace JWTAPI.Controllers
             }
             return Ok(apiRes);
 
+        }
+
+        private JwtData ReNewJSONWebToken(JwtData jwtData)
+        {
+            JwtSecurityTokenHandler jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+           
+            var jsonToken = jwtSecurityTokenHandler.ReadToken(jwtData.Jwt);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+           
+           var userName = tokenS.Claims.First(claim => claim.Type == "UserName").Value;
+            var roles = tokenS.Claims.First(claim => claim.Type == "Roles").Value;
+            var email= tokenS.Claims.First(claim => claim.Type == JwtRegisteredClaimNames.Email).Value;
+
+            List<Claim> claims = new List<Claim>();
+
+            claims.Add(new Claim(JwtRegisteredClaimNames.Email, email));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, email));
+            //new ID cua access token
+            claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
+            claims.Add(new Claim("UserName", userName));
+            claims.Add(new Claim("Roles", roles));
+
+
+            SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor()
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.UtcNow.AddMinutes(1),
+                SigningCredentials = credentials,
+                Issuer = _config["Jwt:Issuer"],
+                Audience = _config["Jwt:Issuer"]
+
+            };
+            JwtData data = new JwtData();
+            var jwtoken = jwtSecurityTokenHandler.CreateToken(securityTokenDescriptor);
+            string jwt = jwtSecurityTokenHandler.WriteToken(jwtoken);
+            string refreshToken = GenerateRefreshToken();
+
+            //save data to DB
+            RefreshTokenModel refreshTokenModel = new RefreshTokenModel()
+            {
+                IssuedAt = DateTime.UtcNow,
+                ExpiredAt = DateTime.UtcNow.AddMinutes(10),
+
+                Id = Guid.NewGuid(),
+                IsRevoked = false,
+                IsUsed = false,
+
+                JwtId = jwtoken.Id,
+
+                Token = refreshToken,
+                UserId = userInfo.UserID
+            };
+            //save token
+            _tokenDatas.AddToken(refreshTokenModel);
+
+            data.Jwt = jwt;
+            data.RefreshToken = refreshTokenModel.Token;
+
+            return data;
         }
 
         private DateTime ConvertUnixTimeToDate(long utcExpired)

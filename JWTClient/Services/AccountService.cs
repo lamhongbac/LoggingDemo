@@ -12,12 +12,13 @@ namespace JWTClient.Services
         /// <returns></returns>
         public JwtData Login(string username, string password)
         {
-
+            // qua trinh login cua MVC
+            //Cap nhat cookie information
         }
 
         public JwtData ReNewToken(JwtData jwtData)
         {
-
+            //Cap nhat cookie information
         }
     }
 }

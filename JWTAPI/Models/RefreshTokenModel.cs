@@ -7,7 +7,7 @@
     {
         public Guid Id { get; set; }
 
-        public Guid UserId { get; set; } //link den bang User
+        public string UserId { get; set; } //link den bang User
         
 
         public string Token { get; set; }

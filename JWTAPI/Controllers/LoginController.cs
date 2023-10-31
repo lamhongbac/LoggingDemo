@@ -30,7 +30,7 @@ namespace JWTAPI.Controllers
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login([FromBody] UserModel login)
+        public IActionResult Login([FromBody] LoginModel login)
         {
             IActionResult response = Unauthorized();
             LoginInfo? user = AuthenticateUser(login);
@@ -349,7 +349,7 @@ namespace JWTAPI.Controllers
         /// </summary>
         /// <param name="login"></param>
         /// <returns>LoginInfo: ket qua login</returns>
-        private LoginInfo? AuthenticateUser(UserModel login)
+        private LoginInfo? AuthenticateUser(LoginModel login)
         {
             LoginInfo user = null;
 

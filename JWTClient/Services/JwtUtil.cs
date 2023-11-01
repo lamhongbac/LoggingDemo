@@ -1,4 +1,6 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using JWTClient.Models;
+using NuGet.Common;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -6,6 +8,25 @@ namespace JWTClient.Services
 {
     public class JwtUtil
     {
+        public  UserInfo GetUserInfo(string token)
+        {
+            UserInfo userInfo= new UserInfo();
+
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(token);
+            var tokenS = jsonToken as JwtSecurityToken;
+
+            // using JwtSecurityToken
+            var fullname = tokenS.Claims.First(claim => claim.Type == "FullName").Value;
+
+            userInfo.FullName= fullname;
+            userInfo.EmailAddress =  tokenS.Claims.First(claim => claim.Type == "EmailAddress").Value;
+            userInfo.Roles = tokenS.Claims.First(claim => claim.Type == "Roles").Value;
+            userInfo.UserName = tokenS.Claims.First(claim => claim.Type == "UserName").Value;
+            userInfo.ID = tokenS.Claims.First(claim => claim.Type == "ID").Value;
+            return userInfo;
+        }
+
         /// <summary>
         /// kiem tra token is Valid truoc khi goi protect API,neu expired thi xin JWT moi
         /// </summary>

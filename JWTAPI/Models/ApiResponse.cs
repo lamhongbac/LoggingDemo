@@ -4,6 +4,6 @@
     {
         public string Message { get; set; }
         public bool Success { get; set; }
-        public object Content { get; set; }
+        public JwtData Content { get; internal set; }
     }
 }

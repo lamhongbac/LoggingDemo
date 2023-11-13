@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "WindowService": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

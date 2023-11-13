@@ -23,13 +23,9 @@
             }
         }
 
-        public void Update(RefreshTokenModel token)
+        internal void Update(RefreshTokenModel storedToken)
         {
-            if (RefreshTokens.Contains(token))
-            {
-              int index=  RefreshTokens.IndexOf(token);
-                RefreshTokens[index] = token;
-            }
+            throw new NotImplementedException();
         }
     }
 }

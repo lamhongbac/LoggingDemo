@@ -389,7 +389,7 @@ namespace JWTAPI.Controllers
                 JwtId = jwtoken.Id,
 
                 Token = refreshToken,
-                UserId = userInfo.ID
+                UserId = userInfo.ID,    
             };
             //save token
             _tokenDatas.AddToken(refreshTokenModel);

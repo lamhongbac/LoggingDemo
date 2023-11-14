@@ -10,11 +10,19 @@ namespace WinSchedule
     {
         private readonly JokeService _jokeService;
         private readonly ILogger<WindowsBackgroundService> _logger;
-
+        IConfiguration _configuration;
+        bool isStart = false;
         public WindowsBackgroundService(
+            IConfiguration configuration,
             JokeService jokeService,
-            ILogger<WindowsBackgroundService> logger) =>
-            (_jokeService, _logger) = (jokeService, logger);
+            ILogger<WindowsBackgroundService> logger)
+        {
+            _jokeService = jokeService;
+            _logger = logger;
+            _configuration = configuration;
+
+        }
+
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {

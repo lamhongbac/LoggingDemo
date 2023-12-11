@@ -13,7 +13,7 @@ namespace WinSchedule
             Joke joke = _jokes.ElementAt(
                 Random.Shared.Next(_jokes.Count));
 
-            return $"{joke.Setup}{Environment.NewLine}{joke.Punchline}";
+            return $"{joke.Setup}{Environment.NewLine}{joke.Punchline+DateTime.UtcNow.ToString("hh:mm:ss")}";
         }
 
         // Programming jokes borrowed from:

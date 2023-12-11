@@ -79,9 +79,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JWTClient", "JWTClient\JWTC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVCAuthenticationTemplate", "MVCAuthenticationTemplate\MVCAuthenticationTemplate.csproj", "{C3C2E7B0-C744-4E49-97A1-545CAE6D635F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFDBInMemory", "EFDBInMemory\EFDBInMemory.csproj", "{01B416AD-BE09-485D-8D91-C2E96E136FC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFDBInMemory", "EFDBInMemory\EFDBInMemory.csproj", "{01B416AD-BE09-485D-8D91-C2E96E136FC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowService", "WindowService\WindowService.csproj", "{1F31A79F-3D5B-49F7-89ED-E980FA3D3B00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowService", "WindowService\WindowService.csproj", "{1F31A79F-3D5B-49F7-89ED-E980FA3D3B00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleDemo", "ScheduleDemo\ScheduleDemo.csproj", "{DEC39D03-E1D8-4042-B485-01BD729AAFD9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -573,6 +575,18 @@ Global
 		{1F31A79F-3D5B-49F7-89ED-E980FA3D3B00}.Release|iPhone.Build.0 = Release|Any CPU
 		{1F31A79F-3D5B-49F7-89ED-E980FA3D3B00}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{1F31A79F-3D5B-49F7-89ED-E980FA3D3B00}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Release|iPhone.Build.0 = Release|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{DEC39D03-E1D8-4042-B485-01BD729AAFD9}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

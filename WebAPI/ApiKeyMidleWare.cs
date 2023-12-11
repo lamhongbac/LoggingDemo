@@ -1,6 +1,7 @@
 ﻿namespace WebAPI
 {
     /// <summary>
+    /// https://www.youtube.com/watch?v=GrJJXixjR8M
     /// https://www.c-sharpcorner.com/article/using-api-key-authentication-to-secure-asp-net-core-web-api/
     /// </summary>
     public class ApiKeyMiddleware

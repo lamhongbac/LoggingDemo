@@ -14,38 +14,85 @@
         /// </summary>
         /// <param name="newtoken"></param>
         /// <exception cref="Exception"></exception>
-        public void AddToken(RefreshTokenModel newtoken)
+        public bool AddToken(RefreshTokenModel newtoken)
         {
             if (RefreshTokens!=null)
             {
                 var exist= RefreshTokens.FirstOrDefault(x=>x.Id==newtoken.Id);
                 if (exist!=null)
                 {
-                    throw new Exception("token is exist");
+                    throw new Exception("new token is exist");
+                    //fasle
+                }
+                else
+                {
+                    RefreshTokens.Add(newtoken);
+                    return true;
+                }
+            }
+            else
+            {
+                RefreshTokens = new List<RefreshTokenModel>();
+                RefreshTokens.Add(newtoken);
+                return true;
+            }
+           
+
+
+              
+            
+        }
+        /// <summary>
+        /// Remove token kg con gia tri su dung
+        /// </summary>
+        /// <param name="token"></param>
+        public bool RemoveToken(RefreshTokenModel oldtoken)
+        {
+            if (RefreshTokens != null)
+            {
+                var exist = RefreshTokens.FirstOrDefault(x => x.Id == oldtoken.Id);
+                int index= RefreshTokens.IndexOf(exist);
+                if (index != -1)
+                {
+                    RefreshTokens.RemoveAt(index);
+                    return true;
+                }
+                else
+                {
+                    return false;
                 }
 
             }
             else
             {
-                RefreshTokens = new List<RefreshTokenModel>();
+                //RefreshTokens = new List<RefreshTokenModel>();
+
+                throw new Exception("old token is not exist");
             }
-            RefreshTokens.Add(newtoken);
-
-
-                RefreshTokens.Add(newtoken);
-            
         }
-        public void RemoveToken(RefreshTokenModel token)
+
+        public bool Update(RefreshTokenModel storedToken)
         {
-            if (RefreshTokens.Contains(token))
+            if (RefreshTokens != null)
             {
-                RefreshTokens.Remove(token);    
-            }
-        }
+                var exist = RefreshTokens.FirstOrDefault(x => x.Id == storedToken.Id);
+                int index = RefreshTokens.IndexOf(exist);
+                if (index != -1)
+                {
+                    RefreshTokens[index] = storedToken;
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
 
-        internal void Update(RefreshTokenModel storedToken)
-        {
-            throw new NotImplementedException();
+            }
+            else
+            {
+                //RefreshTokens = new List<RefreshTokenModel>();
+                throw new Exception("old token is not exist");
+            }
         }
     }
 }

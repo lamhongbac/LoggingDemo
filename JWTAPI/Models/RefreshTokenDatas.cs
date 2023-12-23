@@ -8,12 +8,32 @@
         }
         public List<RefreshTokenModel> RefreshTokens { get; set; }
 
-        public void AddToken(RefreshTokenModel token)
+        /// <summary>
+        /// usage:
+        /// khi tao ra 1 refresh token moi thi goi ham nay de add vao csdl
+        /// </summary>
+        /// <param name="newtoken"></param>
+        /// <exception cref="Exception"></exception>
+        public void AddToken(RefreshTokenModel newtoken)
         {
-            if (!RefreshTokens.Contains(token))
+            if (RefreshTokens!=null)
             {
-                RefreshTokens.Add(token);
+                var exist= RefreshTokens.FirstOrDefault(x=>x.Id==newtoken.Id);
+                if (exist!=null)
+                {
+                    throw new Exception("token is exist");
+                }
+
             }
+            else
+            {
+                RefreshTokens = new List<RefreshTokenModel>();
+            }
+            RefreshTokens.Add(newtoken);
+
+
+                RefreshTokens.Add(newtoken);
+            
         }
         public void RemoveToken(RefreshTokenModel token)
         {

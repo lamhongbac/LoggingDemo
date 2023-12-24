@@ -1,6 +1,6 @@
 ﻿namespace JWTAPI.Models
 {
-    public class RefreshTokenDatas
+    public class RefreshTokenDatas : IRefreshTokenDatas
     {
         public RefreshTokenDatas()
         {
@@ -16,10 +16,10 @@
         /// <exception cref="Exception"></exception>
         public bool AddToken(RefreshTokenModel newtoken)
         {
-            if (RefreshTokens!=null)
+            if (RefreshTokens != null)
             {
-                var exist= RefreshTokens.FirstOrDefault(x=>x.Id==newtoken.Id);
-                if (exist!=null)
+                var exist = RefreshTokens.FirstOrDefault(x => x.Id == newtoken.Id);
+                if (exist != null)
                 {
                     throw new Exception("new token is exist");
                     //fasle
@@ -32,15 +32,17 @@
             }
             else
             {
-                RefreshTokens = new List<RefreshTokenModel>();
-                RefreshTokens.Add(newtoken);
+                RefreshTokens = new List<RefreshTokenModel>
+                {
+                    newtoken
+                };
                 return true;
             }
-           
 
 
-              
-            
+
+
+
         }
         /// <summary>
         /// Remove token kg con gia tri su dung
@@ -51,7 +53,7 @@
             if (RefreshTokens != null)
             {
                 var exist = RefreshTokens.FirstOrDefault(x => x.Id == oldtoken.Id);
-                int index= RefreshTokens.IndexOf(exist);
+                int index = RefreshTokens.IndexOf(exist);
                 if (index != -1)
                 {
                     RefreshTokens.RemoveAt(index);

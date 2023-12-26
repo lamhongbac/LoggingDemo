@@ -5,6 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace JWTAPI.Controllers
 {
+
+    /// <summary>
+    /// su dung de thuc hien cac thao tac tren lop user nhu
+    /// GetProfile
+    /// UpdateProfile
+    /// ChangePassword
+    /// </summary>
     [Authorize]
     [Route("api/[controller]/[action]")]
     [ApiController]

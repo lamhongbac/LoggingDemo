@@ -392,12 +392,15 @@ namespace JWTAPI.Controllers
                 UserId = userInfo.ID,    
             };
             //save token
-            _tokenDatas.AddToken(refreshTokenModel);
+            if (_tokenDatas.AddToken(refreshTokenModel))
+            {
+                data.Jwt = jwt;
+                data.RefreshToken = refreshTokenModel.Token;
 
-            data.Jwt = jwt;
-            data.RefreshToken = refreshTokenModel.Token;
-
-            return data;
+                return data;
+            }
+            else
+                return null;
         }
         //private JwtData ReNewJSONWebToken(JwtData jwtData)
         //{

@@ -1,13 +1,26 @@
 ﻿using System.Data;
+using System.Net.Mail;
 
 namespace JWTAPI.Models
 {
     public class UserInfo
     {
+
         public UserInfo()
         {
 
         }
+
+        public UserInfo(string id, string userName)
+        {
+            ID = id;
+            UserName = userName;
+            FullName = userName;
+            EmailAddress = "lamhong.bac@gmail.com";
+            Roles = "admin";
+        }
+
+
         public UserInfo(string id, string userName, string fullName, 
             string emailAddress, string roles)
         {

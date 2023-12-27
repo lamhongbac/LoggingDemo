@@ -18,6 +18,7 @@ namespace JWTAPI.Models
             FullName = userName;
             EmailAddress = "lamhong.bac@gmail.com";
             Roles = "admin";
+            ObjectRights = "profile-update;changepwd-read";
         }
 
 
@@ -30,6 +31,7 @@ namespace JWTAPI.Models
             FullName=fullName;
             EmailAddress=emailAddress;
             Roles = roles;
+            ObjectRights = "profile-update;changepwd-read";
             //CustomsClaims = new Dictionary<string, object>();
         }
         public string ID { get; set; }
@@ -38,5 +40,7 @@ namespace JWTAPI.Models
         public string EmailAddress { get; set; }
         public string Roles { get; set; }
         //public Dictionary<string, object> CustomsClaims { get; set; }
+        public string ObjectRights { get; set; } //object1-right;object2-right
+
     }
 }

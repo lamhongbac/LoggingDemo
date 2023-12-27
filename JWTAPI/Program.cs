@@ -19,7 +19,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient< IConfigureOptions < SwaggerGenOptions > ,SwaggerConfigOption >();
 //RefreshTokenDatas
 builder.Services.AddSingleton<RefreshTokenDatas>();
-builder.Services.AddSingleton<IAuthorizationHandler, RoleRequirementHandler>();
+
 JwtConfig jwtconfiguration = builder.Configuration.GetSection("Jwt").Get<JwtConfig>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -35,23 +35,24 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = jwtconfiguration.Issuer,
             ValidAudience = jwtconfiguration.Issuer,
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtconfiguration.Key)),
-            
+            ClockSkew=TimeSpan.Zero
         };
     });
 
+
+
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("RolePolicy", policy =>
+    options.AddPolicy("profile-update", policy =>
     {
-        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
-        policy.RequireAuthenticatedUser();
-
-
-        // add the custom requirement to the policy
-        policy.Requirements.Add(new RoleRequirement("any"));
+        policy.AddRequirements(new RoleRequirement("profile-update"));
+    });
+    options.AddPolicy("changepwd-update", policy =>
+    {
+        policy.AddRequirements(new RoleRequirement("changepwd-update"));
     });
 });
-
+builder.Services.AddSingleton<IAuthorizationHandler, RoleRequirementHandler>();
 
 //builder.Services.AddAuthorization(x => {
 //    x.AddPolicy(IdentityData.AdminUserPolicyName, p => p.RequireClaim(IdentityData.AdminUserClaimName));

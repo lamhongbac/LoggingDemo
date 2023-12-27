@@ -27,7 +27,7 @@ namespace JWTAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Policy = "RolePolicy")]
+        [Authorize(Policy = "profile-update")]
         public IActionResult UpdateProfile(UserProfileModel model)
         {
             return Ok(model);
@@ -38,7 +38,7 @@ namespace JWTAPI.Controllers
         /// <param name="model"></param>
         /// <returns></returns>
         [HttpPost]
-       
+        [Authorize(Policy = "changepwd-update")]
         public IActionResult ChangePassword(ChangePwdModel model)
         {
             return Ok(model);

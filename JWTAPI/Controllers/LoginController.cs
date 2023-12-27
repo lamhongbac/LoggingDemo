@@ -333,7 +333,7 @@ namespace JWTAPI.Controllers
             claims.Add(new Claim("UserID", userInfo.ID.ToString()));
             claims.Add(new Claim("UserName", userInfo.UserName));
             claims.Add(new Claim("Roles", userInfo.Roles.ToString()));
-
+            claims.Add(new Claim("ObjectRights", userInfo.ObjectRights.ToString()));
             //====
             // for custom keyvalue prop
             //==>
@@ -358,7 +358,7 @@ namespace JWTAPI.Controllers
             SecurityTokenDescriptor securityTokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.UtcNow.AddMinutes(1),
+                Expires = DateTime.UtcNow.AddSeconds(30),
                 SigningCredentials = credentials,
                 Issuer = _config["Jwt:Issuer"],
                 Audience = _config["Jwt:Issuer"]
@@ -418,7 +418,15 @@ namespace JWTAPI.Controllers
 
 
 
-        //}     
+        //}
+        
+
+        /// <summary>
+        /// parse token to user info, ham nay co the su dung ben client?
+        /// kg dc vi phai cung cap key cho client
+        /// </summary>
+        /// <param name="validToken"></param>
+        /// <returns></returns>
         UserInfo GetUserInfoFromToken(string validToken)
         {
             UserInfo userInfo = new UserInfo();
@@ -435,6 +443,8 @@ namespace JWTAPI.Controllers
             userInfo.UserName = tokenS.Claims.First(claim => claim.Type == "UserName").Value;
             userInfo.Roles = tokenS.Claims.First(claim => claim.Type == "Roles").Value;
             userInfo.EmailAddress = tokenS.Claims.First(claim => claim.Type == JwtRegisteredClaimNames.Email).Value;
+            userInfo.ObjectRights = tokenS.Claims.First(claim => claim.Type.ToLower() == "objectrights").Value;
+
             return userInfo;
         }       
         private DateTime ConvertUnixTimeToDate(long utcExpired)
@@ -468,7 +478,7 @@ namespace JWTAPI.Controllers
             //Demo Purpose, I have Passed HardCoded User Information
             if (login.Username.ToLower() == "bac")
             {
-                user = new UserInfo(Guid.NewGuid().ToString(), login.Username, "Lam Hong Bac", "lamhong.bac@gmail.com", "admin");
+                user = new UserInfo(Guid.NewGuid().ToString(), login.Username);
                     
             }
             return user;

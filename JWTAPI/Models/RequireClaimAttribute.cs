@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace JWTAPI.Models
 {
+    /// <summary>
+    /// kiem tra dua tren cac gia tri cua claim
+    /// </summary>
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class RequireClaimAttribute : Attribute, IAuthorizationFilter
     {

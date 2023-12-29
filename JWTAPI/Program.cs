@@ -39,10 +39,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-
+// add 1 danh sach cac policy vao Services
 
 builder.Services.AddAuthorization(options =>
 {
+    //
+    //policy ten la "profile-update", se dc su dung tren action voi policy name Policy(Name="profile-update")
+    // no se nhan para ="profile-update", sau do can cu vao do de xu ly
+    //RoleRequirementHandler : AuthorizationHandler<RoleRequirement>, Ham handler chi dinh xu ly vi no handler
+    //type RoleRequirement
+    //
+
     options.AddPolicy("profile-update", policy =>
     {
         policy.AddRequirements(new RoleRequirement("profile-update"));
@@ -51,6 +58,7 @@ builder.Services.AddAuthorization(options =>
     {
         policy.AddRequirements(new RoleRequirement("changepwd-update"));
     });
+
 });
 builder.Services.AddSingleton<IAuthorizationHandler, RoleRequirementHandler>();
 

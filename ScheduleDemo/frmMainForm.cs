@@ -21,5 +21,10 @@ namespace ScheduleDemo
         {
 
         }
+
+        private void btnEnd_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

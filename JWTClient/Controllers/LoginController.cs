@@ -1,5 +1,6 @@
 ﻿using JWTClient.Models;
 using JWTClient.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Plugins;
 using System.Security.Claims;
@@ -13,10 +14,19 @@ namespace JWTClient.Controllers
             this.accountService = accountService;   }
         public IActionResult Index()
         {
-            return View();
+            LoginModel model = new LoginModel();
+
+            return View(model);
         }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public IActionResult Index(LoginModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             ClaimsPrincipal claimsPrincipal = HttpContext.User;
             if (claimsPrincipal != null && claimsPrincipal.Identity.IsAuthenticated)
             {

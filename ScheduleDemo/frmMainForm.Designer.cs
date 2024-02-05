@@ -50,6 +50,7 @@
             btnEnd.TabIndex = 0;
             btnEnd.Text = "End";
             btnEnd.UseVisualStyleBackColor = true;
+            btnEnd.Click += btnEnd_Click;
             // 
             // frmMainForm
             // 

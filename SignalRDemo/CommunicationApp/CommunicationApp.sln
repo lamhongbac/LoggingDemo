@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorSignalRApp", "..\Blaz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRApiDemo", "..\SignalRApiDemo\SignalRApiDemo.csproj", "{B2D91C44-D35D-4E97-A67C-3030269377A0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRClient", "..\SignalRClient\SignalRClient.csproj", "{FB1A1C9C-0A87-4418-8A19-56022999BF98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{B2D91C44-D35D-4E97-A67C-3030269377A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2D91C44-D35D-4E97-A67C-3030269377A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2D91C44-D35D-4E97-A67C-3030269377A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB1A1C9C-0A87-4418-8A19-56022999BF98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB1A1C9C-0A87-4418-8A19-56022999BF98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB1A1C9C-0A87-4418-8A19-56022999BF98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB1A1C9C-0A87-4418-8A19-56022999BF98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

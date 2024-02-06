@@ -25,7 +25,7 @@ namespace SignalRClient.Controllers
         public async Task<IActionResult> Privacy()
         {
             //events-hub
-            var connection = new HubConnectionBuilder().WithUrl("https://localhost:7000/api/productoffer/productoffers", options => {
+            var connection = new HubConnectionBuilder().WithUrl("https://localhost:7000/offers", options => {
                 options.Transports = HttpTransportType.WebSockets;
             }).WithAutomaticReconnect().Build();
             await connection.StartAsync();
